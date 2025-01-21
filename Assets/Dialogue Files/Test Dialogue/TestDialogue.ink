@@ -1,7 +1,8 @@
 Once upon a time...
-
- * There were two choices.
- * There were four lines of content.
+I shidded...
+and I farded....
+ * [There were two choices.]
+ * [There were four lines of content.]
 
 - They lived happily ever after.
     -> END
