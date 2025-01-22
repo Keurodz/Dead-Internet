@@ -29,12 +29,12 @@ public class InkDialogueController : MonoBehaviour
     private bool isWaitingForClick = false;
     private string currentSpeaker = null; // Store the current speaker
 
-    void Start()
-    {
-        ClearOptions();
-        ClearTextPanel();
-        StartStory();
-    }
+    //void Start()
+    //{
+    //    ClearOptions();
+    //    ClearTextPanel();
+    //    StartStory();
+    //}
 
     void Update()
     {
@@ -43,6 +43,13 @@ public class InkDialogueController : MonoBehaviour
             isWaitingForClick = false;
             RefreshView();
         }
+    }
+
+    void InitiateStorySequence()
+    {
+        ClearOptions();
+        ClearTextPanel();
+        StartStory();
     }
 
     void StartStory()
