@@ -23,8 +23,11 @@ public class InkDialogueController : MonoBehaviour
     [SerializeField]
     private GameObject textPanel = null;
 
-    private bool isWaitingForClick = false; // Tracks if waiting for player input
-    private string currentLine; // Stores the current line of text
+    [SerializeField]
+    private TMP_Text speakerText; // Add a UI element for the speaker's name
+
+    private bool isWaitingForClick = false;
+    private string currentSpeaker = null; // Store the current speaker
 
     void Start()
     {
@@ -37,8 +40,8 @@ public class InkDialogueController : MonoBehaviour
     {
         if (isWaitingForClick && Input.GetMouseButtonDown(0))
         {
-            isWaitingForClick = false; // Reset waiting state
-            RefreshView(); // Continue the story
+            isWaitingForClick = false;
+            RefreshView();
         }
     }
 
@@ -51,22 +54,43 @@ public class InkDialogueController : MonoBehaviour
 
     void RefreshView()
     {
-        if (isWaitingForClick) return; // Do nothing if waiting for input
+        if (isWaitingForClick) return;
 
-        // Clear options but not text panel
         ClearOptions();
 
-        // Show the next line if available
         if (story.canContinue)
         {
-            // Clear the text panel when advancing the story
             ClearTextPanel();
 
-            currentLine = story.Continue().Trim(); // Get the next line
-            CreateContentView(currentLine); // Display the line
-            isWaitingForClick = true; // Wait for player input
+            string text = story.Continue().Trim();
+            string speaker = GetSpeaker(); // Get the speaker from tags
+
+            if (speaker == "None")
+            {
+                // Explicitly clear the speaker when "None" is specified
+                speakerText.text = " ";
+                currentSpeaker = " ";
+            }
+            else if (!string.IsNullOrEmpty(speaker))
+            {
+                currentSpeaker = speaker; // Update the current speaker
+                speakerText.text = currentSpeaker; // Display the speaker's name
+            }
+            else if (currentSpeaker != null)
+            {
+                // If the current speaker exists, retain it for continuity
+                speakerText.text = currentSpeaker;
+            }
+            else
+            {
+                // No speaker context (system talking)
+                speakerText.text = ""; // Clear the speaker text
+                currentSpeaker = null; // Reset current speaker
+            }
+
+            CreateContentView(text);
+            isWaitingForClick = true;
         }
-        // Display all the choices, if there are any!
         else if (story.currentChoices.Count > 0)
         {
             for (int i = 0; i < story.currentChoices.Count; i++)
@@ -81,13 +105,24 @@ public class InkDialogueController : MonoBehaviour
         }
         else
         {
-            // If no text or choices remain, show "End of story" option
             Button choice = CreateChoiceView("End of story.\nRestart?");
             choice.onClick.AddListener(delegate
             {
                 StartStory();
             });
         }
+    }
+
+    string GetSpeaker()
+    {
+        foreach (string tag in story.currentTags)
+        {
+            if (tag.StartsWith("Character:"))
+            {
+                return tag.Substring("Character:".Length).Trim();
+            }
+        }
+        return null;
     }
 
     void OnClickChoiceButton(Choice choice)
