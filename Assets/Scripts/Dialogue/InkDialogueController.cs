@@ -45,12 +45,15 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
-    public void InitiateStorySequence()
+    public void InitiateDialogue(Story story)
     {
+        this.story = story;
         ClearOptions();
         ClearTextPanel();
-        StartStory();
+        DialogueUIController.Instance.EnableDialogueUI();
+        RefreshView();
     }
+
 
     void StartStory()
     {
@@ -114,13 +117,14 @@ public class InkDialogueController : MonoBehaviour
         }
         else
         {
-            DialogueUIController.Instance.EnableDialogueOptions();
-            Button choice = CreateChoiceView("End of story.\nRestart?");
-            choice.onClick.AddListener(delegate
-            {
-                DialogueUIController.Instance.DisableDialogueOptions();
-                StartStory();
-            });
+            //DialogueUIController.Instance.EnableDialogueOptions();
+            //Button choice = CreateChoiceView("End of story.\nRestart?");
+            //choice.onClick.AddListener(delegate
+            //{
+            //    DialogueUIController.Instance.DisableDialogueOptions();
+            //    StartStory();
+            //});
+            DialogueUIController.Instance.DisableDialogueUI();
         }
     }
 
