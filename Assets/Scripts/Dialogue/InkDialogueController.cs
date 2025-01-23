@@ -45,7 +45,7 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
-    void InitiateStorySequence()
+    public void InitiateStorySequence()
     {
         ClearOptions();
         ClearTextPanel();
@@ -56,6 +56,7 @@ public class InkDialogueController : MonoBehaviour
     {
         story = new Story(inkJSONAsset.text);
         if (OnCreateStory != null) OnCreateStory(story);
+        DialogueUIController.Instance.EnableDialogueUI();
         RefreshView();
     }
 
@@ -100,6 +101,7 @@ public class InkDialogueController : MonoBehaviour
         }
         else if (story.currentChoices.Count > 0)
         {
+            DialogueUIController.Instance.EnableDialogueOptions();
             for (int i = 0; i < story.currentChoices.Count; i++)
             {
                 Choice choice = story.currentChoices[i];
@@ -112,9 +114,11 @@ public class InkDialogueController : MonoBehaviour
         }
         else
         {
+            DialogueUIController.Instance.EnableDialogueOptions();
             Button choice = CreateChoiceView("End of story.\nRestart?");
             choice.onClick.AddListener(delegate
             {
+                DialogueUIController.Instance.DisableDialogueOptions();
                 StartStory();
             });
         }
@@ -135,6 +139,7 @@ public class InkDialogueController : MonoBehaviour
     void OnClickChoiceButton(Choice choice)
     {
         story.ChooseChoiceIndex(choice.index);
+        DialogueUIController.Instance.DisableDialogueOptions();
         RefreshView();
     }
 
