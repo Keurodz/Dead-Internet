@@ -6,36 +6,77 @@ public class SokobanGridSystem : MonoBehaviour
 {
     [SerializeField] public Grid grid; // reference to the world grid
     [SerializeField] public LayerMask blockingLayer; // reference to the blocking layer (pushable boxes)
-    private List<List<GameObject>> gridArray = new List<List<GameObject>>(); // 2D array of GameObjects
+    private Dictionary<Vector2Int, GameObject> gridDictionary = new Dictionary<Vector2Int, GameObject>();
+    private Dictionary<GameObject, bool> movingObjects = new Dictionary<GameObject, bool>();
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        PopulateGridWithBlocks();
     }
 
-    // Update is called once per frame
-    void Update()
+    // scans the scene for blocks and populates the grid array with them
+    private void PopulateGridWithBlocks()
     {
-        
+        GameObject[] blocks = GameObject.FindGameObjectsWithTag("Sokoban");
+
+        foreach (GameObject block in blocks)
+        {
+            Vector2Int gridPosition = (Vector2Int)grid.WorldToCell(block.transform.position);
+            if (!gridDictionary.ContainsKey(gridPosition))
+            {
+                gridDictionary[gridPosition] = block;
+                block.GetComponent<ISokobanInteractable>().Initialize(gridPosition);
+            }
+        }
     }
 
     // attemps to move the block at the given position in the given direction
     // returns true if the block was moved, false otherwise
     public bool TryToPushBox(Vector2Int position, Direction direction) {
         Vector2Int targetPosition = position + GetDirectionVector(direction);
-        if (IsBlockAtPosition(targetPosition)) {
-            return false;
+
+        if (!gridDictionary.ContainsKey(targetPosition))
+        {
+            if (gridDictionary.TryGetValue(position, out GameObject box))
+            {
+                if (movingObjects.ContainsKey(box) && movingObjects[box])
+                {
+                    return false;
+                }
+
+                movingObjects[box] = true;
+
+                gridDictionary.Remove(position);
+                gridDictionary[targetPosition] = box;
+
+                Vector3 targetWorldPosition = grid.GetCellCenterWorld((Vector3Int)targetPosition);
+                StartCoroutine(TweenToPosition(box, targetWorldPosition, 0.3f)); 
+                return true;
+            }
         }
-        gridArray[targetPosition.x][targetPosition.y] = gridArray[position.x][position.y];
-        gridArray[position.x][position.y] = null;
-        return true;
+        return false;
     }
 
-    // is there a block occupying the given position?
-    public bool IsBlockAtPosition(Vector2Int position) {
-        return gridArray[(int)position.x][(int)position.y] != null;
+    // coroutine to tween the position
+    private IEnumerator TweenToPosition(GameObject box, Vector3 targetPosition, float duration) {
+        Vector3 startPosition = box.transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            box.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        box.transform.position = targetPosition;
+
+        if (movingObjects.ContainsKey(box))
+        {
+            movingObjects[box] = false;
+        }
     }
 
     // get the vector corresponding to the given direction
@@ -53,11 +94,4 @@ public class SokobanGridSystem : MonoBehaviour
                 return new Vector2Int(0, 0);
         }
     }
-}
-
-public enum Direction {
-    Up,
-    Down,
-    Left,
-    Right
 }

@@ -33,18 +33,36 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15F);
         Debug.DrawRay(transform.position, movement.normalized * 1f, Color.red, 1f);
 
+        Direction direction = GetCardinalDirection(movement);
+
+
         if (!Physics.Raycast(transform.position, movement, out RaycastHit hit, 1f, blockingLayer))
         {
             transform.Translate(movement * speed * Time.deltaTime, Space.World);
         }
-        else if (hit.collider.CompareTag("Box"))
+        else if (hit.collider.CompareTag("Sokoban"))
         {
-            
-            Debug.Log("Box");
-            var box = hit.collider.GetComponent<BoxController>();
-            if (box != null && box.TryToPushBox(movement, speed)) {
-                transform.Translate(movement * speed * Time.deltaTime, Space.World);
+            var gridBlock = hit.collider.GetComponent<ISokobanInteractable>();
+            if (gridBlock != null && gridBlock.IsPushable())
+            {
+                if (gridBlock.TryPush(direction))
+                {
+                    transform.Translate(movement * speed * Time.deltaTime, Space.World);
+                }
             }
+        }
+    }
+
+    // gets the cardinal direction of the given movement vector
+    private Direction GetCardinalDirection(Vector3 movement)
+    {
+        if (Mathf.Abs(movement.x) > Mathf.Abs(movement.z))
+        {
+            return movement.x > 0 ? Direction.Right : Direction.Left;
+        }
+        else
+        {
+            return movement.z > 0 ? Direction.Up : Direction.Down;
         }
     }
 }
