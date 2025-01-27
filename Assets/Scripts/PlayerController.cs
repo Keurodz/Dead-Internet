@@ -4,10 +4,12 @@ using UnityEngine.InputSystem;
 // https://www.youtube.com/watch?v=xF19LIYfUmY
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
+    [SerializeField] public float speed;
     // https://www.youtube.com/watch?v=HJkHnkS6z1I
     // sokoban behavior
-    public LayerMask blockingLayer;
+    [SerializeField] public LayerMask blockingLayer;
+    [SerializeField] public Animator animator;
+
     private Vector2 move;
 
     public void OnMove(InputAction.CallbackContext context)
@@ -29,7 +31,14 @@ public class PlayerController : MonoBehaviour
 
     public void movePlayer() {
         Vector3 movement = new Vector3(move.x, 0f, move.y);
-        if (movement.magnitude == 0) return;
+        if (movement.magnitude == 0) {
+            animator.SetBool("walking", false);
+            Debug.Log("Not Walking");
+            return;
+        } else {
+            animator.SetBool("walking", true);
+            Debug.Log("Walking");
+        }
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15F);
         Debug.DrawRay(transform.position, movement.normalized * 1f, Color.red, 1f);
 
