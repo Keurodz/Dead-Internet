@@ -16,5 +16,6 @@ public class InteractableObject
 public enum InteractableObjectType
 {
     MovableBlockObject, 
-    ImmovableBlockObject
+    ImmovableBlockObject, 
+    ButtonBlockObject
 }

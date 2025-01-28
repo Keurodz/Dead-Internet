@@ -7,6 +7,7 @@ public class SokobanPuzzleSystem : MonoBehaviour
 
     public GameObject movablePrefab;
     public GameObject immovablePrefab;
+    public GameObject buttonPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,7 +24,9 @@ public class SokobanPuzzleSystem : MonoBehaviour
             InteractableObject interactable = levelData.interactableObjects[i];
             Vector3 worldPosition = gridSystem.GetWorldPosition(interactable.gridPosition);
 
-            GameObject prefab = (interactable.type == InteractableObjectType.MovableBlockObject) ? movablePrefab : immovablePrefab;
+            GameObject prefab = (interactable.type == InteractableObjectType.MovableBlockObject) ? movablePrefab : 
+            (interactable.type == InteractableObjectType.ImmovableBlockObject) ? immovablePrefab : 
+            (interactable.type == InteractableObjectType.ButtonBlockObject) ? buttonPrefab : null;
             GameObject interactableGameObject = Instantiate(prefab, worldPosition, Quaternion.identity);
         }
     }
