@@ -1,21 +1,16 @@
 using UnityEngine;
 
-public class MoveableBlock : MonoBehaviour, ISokobanInteractable
+public class ImmovableBlock : MonoBehaviour, ISokobanInteractable
 {
     private Vector2Int position;
     private SokobanGridSystem gridSystem;
 
     public bool TryPush(Direction direction) {
-        if (gridSystem.TryToPushBox(position, direction)) {
-            position += gridSystem.GetDirectionVector(direction);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     public bool IsPushable() {
-        return true;
+        return false;
     }
 
     public void Initialize(Vector2Int position) {

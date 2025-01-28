@@ -9,15 +9,8 @@ public class SokobanGridSystem : MonoBehaviour
     private Dictionary<Vector2Int, GameObject> gridDictionary = new Dictionary<Vector2Int, GameObject>();
     private Dictionary<GameObject, bool> movingObjects = new Dictionary<GameObject, bool>();
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        PopulateGridWithBlocks();
-    }
-
     // scans the scene for blocks and populates the grid array with them
-    private void PopulateGridWithBlocks()
+    public void PopulateGridWithBlocks()
     {
         GameObject[] blocks = GameObject.FindGameObjectsWithTag("Sokoban");
 
@@ -36,15 +29,18 @@ public class SokobanGridSystem : MonoBehaviour
     // returns true if the block was moved, false otherwise
     public bool TryToPushBox(Vector2Int position, Direction direction) {
         Vector2Int targetPosition = position + GetDirectionVector(direction);
-
-        if (!gridDictionary.ContainsKey(targetPosition))
+        // if there are no blocks at the target position and there is a block at the current position
+        if (!gridDictionary.ContainsKey(targetPosition) && gridDictionary.TryGetValue(position, out GameObject box)) 
         {
-            if (gridDictionary.TryGetValue(position, out GameObject box))
-            {
-                if (movingObjects.ContainsKey(box) && movingObjects[box])
-                {
-                    return false;
-                }
+            // if the block is already moving, return false
+            if (movingObjects.ContainsKey(box) && movingObjects[box] || 
+                !box.GetComponent<ISokobanInteractable>().IsPushable()) {
+                Debug.Log("cannot push");
+                Debug.Log("box: " + box);
+                return false;
+            } else {
+                Debug.Log("pushing");
+                Debug.Log("box: " + box);
 
                 movingObjects[box] = true;
 
@@ -93,5 +89,10 @@ public class SokobanGridSystem : MonoBehaviour
             default:
                 return new Vector2Int(0, 0);
         }
+    }
+
+    // gets the world position of the given grid position 
+    public Vector3 GetWorldPosition(Vector2Int gridPosition) {
+        return grid.GetCellCenterWorld((Vector3Int)gridPosition);
     }
 }

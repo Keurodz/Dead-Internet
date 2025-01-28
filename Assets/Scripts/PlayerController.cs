@@ -33,11 +33,11 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(move.x, 0f, move.y);
         if (movement.magnitude == 0) {
             animator.SetBool("walking", false);
-            Debug.Log("Not Walking");
+            // Debug.Log("Not Walking");
             return;
         } else {
             animator.SetBool("walking", true);
-            Debug.Log("Walking");
+            // Debug.Log("Walking");
         }
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15F);
         Debug.DrawRay(transform.position, movement.normalized * 1f, Color.red, 1f);
@@ -45,12 +45,14 @@ public class PlayerController : MonoBehaviour
         Direction direction = GetCardinalDirection(movement);
 
 
-        if (!Physics.Raycast(transform.position, movement, out RaycastHit hit, 1f, blockingLayer))
+        if (!Physics.Raycast(transform.position, movement, out RaycastHit hit, 0.1f, blockingLayer))
         {
             transform.Translate(movement * speed * Time.deltaTime, Space.World);
+            Debug.Log("No hit");
         }
         else if (hit.collider.CompareTag("Sokoban"))
         {
+            Debug.Log("Hit Sokoban");
             var gridBlock = hit.collider.GetComponent<ISokobanInteractable>();
             if (gridBlock != null && gridBlock.IsPushable())
             {
