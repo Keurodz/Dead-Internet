@@ -1,0 +1,7 @@
+.panel {
+    background-color: rgba(84, 4, 4, 0.71);
+}
+
+.hide {
+    display: none;
+}
