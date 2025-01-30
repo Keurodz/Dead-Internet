@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 // https://www.youtube.com/watch?v=xF19LIYfUmY
 public class PlayerController : MonoBehaviour
@@ -54,6 +55,11 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Hit Sokoban");
             var gridBlock = hit.collider.GetComponent<ISokobanInteractable>();
+            if (animator.GetBool("pushing") == false) {
+                animator.SetBool("pushing", true);
+                StartCoroutine(PushAnimation());
+            }
+
             if (gridBlock != null && gridBlock.IsPushable())
             {
                 if (gridBlock.TryPush(direction))
@@ -75,5 +81,11 @@ public class PlayerController : MonoBehaviour
         {
             return movement.z > 0 ? Direction.Up : Direction.Down;
         }
+    }
+
+    private IEnumerator PushAnimation()
+    {
+        yield return new WaitForSeconds(0.6f);
+        animator.SetBool("pushing", false);
     }
 }
