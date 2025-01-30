@@ -41,3 +41,7 @@ MonoBehaviour:
     type: 1
   - gridPosition: {x: 7, y: 5}
     type: 1
+  - gridPosition: {x: 3, y: 8}
+    type: 2
+  - gridPosition: {x: 6, y: 8}
+    type: 2

@@ -19,8 +19,13 @@ public class SokobanGridSystem : MonoBehaviour
             Vector2Int gridPosition = (Vector2Int)grid.WorldToCell(block.transform.position);
             if (!gridDictionary.ContainsKey(gridPosition))
             {
-                gridDictionary[gridPosition] = block;
+                // button block do not occupy a grid position
+                if (!(block.GetComponent<ISokobanInteractable>().Type() == InteractableObjectType.ButtonBlockObject)) {
+                    gridDictionary[gridPosition] = block;
+                }
                 block.GetComponent<ISokobanInteractable>().Initialize(gridPosition);
+            } else {
+                Debug.Log("Block already exists at position: " + gridPosition);
             }
         }
     }
@@ -94,5 +99,15 @@ public class SokobanGridSystem : MonoBehaviour
     // gets the world position of the given grid position 
     public Vector3 GetWorldPosition(Vector2Int gridPosition) {
         return grid.GetCellCenterWorld((Vector3Int)gridPosition);
+    }
+
+    // gets the block at the given grid position
+    // returns null if there is no block at the given position
+    public GameObject GetBlockAtPosition(Vector2Int gridPosition) {
+        if (gridDictionary.TryGetValue(gridPosition, out GameObject block)) {
+            return block;
+        } else {
+            return null;
+        }
     }
 }

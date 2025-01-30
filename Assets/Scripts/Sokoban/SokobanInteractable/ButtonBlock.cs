@@ -7,6 +7,10 @@ public class ButtonBlock : MonoBehaviour, ISokobanInteractable
     private Vector2Int position;
     private SokobanGridSystem gridSystem;
 
+    public InteractableObjectType Type() {
+        return InteractableObjectType.ButtonBlockObject;
+    }
+
     public bool TryPush(Direction direction) {
         isPressed = !isPressed;
         return false;

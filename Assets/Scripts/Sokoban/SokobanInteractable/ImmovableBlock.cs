@@ -5,6 +5,10 @@ public class ImmovableBlock : MonoBehaviour, ISokobanInteractable
     private Vector2Int position;
     private SokobanGridSystem gridSystem;
 
+    public InteractableObjectType Type() {
+        return InteractableObjectType.ImmovableBlockObject;
+    }
+
     public bool TryPush(Direction direction) {
         return false;
     }

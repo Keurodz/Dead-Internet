@@ -5,6 +5,10 @@ public class MovableBlock : MonoBehaviour, ISokobanInteractable
     private Vector2Int position;
     private SokobanGridSystem gridSystem;
 
+    public InteractableObjectType Type() {
+        return InteractableObjectType.MovableBlockObject;
+    }
+
     public bool TryPush(Direction direction) {
         if (gridSystem.TryToPushBox(position, direction)) {
             position += gridSystem.GetDirectionVector(direction);

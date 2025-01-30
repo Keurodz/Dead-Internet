@@ -4,6 +4,9 @@ using UnityEngine;
 // in the sokoban game
 public interface ISokobanInteractable
 {
+    // the type of the interactable
+    InteractableObjectType Type();
+
     // try to push the interactable in the given direction
     bool TryPush(Direction direction);
 
