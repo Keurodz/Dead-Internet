@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractableObject
 {
     // the position of the interactable object in the grid system
+    // NOTE: the grid position is 1-indexed
     public Vector2Int gridPosition;
 
     // the type of the interactable object

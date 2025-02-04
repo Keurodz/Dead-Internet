@@ -1,47 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+    This class manages the sokoban puzzle system, tracking the grid system and the level data.
+**/
 public class SokobanPuzzleSystem : MonoBehaviour
 {
     public SokobanLevelData levelData;
     public SokobanGridSystem gridSystem;
 
-    public GameObject movablePrefab;
-    public GameObject immovablePrefab;
-    public GameObject buttonPrefab;
-
-    // the positions where buttons are located
-    private List<Vector2Int> winPositions = new List<Vector2Int>();
-    // the win canvas
+    // the level manager
     private SokobanLevelManager levelManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         gridSystem = GetComponent<SokobanGridSystem>();
-        LoadLevelData();
-        gridSystem.PopulateGridWithBlocks();
+        if (gridSystem.PopulateGridWithBlocks(levelData)) {
+            Debug.Log("Grid populated successfully");
+        } else {
+            Debug.Log("Grid population failed");
+        }
 
         levelManager = FindAnyObjectByType<SokobanLevelManager>();
-    }
-
-    // uses the level data to populate the sokoban level
-    void LoadLevelData() {
-        for (int i = 0; i < levelData.interactableObjects.Length; i++)
-        {
-            InteractableObject interactable = levelData.interactableObjects[i];
-            Vector3 worldPosition = gridSystem.GetWorldPosition(interactable.gridPosition);
-
-            GameObject prefab = (interactable.type == InteractableObjectType.MovableBlockObject) ? movablePrefab : 
-            (interactable.type == InteractableObjectType.ImmovableBlockObject) ? immovablePrefab : 
-            (interactable.type == InteractableObjectType.ButtonBlockObject) ? buttonPrefab : null;
-
-            if (interactable.type == InteractableObjectType.ButtonBlockObject) {
-                winPositions.Add(interactable.gridPosition);
-            }
-
-            GameObject interactableGameObject = Instantiate(prefab, worldPosition, Quaternion.identity);
-        }
     }
 
     // Update is called once per frame
@@ -54,12 +35,6 @@ public class SokobanPuzzleSystem : MonoBehaviour
 
     // checks if the win condition is met
     private bool CheckWinCondition() {
-        foreach (Vector2Int winPosition in winPositions) {
-            if (!gridSystem.GetBlockAtPosition(winPosition)) {
-                return false;
-            }
-        }
-
-        return true;
+        return gridSystem.CheckWinCondition();
     }
 }

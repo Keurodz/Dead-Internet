@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Animator animator;
 
     private Vector2 move;
+    private CharacterController controller;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -41,14 +42,14 @@ public class PlayerController : MonoBehaviour
             // Debug.Log("Walking");
         }
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15F);
-        Debug.DrawRay(transform.position, movement.normalized * 1f, Color.red, 1f);
-
+        Vector3 rayOrigin = controller.transform.position + Vector3.up * (controller.height / 4);
+        Debug.DrawRay(rayOrigin, movement.normalized * 1f, Color.red, 1f);
         Direction direction = GetCardinalDirection(movement);
 
-
-        if (!Physics.Raycast(transform.position, movement, out RaycastHit hit, 0.1f, blockingLayer))
+        if (!Physics.Raycast(rayOrigin, movement, out RaycastHit hit, 0.5f, blockingLayer))
         {
-            transform.Translate(movement * speed * Time.deltaTime, Space.World);
+            controller.Move(movement * speed * Time.deltaTime);
+            // transform.Translate(movement * speed * Time.deltaTime, Space.World);
             Debug.Log("No hit");
         }
         else if (hit.collider.CompareTag("Sokoban"))
@@ -64,9 +65,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (gridBlock.TryPush(direction))
                 {
-                    transform.Translate(movement * speed * Time.deltaTime, Space.World);
+                    controller.Move(movement * speed * Time.deltaTime);
+                    // transform.Translate(movement * speed * Time.deltaTime, Space.World);
                 }
             }
+        } else {
+            Debug.Log("Hit something else");
         }
     }
 
