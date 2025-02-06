@@ -6,28 +6,53 @@ public class SokobanGridSystem : MonoBehaviour
 {
     [SerializeField] public Grid grid; // reference to the world grid
     [SerializeField] public LayerMask blockingLayer; // reference to the blocking layer (pushable boxes)
+
+    public GameObject movablePrefab;
+    public GameObject immovablePrefab;
+    public GameObject buttonPrefab;
+
     private Dictionary<Vector2Int, GameObject> gridDictionary = new Dictionary<Vector2Int, GameObject>();
     private Dictionary<GameObject, bool> movingObjects = new Dictionary<GameObject, bool>();
+    private Vector2Int gridBounds;
 
-    // scans the scene for blocks and populates the grid array with them
-    public void PopulateGridWithBlocks()
+    // the positions where buttons are located
+    private List<Vector2Int> winPositions = new List<Vector2Int>();
+
+    // populate the grid with the blocks of the level data.
+    // returns false if there is a block at an occupied position, meaning the level data is invalid
+    public bool PopulateGridWithBlocks(SokobanLevelData levelData)
     {
-        GameObject[] blocks = GameObject.FindGameObjectsWithTag("Sokoban");
-
-        foreach (GameObject block in blocks)
+        gridBounds = levelData.bounds;
+        foreach (InteractableObject element in levelData.interactableObjects)
         {
-            Vector2Int gridPosition = (Vector2Int)grid.WorldToCell(block.transform.position);
+            Vector2Int gridPosition = element.gridPosition;
+
+            // spawns the interactable object in the world
+            Vector3 worldPosition = this.GetWorldPosition(gridPosition);
+
+            GameObject prefab = (element.type == InteractableObjectType.MovableBlockObject) ? movablePrefab : 
+            (element.type == InteractableObjectType.ImmovableBlockObject) ? immovablePrefab : 
+            (element.type == InteractableObjectType.ButtonBlockObject) ? buttonPrefab : null;
+
+            if (element.type == InteractableObjectType.ButtonBlockObject) {
+                winPositions.Add(gridPosition);
+            }
+        
+            GameObject interactableGameObject = Instantiate(prefab, worldPosition, Quaternion.identity);
+            interactableGameObject.GetComponent<ISokobanInteractable>().Initialize(gridPosition);
+
+            // adds the game object to the grid dictionary
             if (!gridDictionary.ContainsKey(gridPosition))
             {
-                // button block do not occupy a grid position
-                if (!(block.GetComponent<ISokobanInteractable>().Type() == InteractableObjectType.ButtonBlockObject)) {
-                    gridDictionary[gridPosition] = block;
+                if (!(element.type == InteractableObjectType.ButtonBlockObject)) {
+                    // button block do not occupy a grid position
+                    gridDictionary[gridPosition] = interactableGameObject;
                 }
-                block.GetComponent<ISokobanInteractable>().Initialize(gridPosition);
             } else {
-                Debug.Log("Block already exists at position: " + gridPosition);
+                return false;
             }
         }
+        return true;
     }
 
     // attemps to move the block at the given position in the given direction
@@ -35,8 +60,9 @@ public class SokobanGridSystem : MonoBehaviour
     public bool TryToPushBox(Vector2Int position, Direction direction) {
         Vector2Int targetPosition = position + GetDirectionVector(direction);
         // if there are no blocks at the target position and there is a block at the current position
-        if (!gridDictionary.ContainsKey(targetPosition) && gridDictionary.TryGetValue(position, out GameObject box)) 
+        if (CanPushBox(position, targetPosition))
         {
+            GameObject box = gridDictionary[position];
             // if the block is already moving, return false
             if (movingObjects.ContainsKey(box) && movingObjects[box] || 
                 !box.GetComponent<ISokobanInteractable>().IsPushable()) {
@@ -58,6 +84,14 @@ public class SokobanGridSystem : MonoBehaviour
             }
         }
         return false;
+    }
+
+    // can the box at the given position be pushed to the new position?
+    private bool CanPushBox(Vector2Int originalPosition,Vector2Int targetPosition) {
+        return !gridDictionary.ContainsKey(targetPosition) && 
+            gridDictionary.ContainsKey(originalPosition) &&
+            targetPosition.x >= 1 && targetPosition.x <= gridBounds.x &&
+            targetPosition.y >= 1 && targetPosition.y <= gridBounds.y;
     }
 
     // coroutine to tween the position
@@ -109,5 +143,15 @@ public class SokobanGridSystem : MonoBehaviour
         } else {
             return null;
         }
+    }
+
+    // checks if the win condition is met
+    public bool CheckWinCondition() {
+        foreach (Vector2Int position in winPositions) {
+            if (!gridDictionary.ContainsKey(position)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

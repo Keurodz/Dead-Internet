@@ -4,10 +4,10 @@ using UnityEngine;
 public class SokobanLevelData : ScriptableObject
 {
     // the dimensions of the level
-    public Vector2 bounds; 
+    public Vector2Int bounds; 
 
     // the lower left corner of the level in world space
-    public Vector2 anchorPoint;
+    public Vector2Int anchorPoint;
 
     // the items in the level 
     [SerializeField]
