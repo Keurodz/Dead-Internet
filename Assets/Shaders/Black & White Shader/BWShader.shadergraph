@@ -365,7 +365,7 @@
     "m_Title": "Get Screen Pixel Color",
     "m_Position": {
         "x": -1970.0,
-        "y": 258.0000305175781
+        "y": 258.5000305175781
     }
 }
 
@@ -775,7 +775,7 @@
     "m_Title": "Calculate Average Pixel COlour / Brightness",
     "m_Position": {
         "x": -1653.0,
-        "y": 253.00001525878907
+        "y": 253.50003051757813
     }
 }
 
@@ -917,8 +917,8 @@
     "m_ObjectId": "70a70ebca75f4d8684c90f48ac0b68d3",
     "m_Title": "HDRP Exposure",
     "m_Position": {
-        "x": -776.0001220703125,
-        "y": 112.0
+        "x": -776.0,
+        "y": 112.49998474121094
     }
 }
 

@@ -449,6 +449,22 @@ MonoBehaviour:
   gain:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1, z: 1, w: 0}
+--- !u!114 &-4630657138831332717
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3b8954a81740445bb7c3100b212a351, type: 3}
+  m_Name: RetroPostProcessShader
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &-3442389112661019283
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1311,6 +1327,7 @@ MonoBehaviour:
   - {fileID: 7676680515582512275}
   - {fileID: 6830093905282788613}
   - {fileID: 8791161033938268724}
+  - {fileID: -4630657138831332717}
 --- !u!114 &448115243408767295
 MonoBehaviour:
   m_ObjectHideFlags: 3
