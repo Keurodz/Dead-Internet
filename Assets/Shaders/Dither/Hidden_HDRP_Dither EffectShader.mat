@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dither Effect
+  m_Name: Hidden_HDRP_Dither EffectShader
   m_Shader: {fileID: -6465566751694194690, guid: 72906ec7727584d49b9581c82a17e5cb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
