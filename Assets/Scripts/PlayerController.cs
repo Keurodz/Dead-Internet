@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(move.x, 0f, move.y);
         if (movement.magnitude == 0) {
             animator.SetBool("walking", false);
+            animator.SetBool("pushing", false);
+
             // Debug.Log("Not Walking");
             return;
         } else {
@@ -55,11 +57,11 @@ public class PlayerController : MonoBehaviour
         else if (hit.collider.CompareTag("Sokoban"))
         {
             Debug.Log("Hit Sokoban");
-            var gridBlock = hit.collider.GetComponent<ISokobanInteractable>();
-            if (animator.GetBool("pushing") == false) {
+            if (!animator.GetBool("pushing")) 
+            {
                 animator.SetBool("pushing", true);
-                StartCoroutine(PushAnimation());
             }
+            var gridBlock = hit.collider.GetComponent<ISokobanInteractable>();
 
             if (gridBlock != null && gridBlock.IsPushable())
             {

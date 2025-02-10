@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed02af58ab9ea4c51a1fefaf4bf9b04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1577320089}
   smoothTime: 0.3
   offset: {x: 0, y: 8, z: -3}
 --- !u!114 &88924460
@@ -796,7 +796,7 @@ Light:
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
-  m_UseColorTemperature: 1
+  m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 8.31953e+35, y: 3.2491662e+30, z: 8.223117e+32, w: 0.00061968534}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -922,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c89330e3bf04f0f8ef2b15c7b8eb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelData: {fileID: 11400000, guid: 2769adb849bbc4d40a7d24c1d4e5aaaa, type: 2}
+  levelData: {fileID: 11400000, guid: 2fce3ab3d618841de9d93076b2baff80, type: 2}
   gridSystem: {fileID: 1211758017}
 --- !u!114 &1211758021
 MonoBehaviour:
@@ -1209,6 +1209,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!4 &1577320089 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8825330189466905137, guid: 0104c95c3c8fe4b759b1a567f2185c51, type: 3}
+  m_PrefabInstance: {fileID: 4641764134208245191}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1730697334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,7 +1465,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2033826850
+--- !u!1001 &4641764134208245191
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1523,8 +1528,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 1174792877}
   - {fileID: 1745640280}
+  - {fileID: 4641764134208245191}
   - {fileID: 1787799453}
   - {fileID: 88924458}
   - {fileID: 1211758018}
   - {fileID: 730925087}
-  - {fileID: 2033826850}
