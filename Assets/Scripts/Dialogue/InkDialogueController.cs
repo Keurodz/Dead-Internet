@@ -81,11 +81,14 @@ public class InkDialogueController : MonoBehaviour
                 // Explicitly clear the speaker when "None" is specified
                 speakerText.text = " ";
                 currentSpeaker = " ";
+                DialogueUIController.Instance.UpdateCharacterPortrait("");
             }
             else if (!string.IsNullOrEmpty(speaker))
             {
                 currentSpeaker = speaker; // Update the current speaker
                 speakerText.text = currentSpeaker; // Display the speaker's name
+                print("Current Speaker: " + currentSpeaker);
+                DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
             }
             else if (currentSpeaker != null)
             {
@@ -97,6 +100,7 @@ public class InkDialogueController : MonoBehaviour
                 // No speaker context (system talking)
                 speakerText.text = ""; // Clear the speaker text
                 currentSpeaker = null; // Reset current speaker
+                DialogueUIController.Instance.UpdateCharacterPortrait("");
             }
 
             CreateContentView(text);
@@ -117,13 +121,6 @@ public class InkDialogueController : MonoBehaviour
         }
         else
         {
-            //DialogueUIController.Instance.EnableDialogueOptions();
-            //Button choice = CreateChoiceView("End of story.\nRestart?");
-            //choice.onClick.AddListener(delegate
-            //{
-            //    DialogueUIController.Instance.DisableDialogueOptions();
-            //    StartStory();
-            //});
             DialogueUIController.Instance.DisableDialogueUI();
         }
     }

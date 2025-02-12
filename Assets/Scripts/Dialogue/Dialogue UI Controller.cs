@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class DialogueUIController : MonoBehaviour
 {
@@ -8,6 +10,9 @@ public class DialogueUIController : MonoBehaviour
     private GameObject _DialogueOptions;
     private GameObject _TextPanel;
     private GameObject _CharacterNamePanel;
+    private RawImage _CharacterPortrait;
+
+    private Dictionary<string, Texture2D> portraitDictionary;
 
     void Awake()
     {
@@ -24,13 +29,49 @@ public class DialogueUIController : MonoBehaviour
         _DialogueOptions = transform.Find("Dialogue Options")?.gameObject;
         _TextPanel = transform.Find("Text Panel")?.gameObject;
         _CharacterNamePanel = transform.Find("Character Name Panel")?.gameObject;
+        _CharacterPortrait = transform.Find("Portrait Holder")?.GetComponentInChildren<RawImage>();
 
         // Check for null references and log errors if any panels are missing
         if (_DialogueOptions == null) Debug.LogError("DialogueOptions panel not found!");
         if (_TextPanel == null) Debug.LogError("TextPanel not found!");
         if (_CharacterNamePanel == null) Debug.LogError("CharacterNamePanel not found!");
+        if (_CharacterPortrait == null) Debug.LogError("CharacterPortrait image not found!");
 
+        LoadPortraits();
         DisableDialogueUI();
+    }
+
+    void LoadPortraits()
+    {
+        //portraitDictionary = new Dictionary<string, Sprite>();
+        portraitDictionary = new Dictionary<string, Texture2D>();
+        //Sprite[] sprites = Resources.LoadAll<Sprite>("Portraits");
+        Texture2D[] textures = Resources.LoadAll<Texture2D>("Portraits");
+
+        print("Load Portraits tried to run ");
+        foreach (Texture2D sprite in textures)
+        {
+            print("Portrait: " + sprite.name);
+            portraitDictionary[sprite.name] = sprite;
+        }
+    }
+
+    public void UpdateCharacterPortrait(string portraitName)
+    {
+        print("Ran code");
+        if (_CharacterPortrait == null) return;
+
+        if (!string.IsNullOrEmpty(portraitName) && portraitDictionary.ContainsKey(portraitName))
+        {
+            print("Attempted to do the deed");
+            _CharacterPortrait.texture = portraitDictionary[portraitName];
+            _CharacterPortrait.gameObject.SetActive(true);
+        }
+        else
+        {
+            print("Could not find the thing: " + portraitName);
+            _CharacterPortrait.gameObject.SetActive(false); // Hide if no valid portrait
+        }
     }
 
     public void DisableDialogueOptions()
@@ -46,6 +87,12 @@ public class DialogueUIController : MonoBehaviour
     public void DisableTextPanel()
     {
         if (_TextPanel != null) _TextPanel.SetActive(false);
+    }
+
+
+    public void DisableCharacterPortrait()
+    {
+        if (_CharacterPortrait != null) _CharacterPortrait.gameObject.SetActive(false);
     }
 
     public void EnableDialogueOptions()
@@ -68,6 +115,8 @@ public class DialogueUIController : MonoBehaviour
         DisableCharacterNamePanel();
         DisableDialogueOptions();
         DisableTextPanel();
+        
+        if (_CharacterPortrait != null) _CharacterPortrait.gameObject.SetActive(false);
     }
 
     public void EnableDialogueUI()
