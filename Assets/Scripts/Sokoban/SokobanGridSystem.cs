@@ -75,11 +75,7 @@ public class SokobanGridSystem : MonoBehaviour
 
                 movingObjects[box] = true;
 
-                gridDictionary.Remove(position);
-                gridDictionary[targetPosition] = box;
-
-                Vector3 targetWorldPosition = grid.GetCellCenterWorld((Vector3Int)targetPosition);
-                StartCoroutine(TweenToPosition(box, targetWorldPosition, 0.3f)); 
+                StartCoroutine(TweenToPosition(box, position, targetPosition, 1.5f)); 
                 return true;
             }
         }
@@ -95,22 +91,27 @@ public class SokobanGridSystem : MonoBehaviour
     }
 
     // coroutine to tween the position
-    private IEnumerator TweenToPosition(GameObject box, Vector3 targetPosition, float duration) {
-        Vector3 startPosition = box.transform.position;
+    private IEnumerator TweenToPosition(GameObject box, Vector2Int gridStartPosition, Vector2Int gridTargetPosition, float duration) {
+        Vector3 worldStartPosition = box.transform.position;
+        Vector3 worldTargetPosition = grid.GetCellCenterWorld((Vector3Int)gridTargetPosition);
+
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
-            box.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+            box.transform.position = Vector3.Lerp(worldStartPosition, worldTargetPosition, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        box.transform.position = targetPosition;
+        box.transform.position = worldTargetPosition;
 
         if (movingObjects.ContainsKey(box))
         {
             movingObjects[box] = false;
+
+            gridDictionary.Remove(gridStartPosition);
+            gridDictionary[gridTargetPosition] = box;
         }
     }
 

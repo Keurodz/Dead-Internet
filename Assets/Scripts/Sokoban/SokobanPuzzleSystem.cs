@@ -12,6 +12,8 @@ public class SokobanPuzzleSystem : MonoBehaviour
     // the level manager
     private SokobanLevelManager levelManager;
 
+    private bool hasWon = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,8 +30,9 @@ public class SokobanPuzzleSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CheckWinCondition()) {
+        if (CheckWinCondition() && !hasWon) {
             levelManager.OnWin();
+            hasWon = true;
         }
     }
 

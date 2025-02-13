@@ -17,9 +17,11 @@ public class SokobanLevelManager : MonoBehaviour
     public void OnWin()
     {
         Debug.Log("You win!");
-        winCanvas.SetActive(true);
 
-        StartCoroutine(FadeInCanvas());
+        // winCanvas.SetActive(true);
+        // StartCoroutine(FadeInCanvas());
+
+        SceneController.Instance.NextLevel();
     }
 
     private IEnumerator FadeInCanvas()
