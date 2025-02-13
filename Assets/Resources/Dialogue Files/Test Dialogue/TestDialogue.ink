@@ -1,4 +1,4 @@
-# Character: Haley
+# Character: Alien
 - Once upon a time, in a tranquil kingdom, a young adventurer named Haley wandered the forest, seeking both solace and excitement.
 
 # Character: Skibidi
@@ -24,7 +24,7 @@
     -> END
     
 == Option1
-# Character: Henry
+# Character: Debug
 
 - As Haley pressed on, a familiar face emerged from the shadows. "Henry?" she exclaimed, surprised.  
 - "You always find a way, don't you?" Henry replied with a smile, his tone warm but knowing.
