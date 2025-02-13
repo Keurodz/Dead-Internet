@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_RetroEffect
-  m_Shader: {fileID: -6465566751694194690, guid: c12e819a508b343fa8e088c7b33a9660, type: 3}
+  m_Name: Hidden_HDRP_Dither EffectShader
+  m_Shader: {fileID: -6465566751694194690, guid: 72906ec7727584d49b9581c82a17e5cb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -36,9 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _ColorResolution: 32
-    - _DitherSpread: 0.001
+    m_Floats: []
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

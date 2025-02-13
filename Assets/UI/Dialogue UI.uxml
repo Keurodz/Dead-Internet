@@ -1,4 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Dialogue%20UI.uss?fileID=7433441132597879392&amp;guid=de2fa1a96c3b0406fb59525bf82b7037&amp;type=3#Dialogue UI" />
-    <ui:VisualElement name="Panel" class="panel" style="flex-grow: 1;" />
-</ui:UXML>
