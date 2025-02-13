@@ -10,6 +10,7 @@ public class DialogueUIController : MonoBehaviour
     private GameObject _DialogueOptions;
     private GameObject _TextPanel;
     private GameObject _CharacterNamePanel;
+    private GameObject _PortraitHolder;
     private RawImage _CharacterPortrait;
 
     private Dictionary<string, Texture2D> portraitDictionary;
@@ -29,6 +30,7 @@ public class DialogueUIController : MonoBehaviour
         _DialogueOptions = transform.Find("Dialogue Options")?.gameObject;
         _TextPanel = transform.Find("Text Panel")?.gameObject;
         _CharacterNamePanel = transform.Find("Character Name Panel")?.gameObject;
+        _PortraitHolder = transform.Find("Portrait Holder")?.gameObject;
         _CharacterPortrait = transform.Find("Portrait Holder")?.GetComponentInChildren<RawImage>();
 
         // Check for null references and log errors if any panels are missing
@@ -65,12 +67,12 @@ public class DialogueUIController : MonoBehaviour
         {
             print("Attempted to do the deed");
             _CharacterPortrait.texture = portraitDictionary[portraitName];
-            _CharacterPortrait.gameObject.SetActive(true);
+            _PortraitHolder.SetActive(true);
         }
         else
         {
             print("Could not find the thing: " + portraitName);
-            _CharacterPortrait.gameObject.SetActive(false); // Hide if no valid portrait
+            _PortraitHolder.SetActive(false); // Hide if no valid portrait
         }
     }
 
@@ -89,10 +91,14 @@ public class DialogueUIController : MonoBehaviour
         if (_TextPanel != null) _TextPanel.SetActive(false);
     }
 
+    public void EnableCharacterPortrait()
+    {
+        if (_CharacterPortrait != null) _PortraitHolder.SetActive(true);
+    }
 
     public void DisableCharacterPortrait()
     {
-        if (_CharacterPortrait != null) _CharacterPortrait.gameObject.SetActive(false);
+        if (_CharacterPortrait != null) _PortraitHolder.SetActive(false);
     }
 
     public void EnableDialogueOptions()
@@ -115,8 +121,8 @@ public class DialogueUIController : MonoBehaviour
         DisableCharacterNamePanel();
         DisableDialogueOptions();
         DisableTextPanel();
+        DisableCharacterPortrait();
         
-        if (_CharacterPortrait != null) _CharacterPortrait.gameObject.SetActive(false);
     }
 
     public void EnableDialogueUI()
