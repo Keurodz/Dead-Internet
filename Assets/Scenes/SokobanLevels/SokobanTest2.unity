@@ -1556,6 +1556,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2904737845282796176, guid: 9689731e73349401ab8bb17b8c9a8b03, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3375964391720154139, guid: 9689731e73349401ab8bb17b8c9a8b03, type: 3}
       propertyPath: orthographic
       value: 1
@@ -1571,6 +1575,10 @@ PrefabInstance:
     - target: {fileID: 3375964391720154139, guid: 9689731e73349401ab8bb17b8c9a8b03, type: 3}
       propertyPath: near clip plane
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4052020468007638254, guid: 9689731e73349401ab8bb17b8c9a8b03, type: 3}
+      propertyPath: m_Constraints
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 4833261783845771550, guid: 9689731e73349401ab8bb17b8c9a8b03, type: 3}
       propertyPath: m_LocalPosition.x
