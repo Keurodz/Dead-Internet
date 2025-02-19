@@ -7,12 +7,20 @@ public class SokobanGridSystem : MonoBehaviour
     [SerializeField] public Grid grid; // reference to the world grid
     [SerializeField] public LayerMask blockingLayer; // reference to the blocking layer (pushable boxes)
 
+    // prefab for the movable block
     public GameObject movablePrefab;
+    // prefab for the immovable block
     public GameObject immovablePrefab;
+    // prefab for the button block
     public GameObject buttonPrefab;
 
+    // dictionary to store the grid positions and the game objects at those positions
     private Dictionary<Vector2Int, GameObject> gridDictionary = new Dictionary<Vector2Int, GameObject>();
+    // dictionary to store the grid positions of floating objects
+    private Dictionary<Vector2Int, GameObject> floatingObjects = new Dictionary<Vector2Int, GameObject>();
+    // dictionary to store the moving objects and whether they are moving
     private Dictionary<GameObject, bool> movingObjects = new Dictionary<GameObject, bool>();
+    // the bounds of the grid
     private Vector2Int gridBounds;
 
     // the positions where buttons are located
@@ -57,62 +65,44 @@ public class SokobanGridSystem : MonoBehaviour
 
     // attemps to move the block at the given position in the given direction
     // returns true if the block was moved, false otherwise
-    public bool TryToPushBox(Vector2Int position, Direction direction) {
+    public bool TryToPushBlock(Vector2Int position, Direction direction) {
         Vector2Int targetPosition = position + GetDirectionVector(direction);
         // if there are no blocks at the target position and there is a block at the current position
-        if (CanPushBox(position, targetPosition))
+        if (CanPushBlock(position, targetPosition))
         {
-            GameObject box = gridDictionary[position];
+            GameObject block = gridDictionary[position];
             // if the block is already moving, return false
-            if (movingObjects.ContainsKey(box) && movingObjects[box] || 
-                !box.GetComponent<ISokobanInteractable>().IsPushable()) {
-                Debug.Log("cannot push");
-                Debug.Log("box: " + box);
+            if (movingObjects.ContainsKey(block) && movingObjects[block] || 
+                !block.GetComponent<ISokobanInteractable>().IsPushable()) {
                 return false;
             } else {
-                Debug.Log("pushing");
-                Debug.Log("box: " + box);
-
-                movingObjects[box] = true;
-
-                StartCoroutine(TweenToPosition(box, position, targetPosition, 1.5f)); 
+                StartCoroutine(TweenToPosition(block, position, targetPosition)); 
                 return true;
             }
         }
         return false;
     }
 
-    // can the box at the given position be pushed to the new position?
-    private bool CanPushBox(Vector2Int originalPosition,Vector2Int targetPosition) {
-        return !gridDictionary.ContainsKey(targetPosition) && 
-            gridDictionary.ContainsKey(originalPosition) &&
-            targetPosition.x >= 1 && targetPosition.x <= gridBounds.x &&
-            targetPosition.y >= 1 && targetPosition.y <= gridBounds.y;
-    }
-
-    // coroutine to tween the position
-    private IEnumerator TweenToPosition(GameObject box, Vector2Int gridStartPosition, Vector2Int gridTargetPosition, float duration) {
-        Vector3 worldStartPosition = box.transform.position;
-        Vector3 worldTargetPosition = grid.GetCellCenterWorld((Vector3Int)gridTargetPosition);
-
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            box.transform.position = Vector3.Lerp(worldStartPosition, worldTargetPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+    // attemps to float an object at the given position 
+    // returns true if the object was floated, false otherwise
+    public bool TryToFloatBlock(Vector2Int position) {
+        // if there is a block at the given position and it is not already floating
+        if (gridDictionary.ContainsKey(position) && !floatingObjects.ContainsKey(position)) {
+            GameObject block = gridDictionary[position];
+            if (movingObjects.ContainsKey(block) && movingObjects[block]) {
+                return false;
+            }
+            StartCoroutine(FloatBlock(block, position));
+            return true;
+        } else if (floatingObjects.ContainsKey(position) && !gridDictionary.ContainsKey(position)) {
+            GameObject block = floatingObjects[position];
+            if (movingObjects.ContainsKey(block) && movingObjects[block]) {
+                return false;
+            }
+            StartCoroutine(UnfloatBlock(block, position));
+            return true;
         }
-
-        box.transform.position = worldTargetPosition;
-
-        if (movingObjects.ContainsKey(box))
-        {
-            movingObjects[box] = false;
-
-            gridDictionary.Remove(gridStartPosition);
-            gridDictionary[gridTargetPosition] = box;
-        }
+        return false;
     }
 
     // get the vector corresponding to the given direction
@@ -154,5 +144,84 @@ public class SokobanGridSystem : MonoBehaviour
             }
         }
         return true;
+    }
+
+    // can the box at the given position be pushed to the new position?
+    private bool CanPushBlock(Vector2Int originalPosition,Vector2Int targetPosition) {
+        return !gridDictionary.ContainsKey(targetPosition) && 
+            gridDictionary.ContainsKey(originalPosition) &&
+            targetPosition.x >= 1 && targetPosition.x <= gridBounds.x &&
+            targetPosition.y >= 1 && targetPosition.y <= gridBounds.y;
+    }
+
+    // coroutine to tween the given block from the start position to the target position
+    private IEnumerator TweenToPosition(GameObject block, Vector2Int gridStartPosition, Vector2Int gridTargetPosition) {
+        movingObjects[block] = true;
+
+        Vector3 worldStartPosition = block.transform.position;
+        Vector3 worldTargetPosition = grid.GetCellCenterWorld((Vector3Int)gridTargetPosition);
+
+        float elapsedTime = 0f;
+        float duration = 1.5f;
+
+        while (elapsedTime < duration)
+        {
+            block.transform.position = Vector3.Lerp(worldStartPosition, worldTargetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        block.transform.position = worldTargetPosition;
+
+        if (movingObjects.ContainsKey(block))
+        {
+            movingObjects[block] = false;
+
+            gridDictionary.Remove(gridStartPosition);
+            gridDictionary[gridTargetPosition] = block;
+        }
+    }
+    
+    // coroutine to float the given block 
+    private IEnumerator FloatBlock(GameObject block, Vector2Int gridPosition) {
+        movingObjects[block] = true;
+        float elapsedTime = 0f;
+        float floatDuration = 1.5f;
+        float floatHeight = 3f;
+        Vector3 worldPosition = block.transform.position;
+        Vector3 destinationPosition = worldPosition + (Vector3.up * floatHeight);
+
+        while (elapsedTime < floatDuration)
+        {
+            block.transform.position = Vector3.Lerp(worldPosition, destinationPosition, elapsedTime / floatDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        block.transform.position = destinationPosition;
+        gridDictionary.Remove(gridPosition);
+        floatingObjects[gridPosition] = block;
+        movingObjects[block] = false;
+    }
+
+    private IEnumerator UnfloatBlock(GameObject block, Vector2Int gridPosition) {
+        movingObjects[block] = true;
+        float elapsedTime = 0f;
+        float floatDuration = 1.5f;
+        float floatHeight = 3f;
+        Vector3 worldPosition = block.transform.position;
+        Vector3 destinationPosition = worldPosition + (Vector3.down * floatHeight);
+
+        while (elapsedTime < floatDuration)
+        {
+            block.transform.position = Vector3.Lerp(worldPosition, destinationPosition, elapsedTime / floatDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        block.transform.position = destinationPosition;
+        floatingObjects.Remove(gridPosition);
+        gridDictionary[gridPosition] = block;
+        movingObjects[block] = false;
     }
 }

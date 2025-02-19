@@ -28,10 +28,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movePlayer();
+        MovePlayer();
     }
 
-    public void movePlayer() {
+    private void MovePlayer() {
         Vector3 movement = new Vector3(move.x, 0f, move.y);
         if (movement.magnitude == 0) {
             animator.SetBool("walking", false);
@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
         {
             controller.Move(movement * speed * Time.deltaTime);
             // transform.Translate(movement * speed * Time.deltaTime, Space.World);
-            Debug.Log("No hit");
         }
         else if (hit.collider.CompareTag("Sokoban"))
         {

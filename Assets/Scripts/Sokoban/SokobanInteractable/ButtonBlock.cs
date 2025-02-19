@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class ButtonBlock : MonoBehaviour, ISokobanInteractable
 {
-    public bool isPressed = false;
-
     private Vector2Int position;
     private SokobanGridSystem gridSystem;
 
@@ -12,7 +10,10 @@ public class ButtonBlock : MonoBehaviour, ISokobanInteractable
     }
 
     public bool TryPush(Direction direction) {
-        isPressed = !isPressed;
+        return false;
+    }
+
+    public bool TryFloat() {
         return false;
     }
 
