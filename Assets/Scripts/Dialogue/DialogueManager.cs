@@ -52,6 +52,11 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public void StartRegularDialogue(string dialogueKey)
+    {
+        StartDialogue(dialogueKey, InkDialogueController.DialogueMode.Regular);
+    }
+
     // Method specifically for starting comment-style dialogue
     public void StartCommentDialogue(string dialogueKey)
     {

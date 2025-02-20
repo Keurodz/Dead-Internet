@@ -71,8 +71,22 @@ public class DialogueUIController : MonoBehaviour
         }
     }
 
+    public void UpdateCharacterPortraitComment(string portraitName, RawImage portrait)
+    {
+       // if (portrait == null) return;
 
-public void DisableDialogueOptions()
+        if (!string.IsNullOrEmpty(portraitName) && portraitDictionary.ContainsKey(portraitName))
+        {
+           portrait.texture = portraitDictionary[portraitName];
+        }
+        else
+        {
+            portrait.texture = portraitDictionary["defaultprof"];
+        }
+    }
+
+
+    public void DisableDialogueOptions()
     {
         if (_DialogueOptions != null) _DialogueOptions.SetActive(false);
     }

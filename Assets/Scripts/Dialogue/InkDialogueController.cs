@@ -118,7 +118,7 @@ public class InkDialogueController : MonoBehaviour
             else if (currentMode == DialogueMode.Comments)
             {
                 // For comment-style dialogue, add the text to the comments panel
-                CreateCommentContentView(text, commentsPanel);
+                CreateCommentContentView(text, commentsPanel, speaker);
                 isWaitingForClick = true;
             }
         }
@@ -172,7 +172,7 @@ public class InkDialogueController : MonoBehaviour
         storyText.transform.SetParent(parentPanel.transform, false);
     }
 
-    void CreateCommentContentView(string text, GameObject parentPanel)
+    void CreateCommentContentView(string text, GameObject parentPanel, string speaker)
     {
         // Instantiate the comment prefab inside the parent panel
         GameObject newComment = Instantiate(commentPrefab, parentPanel.transform, false);
@@ -190,6 +190,8 @@ public class InkDialogueController : MonoBehaviour
 
         // Animate the comment appearance
         DialogueAnimator.AnimateCommentSlideIn(commentRect);
+        RawImage im = newComment.GetComponentInChildren<RawImage>();
+        DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", im);
 
         // Scroll down by the height of the new comment
         StartCoroutine(ScrollDownByCommentHeight(commentRect, parentPanel));
