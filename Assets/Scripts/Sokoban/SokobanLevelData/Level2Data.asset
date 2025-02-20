@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e75d6f5391940483ea97d3fc94a3ff14, type: 3}
   m_Name: Level2Data
   m_EditorClassIdentifier: 
+  levelName: Level2
   bounds: {x: 8, y: 8}
   anchorPoint: {x: 0, y: 0}
   interactableObjects:

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+This class handles the sokoban grid system, standardizing the sokoban rules
+and enforcing all the interactions with the sokoban blocks 
+for both grid and world position representation.
+*/
 public class SokobanGridSystem : MonoBehaviour
 {
     [SerializeField] public Grid grid; // reference to the world grid
@@ -126,6 +131,12 @@ public class SokobanGridSystem : MonoBehaviour
         return grid.GetCellCenterWorld((Vector3Int)gridPosition);
     }
 
+    // gets the grid position of the given world position
+    public Vector2Int GetGridPosition(Vector3 worldPosition) {
+        Vector3Int gridPosition = grid.WorldToCell(worldPosition);
+        return new Vector2Int(gridPosition.x, gridPosition.y);
+    }
+
     // gets the block at the given grid position
     // returns null if there is no block at the given position
     public GameObject GetBlockAtPosition(Vector2Int gridPosition) {
@@ -146,6 +157,11 @@ public class SokobanGridSystem : MonoBehaviour
         return true;
     }
 
+    // checks if the given position is traversable (nothing is blocking it)
+    public bool IsCellTraversable(Vector2Int position) {
+        return !gridDictionary.ContainsKey(position);
+    }
+
     // can the box at the given position be pushed to the new position?
     private bool CanPushBlock(Vector2Int originalPosition,Vector2Int targetPosition) {
         return !gridDictionary.ContainsKey(targetPosition) && 
@@ -162,7 +178,7 @@ public class SokobanGridSystem : MonoBehaviour
         Vector3 worldTargetPosition = grid.GetCellCenterWorld((Vector3Int)gridTargetPosition);
 
         float elapsedTime = 0f;
-        float duration = 1.5f;
+        float duration = 0.6f;
 
         while (elapsedTime < duration)
         {
@@ -223,5 +239,90 @@ public class SokobanGridSystem : MonoBehaviour
         floatingObjects.Remove(gridPosition);
         gridDictionary[gridPosition] = block;
         movingObjects[block] = false;
+    }
+
+    // runs A* algorithm to get the path from the start to the end position
+    public List<Vector2Int> GetPath(Vector2Int start, Vector2Int end) {
+        if (start == end) return new List<Vector2Int> { start };
+
+        // The set of nodes to evaluate using the custom PriorityQueue
+        PriorityQueue<Vector2Int> openSet = new PriorityQueue<Vector2Int>();
+        openSet.Enqueue(start, 0);
+
+        // Keeps track of the path
+        Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();
+
+        // Cost from start to each position
+        Dictionary<Vector2Int, float> gScore = new Dictionary<Vector2Int, float> {
+            [start] = 0
+        };
+
+        // Estimated total cost from start to end through each position
+        Dictionary<Vector2Int, float> fScore = new Dictionary<Vector2Int, float> {
+            [start] = Heuristic(start, end)
+        };
+
+        while (!openSet.IsEmpty()) {
+            Vector2Int current = openSet.Dequeue();
+
+            // If we reached the goal, reconstruct the path
+            if (current == end) {
+                return ReconstructPath(cameFrom, current);
+            }
+
+            // Evaluate neighbors (Up, Down, Left, Right)
+            foreach (Vector2Int direction in new Vector2Int[] {
+                new Vector2Int(0, 1),   // Up
+                new Vector2Int(0, -1),  // Down
+                new Vector2Int(-1, 0),  // Left
+                new Vector2Int(1, 0)    // Right
+            }) {
+                Vector2Int neighbor = current + direction;
+
+                // Skip if the neighbor is out of bounds or occupied
+                if (!IsPositionValid(neighbor) || gridDictionary.ContainsKey(neighbor)) {
+                    continue;
+                }
+
+                float tentativeGScore = gScore[current] + 1; // Assuming uniform cost of 1 per move
+
+                if (!gScore.ContainsKey(neighbor) || tentativeGScore < gScore[neighbor]) {
+                    cameFrom[neighbor] = current;
+                    gScore[neighbor] = tentativeGScore;
+                    fScore[neighbor] = tentativeGScore + Heuristic(neighbor, end);
+
+                    // Check if the neighbor is not already in the priority queue
+                    if (!openSet.Contains(neighbor)) {
+                        openSet.Enqueue(neighbor, Mathf.RoundToInt(fScore[neighbor]));
+                    }
+                }
+            }
+        }
+
+        // Return an empty path if no valid path found
+        return new List<Vector2Int>();
+    }
+
+
+    // heuristics function for A*
+    private float Heuristic(Vector2Int a, Vector2Int b) {
+        return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+    }
+
+    // reconstructs the path from the start to the goal
+    private List<Vector2Int> ReconstructPath(Dictionary<Vector2Int, Vector2Int> cameFrom, Vector2Int current) {
+        List<Vector2Int> path = new List<Vector2Int> { current };
+        while (cameFrom.ContainsKey(current)) {
+            current = cameFrom[current];
+            path.Add(current);
+        }
+        path.Reverse();
+        return path;
+    }
+
+    // check if the grid position is within bounds
+    private bool IsPositionValid(Vector2Int position) {
+        return position.x >= 1 && position.x <= gridBounds.x &&
+            position.y >= 1 && position.y <= gridBounds.y;
     }
 }
