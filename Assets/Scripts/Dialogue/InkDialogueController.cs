@@ -172,7 +172,7 @@ public class InkDialogueController : MonoBehaviour
         RectTransform commentRect = newComment.GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(commentsPanel.GetComponent<RectTransform>());
 
-        DialogueAnimator.AnimateCommentSlideIn(commentRect);
+        DialogueAnimator.AnimateSlideIn(newComment);
         DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", newComment.GetComponentInChildren<RawImage>());
 
         StartCoroutine(ScrollDownByCommentHeight(commentRect));

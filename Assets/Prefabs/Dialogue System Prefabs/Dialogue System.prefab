@@ -108,7 +108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 472, y: -36}
+  m_AnchoredPosition: {x: 472, y: -36.00006}
   m_SizeDelta: {x: -953.74, y: -799.6001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3246195948638189981
@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 4325851794870354204}
   - component: {fileID: 4255695376251779483}
   - component: {fileID: 6748842648477744425}
+  - component: {fileID: 8608872971379679949}
   m_Layer: 5
   m_Name: Portrait Holder
   m_TagString: Untagged
@@ -296,6 +297,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &8608872971379679949
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772874387435911774}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1499915927177248583
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,11 +476,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inkJSONAsset: {fileID: 4900000, guid: cb5a63498f9154b7f83920edf04d9cca, type: 3}
   optionsPanel: {fileID: 267838060995367610}
-  textPrefab: {fileID: 73494938522924441, guid: 63d1c105a17ae451b8ae5841fbeecd76, type: 3}
-  buttonPrefab: {fileID: 1091243228608624372, guid: 779d7465b807740bb8d293f89557ae47, type: 3}
   textPanel: {fileID: 3942399092699915711}
   commentsPanel: {fileID: 0}
+  textPrefab: {fileID: 73494938522924441, guid: 63d1c105a17ae451b8ae5841fbeecd76, type: 3}
   speakerText: {fileID: 88660387261080926}
+  buttonPrefab: {fileID: 1091243228608624372, guid: 779d7465b807740bb8d293f89557ae47, type: 3}
+  commentPrefab: {fileID: 8364306582702108839, guid: 898a56cc843814c5eaf457ad76ecf262, type: 3}
 --- !u!114 &2552805947169035131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,6 +507,7 @@ GameObject:
   - component: {fileID: 4661562213339740438}
   - component: {fileID: 6777217885064210900}
   - component: {fileID: 1532385240928914678}
+  - component: {fileID: 4021499631153941029}
   m_Layer: 5
   m_Name: Text Panel
   m_TagString: Untagged
@@ -540,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5188679, g: 0.5164204, b: 0.5164204, a: 0.392}
+  m_Color: {r: 0.31132078, g: 0.29810435, b: 0.29810435, a: 0.84313726}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -583,6 +598,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &4021499631153941029
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3942399092699915711}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5350016548300484782
 GameObject:
   m_ObjectHideFlags: 0
