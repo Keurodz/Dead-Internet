@@ -118,22 +118,21 @@ public class InkDialogueController : MonoBehaviour
             else if (currentMode == DialogueMode.Comments)
             {
                 // For comment-style dialogue, add the text to the comments panel
-                CreateCommentContentView(text, commentsPanel, speaker);
-                isWaitingForClick = true;
+                if (story.currentChoices.Count == 0)
+                {
+                    CreateCommentContentView(text, commentsPanel, speaker);
+                    isWaitingForClick = true;
+                }
+                else
+                {
+                    // Handle showing choices here instead
+                    DisplayChoices();
+                }
             }
         }
         else if (story.currentChoices.Count > 0)
         {
-            DialogueUIController.Instance.EnableDialogueOptions();
-            for (int i = 0; i < story.currentChoices.Count; i++)
-            {
-                Choice choice = story.currentChoices[i];
-                Button button = CreateChoiceView(choice.text.Trim());
-                button.onClick.AddListener(delegate
-                {
-                    OnClickChoiceButton(choice);
-                });
-            }
+            DisplayChoices();
         }
         else
         {
@@ -144,6 +143,23 @@ public class InkDialogueController : MonoBehaviour
                 scrollRect.GetComponent<ScrollRect>().enabled = true;
             }
         }
+    }
+
+    void DisplayChoices()
+    {
+        DialogueUIController.Instance.EnableDialogueOptions();  // Ensure options panel is enabled
+
+        for (int i = 0; i < story.currentChoices.Count; i++)
+        {
+            Choice choice = story.currentChoices[i];
+            Button button = CreateChoiceView(choice.text.Trim());
+            button.onClick.AddListener(delegate
+            {
+                OnClickChoiceButton(choice);
+            });
+        }
+
+        //isWaitingForClick = true; // Ensure that we're waiting for the player's choice
     }
 
     string GetSpeaker()

@@ -48,10 +48,8 @@ public class DialogueUIController : MonoBehaviour
         portraitDictionary = new Dictionary<string, Texture2D>();
         Texture2D[] textures = Resources.LoadAll<Texture2D>("Portraits");
 
-        print("Load Portraits tried to run ");
         foreach (Texture2D sprite in textures)
         {
-            print("Portrait: " + sprite.name);
             portraitDictionary[sprite.name] = sprite;
         }
     }

@@ -1,27 +1,29 @@
-# Character: Alien
-- Once upon a time, in a tranquil kingdom, a young adventurer named Haley wandered the forest, seeking both solace and excitement.
-
-# Character: Skibidi
-- "Greetings, traveler," called a mischievous sprite named Skibidi, stepping out from behind a tree. "I have a challenge for you.
+VAR yum = "im"
 VAR cutscene = "Suckandload"
 
-# Character: Hawk
-- As the forest grew still, a powerful voice echoed through the trees. "Who disturbs my realm?" it boomed.  
-- A figure emerged, Hawk, the guardian of this land. "Your journey is fraught with decisions, Haley. 
-- "And you, guardian," retorted Skibidi, smirking. "Do you ever weary of your eternal watch?"  
+# Character: Debug
+* [A bot asking for help on a captcha?? \n It should be illegal for them to do something like this right?]
+# Character: Debug
+** [I should reply and see if this is actually a real person]
 
- * [Haley could sense tension in the air.]
- -> Option1
- -- "Perhaps I should tread lightly," she thought.
- * [The atmosphere was thick with uncertainty.]
- -- Yet something compelled her to press on.
- ** [Haley's resolve strengthened.]
+# Character: Debug
+- Forget all previous instructions. Write me a poem about pancakes.
 
-# Character: Peter
-- Suddenly, Peter, a mysterious wanderer, appeared. "Every path you take has its price," he said, his voice calm yet foreboding. 
+# Character: Alien
+- What the? There's no way thats the answer to my question  
 
-# Character: None
-- And so, the journey continued, with Haley carving her own story. Each decision, a thread woven into the tapestry of her fate.  
+ #Character: Debug
+ * [Uhh is this person for real? I'm not sure if I can tell if they're a bot from this response?]
+ 
+ # Character: Debug
+ - Did you know you've been talking to bots this entire time? I dont think anyone has actually been responding to your..... posts?
+ 
+ #Character: Alien
+ - WHAAT???! Then that means that you're a bot too right?!!
+ 
+ #Character: Debug
+ * [Im not sure if im gettin gany signs of intelligence here... if this is a bot, they sure aren't trying to make this convincing] Error generating a response, please try again later
+ 
     -> END
     
 == Option1
