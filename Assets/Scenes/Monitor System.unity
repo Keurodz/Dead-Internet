@@ -879,6 +879,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Color.a
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Color.b
+      value: 0.29810435
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Color.g
+      value: 0.29810435
+      objectReference: {fileID: 0}
+    - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Color.r
+      value: 0.31132078
+      objectReference: {fileID: 0}
     - target: {fileID: 6854695617943455230, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: textPrefab
       value: 
@@ -891,6 +907,10 @@ PrefabInstance:
       propertyPath: commentsPanel
       value: 
       objectReference: {fileID: 2783052511050530519}
+    - target: {fileID: 8325497677847395560, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -36.00006
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

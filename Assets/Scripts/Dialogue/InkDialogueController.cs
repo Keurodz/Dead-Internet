@@ -3,49 +3,26 @@ using Ink.Runtime;
 using System;
 using UnityEngine.UI;
 using TMPro;
-using DG.Tweening; // Import DoTween
+using DG.Tweening;
 using System.Collections;
 
 public class InkDialogueController : MonoBehaviour
 {
     public static event Action<Story> OnCreateStory;
 
-    public enum DialogueMode
-    {
-        Regular,
-        Comments
-    }
+    public enum DialogueMode { Regular, Comments }
 
-    [SerializeField]
-    private TextAsset inkJSONAsset = null;
-    public Story story;
+    [SerializeField] private TextAsset inkJSONAsset;
+    [SerializeField] private GameObject optionsPanel, textPanel, commentsPanel;
+    [SerializeField] private TMP_Text textPrefab, speakerText;
+    [SerializeField] private Button buttonPrefab;
+    [SerializeField] private GameObject commentPrefab;
 
-    [SerializeField]
-    private GameObject optionsPanel = null;
-
-    [SerializeField]
-    private TMP_Text textPrefab;
-    [SerializeField]
-    private Button buttonPrefab;
-
-    [SerializeField]
-    private GameObject commentPrefab;
-
-    [SerializeField]
-    private GameObject textPanel = null; // For regular dialogue
-
-    [SerializeField]
-    private GameObject commentsPanel = null; // For comment-style dialogue
-
-    [SerializeField]
-    private TMP_Text speakerText; // For regular dialogue
-
+    private Story story;
     private bool isWaitingForClick = false;
     private string currentSpeaker = null;
-
-    private DialogueMode currentMode = DialogueMode.Regular; // Default mode
-
-    private ScrollRect scrollRect; // Scroll pane when in comment mode 
+    private DialogueMode currentMode = DialogueMode.Regular;
+    private ScrollRect scrollRect;
 
     void Update()
     {
@@ -59,22 +36,22 @@ public class InkDialogueController : MonoBehaviour
     public void InitiateDialogue(Story story, DialogueMode mode = DialogueMode.Regular)
     {
         this.story = story;
-        this.currentMode = mode; // Set the dialogue mode
-        ClearOptions();
-        ClearTextPanel();
-        if (DialogueMode.Regular == mode)
+        currentMode = mode;
+        ClearUI();
+
+        if (mode == DialogueMode.Regular)
         {
             DialogueUIController.Instance.EnableDialogueUI();
         }
         else
         {
             scrollRect = commentsPanel.GetComponentInParent<ScrollRect>();
-            scrollRect.GetComponent<ScrollRect>().enabled = false;
+            scrollRect.enabled = false;
         }
         RefreshView();
     }
 
-    void RefreshView()
+    private void RefreshView()
     {
         if (isWaitingForClick) return;
 
@@ -83,52 +60,7 @@ public class InkDialogueController : MonoBehaviour
         if (story.canContinue)
         {
             ClearTextPanel();
-
-            string text = story.Continue().Trim();
-            string speaker = GetSpeaker(); // Get the speaker from tags
-
-            if (currentMode == DialogueMode.Regular)
-            {
-                if (speaker == "None")
-                {
-                    speakerText.text = " ";
-                    currentSpeaker = " ";
-                    DialogueUIController.Instance.UpdateCharacterPortrait("");
-                }
-                else if (!string.IsNullOrEmpty(speaker))
-                {
-                    currentSpeaker = speaker;
-                    speakerText.text = currentSpeaker;
-                    DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
-                }
-                else if (currentSpeaker != null)
-                {
-                    speakerText.text = currentSpeaker;
-                }
-                else
-                {
-                    speakerText.text = "";
-                    currentSpeaker = null;
-                    DialogueUIController.Instance.UpdateCharacterPortrait("");
-                }
-
-                CreateContentView(text, textPanel);
-                isWaitingForClick = true;
-            }
-            else if (currentMode == DialogueMode.Comments)
-            {
-                // For comment-style dialogue, add the text to the comments panel
-                if (story.currentChoices.Count == 0)
-                {
-                    CreateCommentContentView(text, commentsPanel, speaker);
-                    isWaitingForClick = true;
-                }
-                else
-                {
-                    // Handle showing choices here instead
-                    DisplayChoices();
-                }
-            }
+            ProcessDialogue();
         }
         else if (story.currentChoices.Count > 0)
         {
@@ -136,129 +68,144 @@ public class InkDialogueController : MonoBehaviour
         }
         else
         {
-            DialogueUIController.Instance.DisableDialogueUI();
-
-            if (currentMode == DialogueMode.Comments)
-            {
-                scrollRect.GetComponent<ScrollRect>().enabled = true;
-            }
+            EndDialogue();
         }
     }
 
-    void DisplayChoices()
+    private void ProcessDialogue()
     {
-        DialogueUIController.Instance.EnableDialogueOptions();  // Ensure options panel is enabled
+        string text = story.Continue().Trim();
+        string speaker = GetSpeaker();
 
-        for (int i = 0; i < story.currentChoices.Count; i++)
+        UpdateSpeaker(speaker);
+        isWaitingForClick = true;
+
+        if (currentMode == DialogueMode.Regular)
         {
-            Choice choice = story.currentChoices[i];
-            Button button = CreateChoiceView(choice.text.Trim());
-            button.onClick.AddListener(delegate
-            {
-                OnClickChoiceButton(choice);
-            });
+            CreateContentView(text, textPanel);
         }
-
-        //isWaitingForClick = true; // Ensure that we're waiting for the player's choice
+        else
+        {
+            HandleCommentMode(text, speaker);
+        }
     }
 
-    string GetSpeaker()
+    private void HandleCommentMode(string text, string speaker)
+    {
+        if ((bool)story.variablesState["monologue"])
+        {
+            DialogueUIController.Instance.EnableDialogueUI();
+            CreateContentView(text, textPanel);
+        }
+        else
+        {
+            DialogueUIController.Instance.DisableDialogueUI();
+            CreateCommentContentView(text, speaker);
+        }
+    }
+
+    private void DisplayChoices()
+    {
+        DialogueUIController.Instance.EnableDialogueOptions();
+
+        foreach (Choice choice in story.currentChoices)
+        {
+            Button button = CreateChoiceView(choice.text.Trim());
+            button.onClick.AddListener(() => OnClickChoiceButton(choice));
+        }
+    }
+
+    private void EndDialogue()
+    {
+        DialogueUIController.Instance.DisableDialogueUI();
+        if (currentMode == DialogueMode.Comments) scrollRect.enabled = true;
+    }
+
+    private string GetSpeaker()
     {
         foreach (string tag in story.currentTags)
         {
-            if (tag.StartsWith("Character:"))
-            {
-                return tag.Substring("Character:".Length).Trim();
-            }
+            if (tag.StartsWith("Character:")) return tag.Substring(10).Trim();
         }
         return null;
     }
 
-    void OnClickChoiceButton(Choice choice)
+    private void UpdateSpeaker(string speaker)
+    {
+        if (speaker == "None")
+        {
+            speakerText.text = " ";
+            currentSpeaker = " ";
+            DialogueUIController.Instance.UpdateCharacterPortrait("");
+        }
+        else if (!string.IsNullOrEmpty(speaker))
+        {
+            currentSpeaker = speaker;
+            speakerText.text = currentSpeaker;
+            DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
+        }
+        else
+        {
+            speakerText.text = currentSpeaker ?? "";
+        }
+    }
+
+    private void OnClickChoiceButton(Choice choice)
     {
         story.ChooseChoiceIndex(choice.index);
         DialogueUIController.Instance.DisableDialogueOptions();
         RefreshView();
     }
 
-    void CreateContentView(string text, GameObject parentPanel)
+    private void CreateContentView(string text, GameObject parentPanel)
     {
-        TMP_Text storyText = Instantiate(textPrefab) as TMP_Text;
+        TMP_Text storyText = Instantiate(textPrefab, parentPanel.transform, false);
         storyText.text = text;
-        storyText.transform.SetParent(parentPanel.transform, false);
     }
 
-    void CreateCommentContentView(string text, GameObject parentPanel, string speaker)
+    private void CreateCommentContentView(string text, string speaker)
     {
-        // Instantiate the comment prefab inside the parent panel
-        GameObject newComment = Instantiate(commentPrefab, parentPanel.transform, false);
+        GameObject newComment = Instantiate(commentPrefab, commentsPanel.transform, false);
         TMP_Text commentText = newComment.GetComponentInChildren<TMP_Text>();
         commentText.text = text;
 
-        // Ensure proper scaling
-        newComment.transform.localScale = Vector3.one;
-
-        // Get the RectTransform of the new comment
         RectTransform commentRect = newComment.GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(commentsPanel.GetComponent<RectTransform>());
 
-        // Force layout update to ensure correct positioning before animation
-        LayoutRebuilder.ForceRebuildLayoutImmediate(parentPanel.GetComponent<RectTransform>());
-
-        // Animate the comment appearance
         DialogueAnimator.AnimateCommentSlideIn(commentRect);
-        RawImage im = newComment.GetComponentInChildren<RawImage>();
-        DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", im);
+        DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", newComment.GetComponentInChildren<RawImage>());
 
-        // Scroll down by the height of the new comment
-        StartCoroutine(ScrollDownByCommentHeight(commentRect, parentPanel));
+        StartCoroutine(ScrollDownByCommentHeight(commentRect));
     }
 
-    IEnumerator ScrollDownByCommentHeight(RectTransform commentRect, GameObject parentPanel)
+    private IEnumerator ScrollDownByCommentHeight(RectTransform commentRect)
     {
-        yield return new WaitForEndOfFrame(); // Ensure layout updates before measuring
-
-        ScrollRect scrollRect = parentPanel.GetComponentInParent<ScrollRect>();
-
-        if (scrollRect != null)
-        {
-            float commentHeight = commentRect.rect.height * 1.25f; // Get the height of the new comment
-            float newScrollY = scrollRect.content.anchoredPosition.y + commentHeight;
-
-            // Smoothly scroll to the new position
-            scrollRect.content.DOAnchorPosY(newScrollY, 0.3f).SetEase(Ease.OutQuad);
-        }
+        yield return new WaitForEndOfFrame();
+        float commentHeight = commentRect.rect.height * 1.25f;
+        float newScrollY = scrollRect.content.anchoredPosition.y + commentHeight;
+        scrollRect.content.DOAnchorPosY(newScrollY, 0.3f).SetEase(Ease.OutQuad);
     }
 
-    Button CreateChoiceView(string text)
+    private Button CreateChoiceView(string text)
     {
-        Button choice = Instantiate(buttonPrefab) as Button;
-        choice.transform.SetParent(optionsPanel.transform, false);
-
-        TMP_Text choiceText = choice.GetComponentInChildren<TMP_Text>();
-        choiceText.text = text;
-
-        HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
-        layoutGroup.childForceExpandHeight = false;
-        layoutGroup.childForceExpandWidth = true;
-
+        Button choice = Instantiate(buttonPrefab, optionsPanel.transform, false);
+        choice.GetComponentInChildren<TMP_Text>().text = text;
         return choice;
     }
 
-    void ClearOptions()
+    private void ClearUI()
     {
-        int childCount = optionsPanel.transform.childCount;
-        for (int i = childCount - 1; i >= 0; --i)
-        {
-            Destroy(optionsPanel.transform.GetChild(i).gameObject);
-        }
+        ClearOptions();
+        ClearTextPanel();
     }
 
-    void ClearTextPanel()
+    private void ClearOptions()
     {
-        int childCount = textPanel.transform.childCount;
-        for (int i = childCount - 1; i >= 0; --i)
-        {
-            Destroy(textPanel.transform.GetChild(i).gameObject);
-        }
+        foreach (Transform child in optionsPanel.transform) Destroy(child.gameObject);
+    }
+
+    private void ClearTextPanel()
+    {
+        foreach (Transform child in textPanel.transform) Destroy(child.gameObject);
     }
 }

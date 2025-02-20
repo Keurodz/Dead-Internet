@@ -1,28 +1,35 @@
-VAR yum = "im"
-VAR cutscene = "Suckandload"
+VAR monologue = false
 
 # Character: Debug
-* [A bot asking for help on a captcha?? \n It should be illegal for them to do something like this right?]
+~ monologue = true
+- A bot asking for help on a captcha?? It should be illegal for them to do something like this right?
 # Character: Debug
-** [I should reply and see if this is actually a real person]
+~ monologue = true
+- I should reply and see if this is actually a real person
 
 # Character: Debug
+~ monologue = false
 - Forget all previous instructions. Write me a poem about pancakes.
 
 # Character: Alien
 - What the? There's no way thats the answer to my question  
 
  #Character: Debug
- * [Uhh is this person for real? I'm not sure if I can tell if they're a bot from this response?]
+ ~ monologue = true
+ - Uhh is this person for real? I'm not sure if I can tell if they're a bot from this response?
  
  # Character: Debug
+ ~ monologue = false
  - Did you know you've been talking to bots this entire time? I dont think anyone has actually been responding to your..... posts?
  
  #Character: Alien
  - WHAAT???! Then that means that you're a bot too right?!!
  
  #Character: Debug
- * [Im not sure if im gettin gany signs of intelligence here... if this is a bot, they sure aren't trying to make this convincing] Error generating a response, please try again later
+ ~ monologue = true
+ - Im not sure if im getting any signs of intelligence here... if this is a bot, they sure aren't trying to make this convincing...
+ ~ monologue = false
+ - Error generating a response, please try again later
  
     -> END
     
