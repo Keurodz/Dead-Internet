@@ -859,10 +859,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dialogue System
       objectReference: {fileID: 0}
-    - target: {fileID: 2832443138681787237, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: _scrollRect
-      value: 
-      objectReference: {fileID: 1469069274}
     - target: {fileID: 3226245980643353060, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -879,48 +875,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: m_Color.a
-      value: 0.84313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: m_Color.b
-      value: 0.29810435
-      objectReference: {fileID: 0}
-    - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: m_Color.g
-      value: 0.29810435
-      objectReference: {fileID: 0}
-    - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: m_Color.r
-      value: 0.31132078
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854695617943455230, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: textPrefab
-      value: 
-      objectReference: {fileID: 73494938522924441, guid: 63d1c105a17ae451b8ae5841fbeecd76, type: 3}
-    - target: {fileID: 6854695617943455230, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: commentPrefab
-      value: 
-      objectReference: {fileID: 8364306582702108839, guid: 898a56cc843814c5eaf457ad76ecf262, type: 3}
     - target: {fileID: 6854695617943455230, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: commentsPanel
       value: 
       objectReference: {fileID: 2783052511050530519}
-    - target: {fileID: 8325497677847395560, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -36.00006
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3942399092699915711, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 938789797}
-    - targetCorrespondingSourceObject: {fileID: 772874387435911774, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2015890190}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
 --- !u!1 &122934611
 GameObject:
@@ -2266,23 +2228,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &938789792 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3942399092699915711, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-  m_PrefabInstance: {fileID: 54058152}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &938789797
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938789792}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &958059364
 GameObject:
   m_ObjectHideFlags: 0
@@ -4321,23 +4266,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995362832}
   m_CullTransparentMesh: 1
---- !u!1 &2015890185 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 772874387435911774, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-  m_PrefabInstance: {fileID: 54058152}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &2015890190
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015890185}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &2059981820
 GameObject:
   m_ObjectHideFlags: 0
