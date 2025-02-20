@@ -119,6 +119,7 @@ public class InkDialogueController : MonoBehaviour
     {
         DialogueUIController.Instance.DisableDialogueUI();
         if (currentMode == DialogueMode.Comments) scrollRect.enabled = true;
+        currentSpeaker = null;
     }
 
     private string GetSpeaker()
@@ -140,9 +141,15 @@ public class InkDialogueController : MonoBehaviour
         }
         else if (!string.IsNullOrEmpty(speaker))
         {
-            currentSpeaker = speaker;
-            speakerText.text = currentSpeaker;
-            DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
+            if (currentSpeaker != speaker)
+            {
+                currentSpeaker = speaker;
+                speakerText.text = currentSpeaker;
+                if (!(DialogueMode.Comments == currentMode && !(bool)story.variablesState["monologue"]))
+                {
+                    DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
+                }
+            }
         }
         else
         {
