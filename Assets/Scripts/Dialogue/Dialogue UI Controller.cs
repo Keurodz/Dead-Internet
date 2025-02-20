@@ -14,7 +14,7 @@ public class DialogueUIController : MonoBehaviour
     private RawImage _CharacterPortrait;
 
     private Dictionary<string, Texture2D> portraitDictionary;
-
+    
     void Awake()
     {
         // Singleton setup
@@ -45,9 +45,7 @@ public class DialogueUIController : MonoBehaviour
 
     void LoadPortraits()
     {
-        //portraitDictionary = new Dictionary<string, Sprite>();
         portraitDictionary = new Dictionary<string, Texture2D>();
-        //Sprite[] sprites = Resources.LoadAll<Sprite>("Portraits");
         Texture2D[] textures = Resources.LoadAll<Texture2D>("Portraits");
 
         print("Load Portraits tried to run ");
@@ -60,23 +58,21 @@ public class DialogueUIController : MonoBehaviour
 
     public void UpdateCharacterPortrait(string portraitName)
     {
-        print("Ran code");
         if (_CharacterPortrait == null) return;
 
         if (!string.IsNullOrEmpty(portraitName) && portraitDictionary.ContainsKey(portraitName))
         {
-            print("Attempted to do the deed");
             _CharacterPortrait.texture = portraitDictionary[portraitName];
             _PortraitHolder.SetActive(true);
         }
         else
         {
-            print("Could not find the thing: " + portraitName);
             _PortraitHolder.SetActive(false); // Hide if no valid portrait
         }
     }
 
-    public void DisableDialogueOptions()
+
+public void DisableDialogueOptions()
     {
         if (_DialogueOptions != null) _DialogueOptions.SetActive(false);
     }
@@ -118,16 +114,15 @@ public class DialogueUIController : MonoBehaviour
 
     public void DisableDialogueUI()
     {
-        DisableCharacterNamePanel();
-        DisableDialogueOptions();
-        DisableTextPanel();
-        DisableCharacterPortrait();
-        
+        if (_CharacterNamePanel != null) _CharacterNamePanel.SetActive(false);
+        if (_DialogueOptions != null) _DialogueOptions.SetActive(false);
+        if (_TextPanel != null) _TextPanel.SetActive(false);
+        if (_PortraitHolder != null) _PortraitHolder.SetActive(false);
     }
 
     public void EnableDialogueUI()
     {
-        EnableCharacterNamePanel();
-        EnableTextPanel();
+        if (_CharacterNamePanel != null) _CharacterNamePanel.SetActive(true);
+        if (_TextPanel != null) _TextPanel.SetActive(true);
     }
 }

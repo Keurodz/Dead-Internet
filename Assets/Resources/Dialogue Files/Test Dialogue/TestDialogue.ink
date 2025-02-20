@@ -2,11 +2,12 @@
 - Once upon a time, in a tranquil kingdom, a young adventurer named Haley wandered the forest, seeking both solace and excitement.
 
 # Character: Skibidi
-- "Greetings, traveler," called a mischievous sprite named Skibidi, stepping out from behind a tree. "I have a challenge for you. Are you brave enough to accept?"
+- "Greetings, traveler," called a mischievous sprite named Skibidi, stepping out from behind a tree. "I have a challenge for you.
+VAR cutscene = "Suckandload"
 
 # Character: Hawk
 - As the forest grew still, a powerful voice echoed through the trees. "Who disturbs my realm?" it boomed.  
-- A figure emerged, Hawk, the guardian of this land. "Your journey is fraught with decisions, Haley. Choose wisely, for each choice carries weight."  
+- A figure emerged, Hawk, the guardian of this land. "Your journey is fraught with decisions, Haley. 
 - "And you, guardian," retorted Skibidi, smirking. "Do you ever weary of your eternal watch?"  
 
  * [Haley could sense tension in the air.]
@@ -17,7 +18,7 @@
  ** [Haley's resolve strengthened.]
 
 # Character: Peter
-- Suddenly, Peter, a mysterious wanderer, appeared. "Every path you take has its price," he said, his voice calm yet foreboding. "But even the smallest choice can ripple into something extraordinary."
+- Suddenly, Peter, a mysterious wanderer, appeared. "Every path you take has its price," he said, his voice calm yet foreboding. 
 
 # Character: None
 - And so, the journey continued, with Haley carving her own story. Each decision, a thread woven into the tapestry of her fate.  

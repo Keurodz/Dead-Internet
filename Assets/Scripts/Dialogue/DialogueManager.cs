@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     private Dictionary<string, string> dialogueMap = new Dictionary<string, string>
     {
         { "TestDialogue", "Dialogue Files/Test Dialogue/TestDialogue" },
-
+        // Add more mappings as needed
     };
 
     private void Awake()
@@ -30,7 +30,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Load and start a dialogue by key
-    public void StartDialogue(string dialogueKey)
+    public void StartDialogue(string dialogueKey, InkDialogueController.DialogueMode mode = InkDialogueController.DialogueMode.Regular)
     {
         if (dialogueMap.ContainsKey(dialogueKey))
         {
@@ -39,7 +39,7 @@ public class DialogueManager : MonoBehaviour
             {
                 currentStory = new Story(inkJSON.text);
                 isDialogueActive = true;
-                dialogueController.InitiateDialogue(currentStory);
+                dialogueController.InitiateDialogue(currentStory, mode); // Pass the mode to the controller
             }
             else
             {
@@ -52,10 +52,16 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // Method specifically for starting comment-style dialogue
+    public void StartCommentDialogue(string dialogueKey)
+    {
+        StartDialogue(dialogueKey, InkDialogueController.DialogueMode.Comments);
+    }
+
     public void EndDialogue()
     {
         isDialogueActive = false;
-        DialogueUIController.Instance .DisableDialogueUI();
+        DialogueUIController.Instance.DisableDialogueUI();
     }
 
     public bool IsDialogueActive()
