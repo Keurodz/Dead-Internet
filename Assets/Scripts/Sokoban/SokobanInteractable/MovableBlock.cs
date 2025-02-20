@@ -10,12 +10,16 @@ public class MovableBlock : MonoBehaviour, ISokobanInteractable
     }
 
     public bool TryPush(Direction direction) {
-        if (gridSystem.TryToPushBox(position, direction)) {
+        if (gridSystem.TryToPushBlock(position, direction)) {
             position += gridSystem.GetDirectionVector(direction);
             return true;
         } else {
             return false;
         }
+    }
+
+    public bool TryFloat() {
+        return false;
     }
 
     public bool IsPushable() {
