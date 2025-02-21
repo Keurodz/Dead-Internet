@@ -96,10 +96,10 @@ public class AlienAbilitySystem : MonoBehaviour
                     {
                         gridBlock.TryFloat();
                     }
-                    Destroy(projectile); 
-                    yield break;
-                }
-            }
+                } 
+                Destroy(projectile); 
+                yield break;
+            } 
             projectile.transform.position += moveStep;
             elapsedTime += Time.deltaTime;
             yield return null;
