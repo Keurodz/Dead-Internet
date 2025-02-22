@@ -116,7 +116,7 @@ public class DialogueUIController : MonoBehaviour
     {
         DisableCharacterNamePanel();
         DisableTextPanel();
-        DisableDialogueOptions();
+        //DisableDialogueOptions();
         DialogueAnimator.AnimateFadeOut(_PortraitHolder);
     }
 

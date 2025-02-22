@@ -119,6 +119,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &313337183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 267838060995367610, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+  m_PrefabInstance: {fileID: 5528136341133281026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &313337185
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313337183}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &411244196 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 772874387435911774, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
@@ -741,10 +758,29 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartRegularDialogue
       objectReference: {fileID: 0}
+    - target: {fileID: 6938478787536065189, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Start
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325497677847395560, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641412168677325808, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641412168677325808, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 267838060995367610, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 313337185}
     - targetCorrespondingSourceObject: {fileID: 3942399092699915711, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1326857837}

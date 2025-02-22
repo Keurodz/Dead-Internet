@@ -30,7 +30,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Load and start a dialogue by key
-    public void StartDialogue(string dialogueKey, InkDialogueController.DialogueMode mode = InkDialogueController.DialogueMode.Regular)
+    public void StartDialogue(string dialogueKey, string knotName = null, InkDialogueController.DialogueMode mode = InkDialogueController.DialogueMode.Regular)
     {
         if (dialogueMap.ContainsKey(dialogueKey))
         {
@@ -39,7 +39,14 @@ public class DialogueManager : MonoBehaviour
             {
                 currentStory = new Story(inkJSON.text);
                 isDialogueActive = true;
-                dialogueController.InitiateDialogue(currentStory, mode); // Pass the mode to the controller
+
+                // Jump to specific knot if provided
+                if (!string.IsNullOrEmpty(knotName) && currentStory.KnotContainerWithName(knotName) != null)
+                {
+                    currentStory.ChoosePathString(knotName);
+                }
+
+                dialogueController.InitiateDialogue(currentStory, mode);
             }
             else
             {
@@ -52,15 +59,16 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+
     public void StartRegularDialogue(string dialogueKey)
     {
-        StartDialogue(dialogueKey, InkDialogueController.DialogueMode.Regular);
+        StartDialogue("TestDialogue", dialogueKey, InkDialogueController.DialogueMode.Regular);
     }
 
     // Method specifically for starting comment-style dialogue
     public void StartCommentDialogue(string dialogueKey)
     {
-        StartDialogue(dialogueKey, InkDialogueController.DialogueMode.Comments);
+        StartDialogue("TestDialogue", dialogueKey, InkDialogueController.DialogueMode.Comments);
     }
 
     public void EndDialogue()
