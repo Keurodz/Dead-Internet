@@ -815,6 +815,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1383080492176338823, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 683
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383080492176338823, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 388
+      objectReference: {fileID: 0}
     - target: {fileID: 1449662785769335881, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 333.5
@@ -879,40 +887,11 @@ PrefabInstance:
       propertyPath: commentsPanel
       value: 
       objectReference: {fileID: 2783052511050530519}
-    - target: {fileID: 6938478787536065189, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Start
-      objectReference: {fileID: 0}
-    - target: {fileID: 8325497677847395560, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -36.000122
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4684578868321735892, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 267838060995367610, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 54058154}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
---- !u!1 &54058153 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 267838060995367610, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
-  m_PrefabInstance: {fileID: 54058152}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &54058154
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54058153}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &122934611
 GameObject:
   m_ObjectHideFlags: 0

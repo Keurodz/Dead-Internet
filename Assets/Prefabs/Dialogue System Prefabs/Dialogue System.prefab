@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 3246195948638189981}
   - component: {fileID: 445138394427774611}
   - component: {fileID: 2915755308319646787}
-  - component: {fileID: 4684578868321735892}
+  - component: {fileID: 4189622598685394206}
   m_Layer: 5
   m_Name: Dialogue Options
   m_TagString: Untagged
@@ -108,7 +108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 472, y: -36.00006}
+  m_AnchoredPosition: {x: 472, y: -36.000122}
   m_SizeDelta: {x: -953.74, y: -799.6001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3246195948638189981
@@ -175,24 +175,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &4684578868321735892
-MonoBehaviour:
+--- !u!225 &4189622598685394206
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267838060995367610}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4791d3912e92d445aaf7f65959381e7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 1
-  strength: 1
-  vibrato: 10
-  randomness: 90
-  fadeOut: 1
-  shakeType: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &772874387435911774
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +734,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: TestDialogue
+          m_StringArgument: FirstAlienDialogue
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &5393283599058257081

@@ -3,6 +3,7 @@ INCLUDE First Alien Interaction.ink
 
 VAR monologue = false
 
+SAMPLE FILLER
 == Start ==
 #Character: Debug
 - This is the start of the game.
@@ -17,7 +18,7 @@ VAR monologue = false
 
  * [Haley felt comforted by Henry's presence.]
  - "Together, we can face anything," she said with confidence.
- - I hate my life
+ - I hate my life // Used to bug test a feature DO NOT do 2 option text back to back
  * [A sense of determination filled the air.]
  - Henry nodded. "Then let's finish what we started."
 
