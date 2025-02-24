@@ -51,7 +51,7 @@ public class InkDialogueController : MonoBehaviour
         RefreshView();
     }
 
-    private void RefreshView()
+    public void RefreshView()
     {
         if (isWaitingForClick) return;
 

@@ -46,6 +46,7 @@
     
 == FirstAlienDialogue == 
 ~ monologue = false
+~ cutsceneToPlay = "Monitor ScreenTimeline"
 # Character: Alien
 - Wow! How did you get here?
 # Character: Debug

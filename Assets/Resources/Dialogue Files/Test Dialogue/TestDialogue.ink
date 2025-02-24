@@ -2,6 +2,7 @@ INCLUDE Alien Dialogues.ink
 INCLUDE First Alien Interaction.ink
 
 VAR monologue = false
+VAR cutsceneToPlay = ""
 
 SAMPLE FILLER
 == Start ==

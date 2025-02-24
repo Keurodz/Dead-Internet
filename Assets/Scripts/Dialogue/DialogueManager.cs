@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour
         // Add more mappings as needed
     };
 
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
