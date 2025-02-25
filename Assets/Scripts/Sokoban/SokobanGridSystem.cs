@@ -202,10 +202,15 @@ public class SokobanGridSystem : MonoBehaviour
     private IEnumerator FloatBlock(GameObject block, Vector2Int gridPosition) {
         movingObjects[block] = true;
         float elapsedTime = 0f;
-        float floatDuration = 1.5f;
+        float floatDuration = 0.7f;
         float floatHeight = 3f;
         Vector3 worldPosition = block.transform.position;
         Vector3 destinationPosition = worldPosition + (Vector3.up * floatHeight);
+
+        // material transparency 
+        MeshRenderer blockMesh = block.GetComponentInChildren<MeshRenderer>();
+        Color blockColor = blockMesh.material.color;
+        blockMesh.material.color = new Color(blockColor.r, blockColor.g, blockColor.b, 0.4f);
 
         while (elapsedTime < floatDuration)
         {
@@ -220,13 +225,19 @@ public class SokobanGridSystem : MonoBehaviour
         movingObjects[block] = false;
     }
 
+    // coroutine to unfloat the given block at the given position
     private IEnumerator UnfloatBlock(GameObject block, Vector2Int gridPosition) {
         movingObjects[block] = true;
         float elapsedTime = 0f;
-        float floatDuration = 1.5f;
+        float floatDuration = 0.7f;        
         float floatHeight = 3f;
         Vector3 worldPosition = block.transform.position;
         Vector3 destinationPosition = worldPosition + (Vector3.down * floatHeight);
+       
+        // material transparency 
+        MeshRenderer blockMesh = block.GetComponentInChildren<MeshRenderer>();
+        Color blockColor = blockMesh.material.color;
+        blockMesh.material.color = new Color(blockColor.r, blockColor.g, blockColor.b, 1.0f);    
 
         while (elapsedTime < floatDuration)
         {
@@ -302,7 +313,6 @@ public class SokobanGridSystem : MonoBehaviour
         // Return an empty path if no valid path found
         return new List<Vector2Int>();
     }
-
 
     // heuristics function for A*
     private float Heuristic(Vector2Int a, Vector2Int b) {
