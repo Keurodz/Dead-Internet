@@ -40,10 +40,12 @@ public class SokobanDungeonManager : MonoBehaviour
     // Progresses the index to the next dungeon level index.
     public void NextDungeon() {
         if (currentSceneIndex < dungeonLevelScenes.Count - 1) {
+            Debug.Log("Loading next dungeon level");
             currentSceneIndex++;
             SceneManager.LoadSceneAsync(dungeonLevelScenes[currentSceneIndex]);
         } else {
             // no more dungeon levels left so goes to next scene 
+            Debug.Log("Loading next scene");
             SceneManager.LoadScene(nextSceneName);
         }
     }

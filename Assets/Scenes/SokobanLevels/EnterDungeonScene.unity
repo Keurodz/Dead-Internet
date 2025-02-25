@@ -487,10 +487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonLevelScenes:
-  - SokobanLevel0
-  - SokobanLevel1
-  - SokobanLevel2
-  - SokobanLevel3
+  - 6x6_1
+  - 6x6_2
   nextSceneName: EnterDungeonScene
 --- !u!114 &131386457
 MonoBehaviour:

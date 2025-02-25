@@ -5,21 +5,72 @@ using System.Collections;
 // It should be attached to the player object to enable the alien ability.
 public class AlienAbilitySystem : MonoBehaviour
 {
+    // the projectile prefab to shoot
+
+    public GameObject projectilePrefab;
+
+    // determines if the alien ability is available
     [SerializeField]
     private bool alienAbilityAvailable = true;
 
-    public GameObject projectilePrefab;
+    // the cooldown time for the alien ability
+    [SerializeField]
+    private float alienAbilityCooldown = 5f;
+
+    // the maximum amount of ammo for the alien ability
+    [SerializeField]
+    private int alienAbilityMaxAmmo = 3;
+
+    // the current amount of ammo for the alien ability
+    private int alienAbilityCurrentAmmo;
+
+    // the cooldown timer for the alien ability
+    private float alienAbilityCooldownTimer;
+
+    // the fire point to shoot the projectile from
     private Transform firePoint;
 
     void Start()
     {
         firePoint = transform.Find("FirePoint");
+        alienAbilityCurrentAmmo = alienAbilityMaxAmmo;
+        alienAbilityCooldownTimer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        HandleAlienAbilityCooldown();
         HandleProjectileAbility();
+    }
+
+    // gets the current amount of ammo for the alien ability
+    public int GetAlienAbilityCurrentAmmo()
+    {
+        return alienAbilityCurrentAmmo;
+    }
+
+    // gets the maximum amount of ammo for the alien ability
+    public int GetAlienAbilityMaxAmmo()
+    {
+        return alienAbilityMaxAmmo;
+    }
+
+    // gets the cooldown time for the alien ability
+    public float GetAlienAbilityCooldown()
+    {
+        return alienAbilityCooldown;
+    }
+
+    public float GetAlienAbilityCooldownTimer()
+    {
+        return alienAbilityCooldownTimer;
+    }
+
+    // updates the alien ability cooldown timer
+    private void HandleAlienAbilityCooldown()
+    {
+        alienAbilityCooldownTimer += Time.deltaTime;
     }
 
     // handles the alien ability if it is available and the player presses the 'E' key
@@ -31,14 +82,24 @@ public class AlienAbilitySystem : MonoBehaviour
         }
     }
 
+    // is the projectile able to be shot?
+    private bool CanShootProjectile() {
+        return projectilePrefab != null &&
+            firePoint != null &&
+            alienAbilityCurrentAmmo > 0 &&
+            alienAbilityCooldownTimer > alienAbilityCooldown;
+    }
+
     // shoots the alien laser projectile
     private void ShootProjectile() {
-        if (projectilePrefab != null && firePoint != null)
+        if (CanShootProjectile())
         {
             Vector3 targetDirection = DetermineShotDirection();
 
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
             StartCoroutine(MoveProjectile(projectile, targetDirection));
+            alienAbilityCooldownTimer = 0f;
+            alienAbilityCurrentAmmo--;
         }
     }
 
