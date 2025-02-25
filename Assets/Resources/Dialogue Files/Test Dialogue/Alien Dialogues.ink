@@ -51,7 +51,7 @@
 # Character: Debug
 - How did I get here? What is this place? How is this possible?!
 
-~PLAY_CUTSCENE("FirstCutscene")
+//~PLAY_CUTSCENE("FirstCutscene")
 
 # Character: Alien
 - Careful! Dont touch the walls.There seems to be some kind of weird barrier that wont let me move from this place. I've been trying myself but I keep getting shocked just like you did..
@@ -82,5 +82,6 @@
 
 # Character: Alien
 - WHAT DA HECK, THAT'S MY NAME!! IT KNOWS WHO I AM?
+~PLAY_CUTSCENE("LoadScene")
  
     -> END
