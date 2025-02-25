@@ -13,6 +13,10 @@ public class ImmovableBlock : MonoBehaviour, ISokobanInteractable
         return false;
     }
 
+    public bool TryFloat() {
+        return gridSystem.TryToFloatBlock(position);
+    }
+
     public bool IsPushable() {
         return false;
     }

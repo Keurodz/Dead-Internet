@@ -10,6 +10,9 @@ public interface ISokobanInteractable
     // try to push the interactable in the given direction
     bool TryPush(Direction direction);
 
+    // try to use the float ability on the interactable 
+    bool TryFloat();
+
     // is the interactable pushable?
     bool IsPushable();
 
