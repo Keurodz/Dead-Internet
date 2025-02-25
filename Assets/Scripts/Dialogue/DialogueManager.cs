@@ -9,8 +9,7 @@ public class DialogueManager : MonoBehaviour
     private Story currentStory;
     private bool isDialogueActive;
 
-    [SerializeField]
-    private InkDialogueController dialogueController;
+    public InkDialogueController dialogueController;
 
     // Mapping character/event keys to Ink file paths
     private Dictionary<string, string> dialogueMap = new Dictionary<string, string>
@@ -39,6 +38,7 @@ public class DialogueManager : MonoBehaviour
             if (inkJSON != null)
             {
                 currentStory = new Story(inkJSON.text);
+                TimelineDialogueManager.Instance.InitializeInkFunctions(currentStory);
                 isDialogueActive = true;
 
                 // Jump to specific knot if provided

@@ -122,7 +122,7 @@ public class InkDialogueController : MonoBehaviour
         currentSpeaker = null;
     }
 
-    private string GetSpeaker()
+    public string GetSpeaker()
     {
         foreach (string tag in story.currentTags)
         {
@@ -131,7 +131,7 @@ public class InkDialogueController : MonoBehaviour
         return null;
     }
 
-    private void UpdateSpeaker(string speaker)
+    public void UpdateSpeaker(string speaker)
     {
         if (speaker == "None")
         {

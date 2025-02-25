@@ -20,6 +20,8 @@ namespace Ink.Parsed
         internal bool hadError { get { return _hadError; } }
         internal bool hadWarning { get { return _hadWarning; } }
 
+        public static object GlobalFunctionsContainer { get; set; }
+
         public Dictionary<string, Expression> constants;
         public Dictionary<string, ExternalDeclaration> externals;
 

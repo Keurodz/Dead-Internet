@@ -2932,6 +2932,8 @@ namespace Ink.Runtime
             }
         }
 
+        public static object GlobalFunctionsContainer { get; set; }
+
         Container _mainContentContainer;
         ListDefinitionsOrigin _listDefinitions;
 
