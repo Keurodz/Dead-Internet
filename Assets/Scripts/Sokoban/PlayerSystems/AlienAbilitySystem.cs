@@ -48,8 +48,10 @@ public class AlienAbilitySystem : MonoBehaviour
     {
         float maxDistance = 100f;
         RaycastHit groundHit, floatingHit;
-        bool foundGround = Physics.Raycast(firePoint.position, firePoint.forward, out groundHit, maxDistance);
-        bool foundFloating = Physics.Raycast(firePoint.position + Vector3.up * 3f, firePoint.forward, out floatingHit, maxDistance);
+        Vector3 groundFirePoint = firePoint.position;
+        Vector3 floatingFirePoint = firePoint.position + Vector3.up * 3f;
+        bool foundGround = Physics.Raycast(groundFirePoint, firePoint.forward, out groundHit, maxDistance);
+        bool foundFloating = Physics.Raycast(floatingFirePoint, firePoint.forward, out floatingHit, maxDistance);
 
         Vector3 targetDirection = firePoint.forward;
  
@@ -59,16 +61,16 @@ public class AlienAbilitySystem : MonoBehaviour
         }
         if (foundGround && !foundFloating)
         {
-            targetDirection = (groundHit.point - firePoint.position).normalized;
+            targetDirection = (groundHit.point - groundFirePoint).normalized;
         }
         if (!foundGround && foundFloating)
         {
-            targetDirection = (floatingHit.point - firePoint.position).normalized; 
+            targetDirection = (floatingHit.point - groundFirePoint).normalized; 
         }
 
         if (foundGround && foundFloating)
         {
-            Vector3 targetPoint = Vector3.Distance(groundHit.point, firePoint.position) < Vector3.Distance(floatingHit.point, firePoint.position) ? groundHit.point : floatingHit.point;
+            Vector3 targetPoint = Vector3.Distance(groundHit.point, groundFirePoint) < Vector3.Distance(floatingHit.point, floatingFirePoint) ? groundHit.point : floatingHit.point;
             targetDirection = (targetPoint - firePoint.position).normalized; 
         }
 
@@ -96,9 +98,9 @@ public class AlienAbilitySystem : MonoBehaviour
                     {
                         gridBlock.TryFloat();
                     }
-                    Destroy(projectile); 
-                    yield break;
                 }
+                Destroy(projectile); 
+                yield break;
             }
             projectile.transform.position += moveStep;
             elapsedTime += Time.deltaTime;

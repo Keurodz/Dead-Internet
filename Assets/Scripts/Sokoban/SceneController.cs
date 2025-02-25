@@ -24,6 +24,19 @@ public class SceneController : MonoBehaviour
         StartCoroutine(LoadLevel());
     }
 
+    // Restarts the current dungeon scene.
+    public void RestartLevel() {
+        StartCoroutine(Restart());
+    }
+
+    // Triggers the transition animation and reloads the current dungeon scene.
+    IEnumerator Restart() {
+        transitionAnim.SetTrigger("End");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        transitionAnim.SetTrigger("Start");
+    }
+
     // Triggers the transition animation and loads the next dungeon scene.
     IEnumerator LoadLevel() {
         transitionAnim.SetTrigger("End");
