@@ -88,6 +88,7 @@ public class TimelineDialogueManager : MonoBehaviour
         // Resume dialogue
         DialogueUIController.Instance.EnableDialogueUI();
         DialogueManager.Instance.dialogueController.RefreshView();
+        DialogueUIController.Instance.EnablePortrait();
     }
 
     private void BindTimelineTracks(string cutsceneId)

@@ -127,5 +127,11 @@ public class DialogueUIController : MonoBehaviour
         _DialogueOptions?.SetActive(false);
         _PortraitHolder?.SetActive(false);
     }
+
+    public void EnablePortrait()
+    {
+        _PortraitHolder.SetActive(true);
+        DialogueAnimator.AnimateFadeIn(_PortraitHolder);
+    }
 }
 
