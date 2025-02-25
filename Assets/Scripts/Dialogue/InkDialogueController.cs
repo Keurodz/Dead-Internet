@@ -24,12 +24,16 @@ public class InkDialogueController : MonoBehaviour
     private DialogueMode currentMode = DialogueMode.Regular;
     private ScrollRect scrollRect;
 
+    public bool inCutscene = false;
+
     void Update()
     {
-        if (isWaitingForClick && Input.GetMouseButtonDown(0))
-        {
-            isWaitingForClick = false;
-            RefreshView();
+        if (!inCutscene) {
+            if (isWaitingForClick && Input.GetMouseButtonDown(0))
+            {
+                isWaitingForClick = false;
+                RefreshView();
+            }
         }
     }
 
@@ -214,5 +218,15 @@ public class InkDialogueController : MonoBehaviour
     private void ClearTextPanel()
     {
         foreach (Transform child in textPanel.transform) Destroy(child.gameObject);
+    }
+
+    public void DisableInteractivity()
+    {
+        isWaitingForClick = false;
+    }
+
+    public void EnableInteractivity()
+    {
+        isWaitingForClick = true;
     }
 }

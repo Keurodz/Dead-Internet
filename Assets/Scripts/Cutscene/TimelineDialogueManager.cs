@@ -45,24 +45,24 @@ public class TimelineDialogueManager : MonoBehaviour
         });
     }
 
-    public void PlayTimelineCutscene(string cutsceneId)
-    {
-        if (!cutsceneMap.ContainsKey(cutsceneId))
-        {
-            Debug.LogError($"Cutscene with ID {cutsceneId} not found!");
-            return;
-        }
+    //public void PlayTimelineCutscene(string cutsceneId)
+    //{
+    //    if (!cutsceneMap.ContainsKey(cutsceneId))
+    //    {
+    //        Debug.LogError($"Cutscene with ID {cutsceneId} not found!");
+    //        return;
+    //    }
 
-        // Set isTimelinePlaying to true when starting a timeline
-        isTimelinePlaying = true;
+    //    // Set isTimelinePlaying to true when starting a timeline
+    //    isTimelinePlaying = true;
 
-        // Also, you may need to pause dialogue here
-        PauseDialogue();
+    //    // Also, you may need to pause dialogue here
+    //    PauseDialogue();
 
-        director.playableAsset = cutsceneMap[cutsceneId];
-        BindTimelineTracks(cutsceneId);
-        director.Play();
-    }
+    //    director.playableAsset = cutsceneMap[cutsceneId];
+    //    BindTimelineTracks(cutsceneId);
+    //    director.Play();
+    //}
 
     private IEnumerator PlayTimelineAndWait(string cutsceneId)
     {
@@ -71,6 +71,8 @@ public class TimelineDialogueManager : MonoBehaviour
             Debug.LogError($"Cutscene with ID {cutsceneId} not found!");
             yield break;
         }
+
+        DialogueManager.Instance.dialogueController.inCutscene = true;
 
         isTimelinePlaying = true;
         PauseDialogue();
@@ -86,6 +88,7 @@ public class TimelineDialogueManager : MonoBehaviour
         }
 
         // Resume dialogue
+        DialogueManager.Instance.dialogueController.inCutscene = false;
         DialogueUIController.Instance.EnableDialogueUI();
         DialogueManager.Instance.dialogueController.RefreshView();
         DialogueUIController.Instance.EnablePortrait();
