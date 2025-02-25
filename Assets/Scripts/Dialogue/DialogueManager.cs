@@ -7,7 +7,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
 
     private Story currentStory;
-    private bool isDialogueActive;
+    public bool isDialogueActive;
 
     public InkDialogueController dialogueController;
 

@@ -42,6 +42,11 @@
  ~monologue = true
  - ... Its not ideal but I guess I found signs of someone's grandma online... let me write this down in my notes I guess
  
+ #Character: Debug
+ - Wait.. whats going on!! 
+ 
+ ~PLAY_CUTSCENE("LoadScene")
+ 
     -> END
     
 == FirstAlienDialogue == 
@@ -50,8 +55,6 @@
 - Wow! How did you get here?
 # Character: Debug
 - How did I get here? What is this place? How is this possible?!
-
-//~PLAY_CUTSCENE("FirstCutscene")
 
 # Character: Alien
 - Careful! Dont touch the walls.There seems to be some kind of weird barrier that wont let me move from this place. I've been trying myself but I keep getting shocked just like you did..
@@ -82,6 +85,5 @@
 
 # Character: Alien
 - WHAT DA HECK, THAT'S MY NAME!! IT KNOWS WHO I AM?
-~PLAY_CUTSCENE("LoadScene")
  
     -> END

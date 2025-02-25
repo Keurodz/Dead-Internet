@@ -12,6 +12,6 @@ public class SignalProcessor : MonoBehaviour
         }
 
         print("Tried To load this shit");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneName);
     }
 }

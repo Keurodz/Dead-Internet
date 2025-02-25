@@ -45,27 +45,15 @@ public class TimelineDialogueManager : MonoBehaviour
         });
     }
 
-    //public void PlayTimelineCutscene(string cutsceneId)
-    //{
-    //    if (!cutsceneMap.ContainsKey(cutsceneId))
-    //    {
-    //        Debug.LogError($"Cutscene with ID {cutsceneId} not found!");
-    //        return;
-    //    }
-
-    //    // Set isTimelinePlaying to true when starting a timeline
-    //    isTimelinePlaying = true;
-
-    //    // Also, you may need to pause dialogue here
-    //    PauseDialogue();
-
-    //    director.playableAsset = cutsceneMap[cutsceneId];
-    //    BindTimelineTracks(cutsceneId);
-    //    director.Play();
-    //}
+    public void PlayTriggerCutscene(string cutsceneId)
+    {
+        StartCoroutine(PlayTimelineAndWait(cutsceneId));
+    }
 
     private IEnumerator PlayTimelineAndWait(string cutsceneId)
     {
+        bool isInDialogue = DialogueManager.Instance.isDialogueActive;
+
         if (!cutsceneMap.TryGetValue(cutsceneId, out PlayableAsset cutscene))
         {
             Debug.LogError($"Cutscene with ID {cutsceneId} not found!");
@@ -75,6 +63,7 @@ public class TimelineDialogueManager : MonoBehaviour
         DialogueManager.Instance.dialogueController.inCutscene = true;
 
         isTimelinePlaying = true;
+        if (isInDialogue) { PauseDialogue(); }
         PauseDialogue();
 
         director.playableAsset = cutscene;
@@ -87,11 +76,15 @@ public class TimelineDialogueManager : MonoBehaviour
             yield return null; // Wait until OnTimelineCompleted is called
         }
 
-        // Resume dialogue
         DialogueManager.Instance.dialogueController.inCutscene = false;
-        DialogueUIController.Instance.EnableDialogueUI();
-        DialogueManager.Instance.dialogueController.RefreshView();
-        DialogueUIController.Instance.EnablePortrait();
+        // Resume dialogue
+        if (isInDialogue)
+        {
+            DialogueUIController.Instance.EnableDialogueUI();
+            DialogueManager.Instance.dialogueController.RefreshView();
+            DialogueUIController.Instance.EnablePortrait();
+        }
+        
     }
 
     private void BindTimelineTracks(string cutsceneId)
