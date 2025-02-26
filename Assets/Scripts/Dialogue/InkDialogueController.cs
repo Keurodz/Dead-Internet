@@ -122,6 +122,7 @@ public class InkDialogueController : MonoBehaviour
     private void EndDialogue()
     {
         DialogueUIController.Instance.DisableDialogueUI();
+        DialogueManager.Instance.EndDialogue();
         if (currentMode == DialogueMode.Comments) scrollRect.enabled = true;
         currentSpeaker = null;
     }

@@ -248,14 +248,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.16470589}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.15686275}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -433,6 +433,9 @@ GameObject:
   - component: {fileID: 1449662785769335881}
   - component: {fileID: 6854695617943455230}
   - component: {fileID: 2552805947169035131}
+  - component: {fileID: 3386174902662227378}
+  - component: {fileID: 3317845942538426213}
+  - component: {fileID: 448195317099925956}
   m_Layer: 0
   m_Name: Dialogue System
   m_TagString: Untagged
@@ -476,6 +479,7 @@ MonoBehaviour:
   speakerText: {fileID: 88660387261080926}
   buttonPrefab: {fileID: 1091243228608624372, guid: 779d7465b807740bb8d293f89557ae47, type: 3}
   commentPrefab: {fileID: 8364306582702108839, guid: 898a56cc843814c5eaf457ad76ecf262, type: 3}
+  inCutscene: 0
 --- !u!114 &2552805947169035131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,7 +492,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ce3ede4913f47a39844d53e7680bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDialogueActive: 0
   dialogueController: {fileID: 6854695617943455230}
+--- !u!114 &3386174902662227378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880005368005775490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c76100ed3aad42ccb5faccf0038a788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutscenes:
+  - {fileID: 11400000, guid: 0df4505f652014acd836c7233db71f82, type: 2}
+  - {fileID: 11400000, guid: cde391764e4a4409fb5a4d03e8bd9d04, type: 2}
+--- !u!114 &3317845942538426213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880005368005775490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: f090e8ba4256d4bc2b7d421351b8c293, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 448195317099925956}
+          m_TargetAssemblyTypeName: SignalProcessor, Assembly-CSharp
+          m_MethodName: LoadSceneByName
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: EnterDungeonScene
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &448195317099925956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880005368005775490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf174411f99442debc83699e51724bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3942399092699915711
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5411938321375874451
 RectTransform:
   m_ObjectHideFlags: 0
@@ -727,7 +789,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2552805947169035131}
         m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
-        m_MethodName: StartCommentDialogue
+        m_MethodName: StartRegularDialogue
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -773,7 +835,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 709, y: 333}
+  m_AnchoredPosition: {x: 683, y: 388}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4320066604037047675

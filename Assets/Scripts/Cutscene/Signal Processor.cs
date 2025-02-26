@@ -14,4 +14,12 @@ public class SignalProcessor : MonoBehaviour
         print("Tried To load this shit");
         SceneManager.LoadScene(sceneName);
     }
+
+    public void InitiateDialogueSequence(string dialogueKey)
+    {
+        if (!string.IsNullOrEmpty(dialogueKey))
+        {
+            DialogueManager.Instance.StartRegularDialogue(dialogueKey);
+        }
+    }
 }
