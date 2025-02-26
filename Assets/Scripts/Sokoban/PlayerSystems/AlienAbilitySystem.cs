@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -5,17 +6,18 @@ using System.Collections;
 // It should be attached to the player object to enable the alien ability.
 public class AlienAbilitySystem : MonoBehaviour
 {
-    // the projectile prefab to shoot
-
-    public GameObject projectilePrefab;
-
     // determines if the alien ability is available
     [SerializeField]
-    private bool alienAbilityAvailable = true;
+    public bool alienAbilityAvailable = true;
+
+    // the projectile prefab to shoot
+
+    [SerializeField]
+    private GameObject projectilePrefab;
 
     // the cooldown time for the alien ability
     [SerializeField]
-    private float alienAbilityCooldown = 5f;
+    private float alienAbilityTotalCooldown = 5f;
 
     // the maximum amount of ammo for the alien ability
     [SerializeField]
@@ -30,11 +32,30 @@ public class AlienAbilitySystem : MonoBehaviour
     // the fire point to shoot the projectile from
     private Transform firePoint;
 
+    // action listeners for ammo count and cooldown changes 
+    // to update the UI
+    public event Action<int> OnAmmoCountChanged;
+    public event Action<float, float> OnAbilityCooldownChanged;
+
+    // sets the ammo count and invokes the action listener
+    public void SetAmmoCount(int count)
+    {
+        alienAbilityCurrentAmmo = count;
+        OnAmmoCountChanged?.Invoke(alienAbilityCurrentAmmo);
+    }
+
+    // sets the ability cooldown and invokes the action listener
+
+    public void SetAbilityCooldown(float time)
+    {
+        alienAbilityCooldownTimer = time;
+        OnAbilityCooldownChanged?.Invoke(alienAbilityCooldownTimer, alienAbilityTotalCooldown);
+    }
     void Start()
     {
         firePoint = transform.Find("FirePoint");
-        alienAbilityCurrentAmmo = alienAbilityMaxAmmo;
-        alienAbilityCooldownTimer = 0f;
+        SetAmmoCount(alienAbilityMaxAmmo);
+        SetAbilityCooldown(alienAbilityTotalCooldown);
     }
 
     // Update is called once per frame
@@ -44,33 +65,10 @@ public class AlienAbilitySystem : MonoBehaviour
         HandleProjectileAbility();
     }
 
-    // gets the current amount of ammo for the alien ability
-    public int GetAlienAbilityCurrentAmmo()
-    {
-        return alienAbilityCurrentAmmo;
-    }
-
-    // gets the maximum amount of ammo for the alien ability
-    public int GetAlienAbilityMaxAmmo()
-    {
-        return alienAbilityMaxAmmo;
-    }
-
-    // gets the cooldown time for the alien ability
-    public float GetAlienAbilityCooldown()
-    {
-        return alienAbilityCooldown;
-    }
-
-    public float GetAlienAbilityCooldownTimer()
-    {
-        return alienAbilityCooldownTimer;
-    }
-
     // updates the alien ability cooldown timer
     private void HandleAlienAbilityCooldown()
     {
-        alienAbilityCooldownTimer += Time.deltaTime;
+        SetAbilityCooldown(alienAbilityCooldownTimer + Time.deltaTime);
     }
 
     // handles the alien ability if it is available and the player presses the 'E' key
@@ -87,7 +85,7 @@ public class AlienAbilitySystem : MonoBehaviour
         return projectilePrefab != null &&
             firePoint != null &&
             alienAbilityCurrentAmmo > 0 &&
-            alienAbilityCooldownTimer > alienAbilityCooldown;
+            alienAbilityCooldownTimer > alienAbilityTotalCooldown;
     }
 
     // shoots the alien laser projectile
@@ -98,8 +96,8 @@ public class AlienAbilitySystem : MonoBehaviour
 
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
             StartCoroutine(MoveProjectile(projectile, targetDirection));
-            alienAbilityCooldownTimer = 0f;
-            alienAbilityCurrentAmmo--;
+            SetAbilityCooldown(0f);
+            SetAmmoCount(this.alienAbilityCurrentAmmo - 1);
         }
     }
 

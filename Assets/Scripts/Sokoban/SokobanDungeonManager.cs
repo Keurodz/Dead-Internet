@@ -21,7 +21,10 @@ public class SokobanDungeonManager : MonoBehaviour
     [SerializeField]
     public string nextSceneName;
 
-    void Awake() {
+    // the index of the current dungeon level
+    private int currentSceneIndex = 0;
+
+    private void Awake() {
         if (Instance == null) {
             Instance = this;
         } else {
@@ -29,7 +32,15 @@ public class SokobanDungeonManager : MonoBehaviour
         }
     }
 
-    private int currentSceneIndex = 0;
+    // returns the current dungeon level index
+    public int currentDungeonLevelIndex() {
+        return currentSceneIndex;
+    }
+
+    // returns the total number of dungeon levels
+    public int totalDungeonLevels() {
+        return dungeonLevelScenes.Count;
+    }
 
     // Loads the first dungeon level.
     public void EnterDungeon() {
