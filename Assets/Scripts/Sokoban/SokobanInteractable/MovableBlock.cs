@@ -27,7 +27,7 @@ public class MovableBlock : MonoBehaviour, ISokobanInteractable
     }
 
     public void Initialize(Vector2Int position) {
-        Debug.Log("MovableBlock initialized at " + position);
+        // Debug.Log("MovableBlock initialized at " + position);
         this.position = position;
         gridSystem = FindAnyObjectByType<SokobanGridSystem>();
         transform.position = gridSystem.grid.GetCellCenterWorld((Vector3Int)position);

@@ -209,12 +209,19 @@ public class SokobanGridSystem : MonoBehaviour
 
         // material transparency 
         MeshRenderer blockMesh = block.GetComponentInChildren<MeshRenderer>();
-        Color blockColor = blockMesh.material.color;
-        blockMesh.material.color = new Color(blockColor.r, blockColor.g, blockColor.b, 0.4f);
+        Color initialColor = blockMesh.material.color;
+        float startAlpha = initialColor.a;
+        float targetAlpha = 0.4f;
 
         while (elapsedTime < floatDuration)
         {
-            block.transform.position = Vector3.Lerp(worldPosition, destinationPosition, elapsedTime / floatDuration);
+            float timeChange = elapsedTime / floatDuration;
+            block.transform.position = Vector3.Lerp(worldPosition, destinationPosition, timeChange);
+
+            Color newColor = blockMesh.material.color;
+            newColor.a = Mathf.Lerp(startAlpha, targetAlpha, timeChange);
+            blockMesh.material.color = newColor;
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -236,12 +243,19 @@ public class SokobanGridSystem : MonoBehaviour
        
         // material transparency 
         MeshRenderer blockMesh = block.GetComponentInChildren<MeshRenderer>();
-        Color blockColor = blockMesh.material.color;
-        blockMesh.material.color = new Color(blockColor.r, blockColor.g, blockColor.b, 1.0f);    
+        Color initialColor = blockMesh.material.color;
+        float startAlpha = initialColor.a;
+        float targetAlpha = 1f;
 
         while (elapsedTime < floatDuration)
         {
-            block.transform.position = Vector3.Lerp(worldPosition, destinationPosition, elapsedTime / floatDuration);
+            float timeChange = elapsedTime / floatDuration;
+
+            Color newColor = blockMesh.material.color;
+            newColor.a = Mathf.Lerp(startAlpha, targetAlpha, timeChange);
+            blockMesh.material.color = newColor;
+
+            block.transform.position = Vector3.Lerp(worldPosition, destinationPosition, timeChange);
             elapsedTime += Time.deltaTime;
             yield return null;
         }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -5,21 +6,69 @@ using System.Collections;
 // It should be attached to the player object to enable the alien ability.
 public class AlienAbilitySystem : MonoBehaviour
 {
+    // determines if the alien ability is available
     [SerializeField]
-    private bool alienAbilityAvailable = true;
+    public bool alienAbilityAvailable = true;
 
-    public GameObject projectilePrefab;
+    // the projectile prefab to shoot
+
+    [SerializeField]
+    private GameObject projectilePrefab;
+
+    // the cooldown time for the alien ability
+    [SerializeField]
+    private float alienAbilityTotalCooldown = 5f;
+
+    // the maximum amount of ammo for the alien ability
+    [SerializeField]
+    private int alienAbilityMaxAmmo = 3;
+
+    // the current amount of ammo for the alien ability
+    private int alienAbilityCurrentAmmo;
+
+    // the cooldown timer for the alien ability
+    private float alienAbilityCooldownTimer;
+
+    // the fire point to shoot the projectile from
     private Transform firePoint;
 
+    // action listeners for ammo count and cooldown changes 
+    // to update the UI
+    public event Action<int> OnAmmoCountChanged;
+    public event Action<float, float> OnAbilityCooldownChanged;
+
+    // sets the ammo count and invokes the action listener
+    public void SetAmmoCount(int count)
+    {
+        alienAbilityCurrentAmmo = count;
+        OnAmmoCountChanged?.Invoke(alienAbilityCurrentAmmo);
+    }
+
+    // sets the ability cooldown and invokes the action listener
+
+    public void SetAbilityCooldown(float time)
+    {
+        alienAbilityCooldownTimer = time;
+        OnAbilityCooldownChanged?.Invoke(alienAbilityCooldownTimer, alienAbilityTotalCooldown);
+    }
     void Start()
     {
         firePoint = transform.Find("FirePoint");
+        SetAmmoCount(alienAbilityMaxAmmo);
+        SetAbilityCooldown(alienAbilityTotalCooldown);
     }
 
     // Update is called once per frame
     void Update()
     {
+        HandleAlienAbilityCooldown();
         HandleProjectileAbility();
+    }
+
+    // updates the alien ability cooldown timer
+    private void HandleAlienAbilityCooldown()
+    {
+        SetAbilityCooldown(alienAbilityCooldownTimer + Time.deltaTime);
     }
 
     // handles the alien ability if it is available and the player presses the 'E' key
@@ -31,14 +80,24 @@ public class AlienAbilitySystem : MonoBehaviour
         }
     }
 
+    // is the projectile able to be shot?
+    private bool CanShootProjectile() {
+        return projectilePrefab != null &&
+            firePoint != null &&
+            alienAbilityCurrentAmmo > 0 &&
+            alienAbilityCooldownTimer > alienAbilityTotalCooldown;
+    }
+
     // shoots the alien laser projectile
     private void ShootProjectile() {
-        if (projectilePrefab != null && firePoint != null)
+        if (CanShootProjectile())
         {
             Vector3 targetDirection = DetermineShotDirection();
 
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
             StartCoroutine(MoveProjectile(projectile, targetDirection));
+            SetAbilityCooldown(0f);
+            SetAmmoCount(this.alienAbilityCurrentAmmo - 1);
         }
     }
 
@@ -48,8 +107,10 @@ public class AlienAbilitySystem : MonoBehaviour
     {
         float maxDistance = 100f;
         RaycastHit groundHit, floatingHit;
-        bool foundGround = Physics.Raycast(firePoint.position, firePoint.forward, out groundHit, maxDistance);
-        bool foundFloating = Physics.Raycast(firePoint.position + Vector3.up * 3f, firePoint.forward, out floatingHit, maxDistance);
+        Vector3 groundFirePoint = firePoint.position;
+        Vector3 floatingFirePoint = firePoint.position + Vector3.up * 3f;
+        bool foundGround = Physics.Raycast(groundFirePoint, firePoint.forward, out groundHit, maxDistance);
+        bool foundFloating = Physics.Raycast(floatingFirePoint, firePoint.forward, out floatingHit, maxDistance);
 
         Vector3 targetDirection = firePoint.forward;
  
@@ -59,16 +120,16 @@ public class AlienAbilitySystem : MonoBehaviour
         }
         if (foundGround && !foundFloating)
         {
-            targetDirection = (groundHit.point - firePoint.position).normalized;
+            targetDirection = (groundHit.point - groundFirePoint).normalized;
         }
         if (!foundGround && foundFloating)
         {
-            targetDirection = (floatingHit.point - firePoint.position).normalized; 
+            targetDirection = (floatingHit.point - groundFirePoint).normalized; 
         }
 
         if (foundGround && foundFloating)
         {
-            Vector3 targetPoint = Vector3.Distance(groundHit.point, firePoint.position) < Vector3.Distance(floatingHit.point, firePoint.position) ? groundHit.point : floatingHit.point;
+            Vector3 targetPoint = Vector3.Distance(groundHit.point, groundFirePoint) < Vector3.Distance(floatingHit.point, floatingFirePoint) ? groundHit.point : floatingHit.point;
             targetDirection = (targetPoint - firePoint.position).normalized; 
         }
 
@@ -96,10 +157,10 @@ public class AlienAbilitySystem : MonoBehaviour
                     {
                         gridBlock.TryFloat();
                     }
-                } 
+                }
                 Destroy(projectile); 
                 yield break;
-            } 
+            }
             projectile.transform.position += moveStep;
             elapsedTime += Time.deltaTime;
             yield return null;
