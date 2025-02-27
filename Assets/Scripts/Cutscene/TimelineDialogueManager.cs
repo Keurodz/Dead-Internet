@@ -50,6 +50,7 @@ public class TimelineDialogueManager : MonoBehaviour
         StartCoroutine(PlayTimelineAndWait(cutsceneId));
     }
 
+    // Play Cutscene and wait until its done playing 
     private IEnumerator PlayTimelineAndWait(string cutsceneId)
     {
         bool isInDialogue = DialogueManager.Instance.isDialogueActive;

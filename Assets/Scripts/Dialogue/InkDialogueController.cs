@@ -143,6 +143,7 @@ public class InkDialogueController : MonoBehaviour
             speakerText.text = " ";
             currentSpeaker = " ";
             DialogueUIController.Instance.UpdateCharacterPortrait("");
+            DialogueUIController.Instance.DisableCharacterNamePanel();
         }
         else if (!string.IsNullOrEmpty(speaker))
         {
@@ -152,6 +153,7 @@ public class InkDialogueController : MonoBehaviour
                 speakerText.text = currentSpeaker;
                 if (!(DialogueMode.Comments == currentMode && !(bool)story.variablesState["monologue"]))
                 {
+                    DialogueUIController.Instance.EnableCharacterNamePanel();
                     DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
                 }
             }

@@ -51,39 +51,99 @@
     
 == FirstAlienDialogue == 
 ~ monologue = false
-# Character: Alien
-- Wow! How did you get here?
 # Character: Debug
-- How did I get here? What is this place? How is this possible?!
-
+- What the hell...?
 # Character: Alien
-- Careful! Dont touch the walls.There seems to be some kind of weird barrier that wont let me move from this place. I've been trying myself but I keep getting shocked just like you did..
+- Oh! You’re new! Wow, this doesn’t happen often!" 
 
-# Character: Alien
-- Why are you staring at me like that, like i'm some kind of weirdo? Who even are you anyways?
+# Character: None
+- She tilts her head, studying me like I’m some kind of glitch
 
 # Character: Debug
-- Its none of your business. I think I should be the one asking the questions here.
+- Who are you? Where am I?
 
 # Character: Alien
-- Huhhh? I'm pretty sure I was here before you, what gves you the right to ask me questions?
+- I'm Toto! And, um… you’re in the Underweb." *She shifts awkwardly.* "It’s like… a place where things that don’t fit go. People. Data. Stuff that gets lost." *She chews her lip.* "I think. Maybe. I dunno. I never really figured it out."
 
 # Character: Debug
-- Well, why should I trust you or tell you anything? Weren't you the bot I was just talking to?
+- That doesn't make any sense. How did I get here?
 
 # Character: Alien
-- That was you?! You weren't helpful at all!
-
-# Character: System
-- Would you like to continue?
-
-# Character: Alien
-- Hey! This never happened before, try it! Try it please! I’ve been stuck here, bored out of my mind. Maybe this will lead to something promising about what this place is and how to leave it.
+- Ooooh, you clicked a link, didn’t you? Yeah, that happens." *She laughs nervously.* "That’s how I got here too! I think. A long time ago? Maybe? It’s hard to tell time here.
 
 # Character: Debug
-- This is strange.... But, I don't know what else to do except push the button.
+- Right. Well, I need to leave. How do I get out?
 
 # Character: Alien
-- WHAT DA HECK, THAT'S MY NAME!! IT KNOWS WHO I AM?
+-Oh. Um. Yeah… That’s… tricky. Nobody really *leaves.* I mean, maybe? But I haven’t seen it happen. And I’ve been here a *while.*
+
+# Character: Debug
+- That’s not an answer. There has to be a way back. Every system has an escape route. A backdoor. A fail-safe.
+
+# Character: Alien
+- Ohhh, you sound smart! Maybe you *can* figure it out! But first… I have to make sure you’re really *you.*
+
+# Character: Debug
+- Excuse me?
+
+# Character: Alien 
+- Well, you could be, um… y’know. Not real. Or a piece of someone. Or—oh! A bot! Those show up sometimes. But don’t worry! It’s a simple test!" *She grins, bouncing slightly.* "What’s two plus two?
+
+#Character: Debug
+- Are you serious?
+
+# Character: Alien
+- Super serious! Answer, quick!
+
+# Character:Debug
+- Four
+
+# Character: Alien
+- Hmmm. Okay! That’s a good sign. Bots don’t *hesitate.* But! The real answer is ‘whatever the algorithm wants it to be!’ Sooo… I *think* you’re real. Probably.
+
+# Character: None
+- \*This is ridiculous... but she doesn't seen like she's lying. Just.. confused.*
+
+#Character: Debug
+- Anyway, I should try to move on as much as I can
  
     -> END
+    
+== TheFirstPuzzle ==
+#Character: None
+- A distant hum grows louder. Data streams pulse beneath our feet. Toto gestures to a floating panel covered in shifting text.
+
+#Character: Alien
+- Alright, um, so. You wanna leave? Then you gotta show you can handle yourself first! See these crates? They’re packets of lost data. You gotta sort ‘em before they corrupt. Otherwise… well, let’s not talk about otherwise.
+
+# Character: Debug 
+- And if I don't?
+
+# Character: Alien
+- Then you stay here. Forever. Or until something worse finds you.
+
+# Character: Debug
+- \* Great. Trial by fire.* "Fine. Let’s do this.
+
+# Character: None
+- A robotic voice suddenly echoes through the space, monotone and absolute.
+
+# Character: System
+- Users must sort corrupted data packets to prevent system collapse. Unsorted packets will be erased. Failure to comply will result in permanent retention.
+
+# Character: None 
+- \* Toto jumps, her pixels flickering in alarm.*
+
+# Character: Alien
+- Whoa! That's new! I don't remember it saying that before... *She gulps.* Uh, you got this, right?
+
+# Character: Debug
+- This just keeps getting better... Just tell me what I need to do.
+
+# Character: None
+- \*Toto looks at me, wide-eyed.*
+
+# Character: Alien
+- I have no idea
+
+-> END
