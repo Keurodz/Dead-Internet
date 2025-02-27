@@ -33,6 +33,7 @@ public class SceneController : MonoBehaviour
     IEnumerator Restart() {
         transitionAnim.SetTrigger("End");
         yield return new WaitForSeconds(1f);
+        Debug.Log("Restarting level " + SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         transitionAnim.SetTrigger("Start");
     }

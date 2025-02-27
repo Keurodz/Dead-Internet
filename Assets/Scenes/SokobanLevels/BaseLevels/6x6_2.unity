@@ -1177,6 +1177,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1233949538000404130, guid: 83bf21e04932f4b888a23f57de1cf7d7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233949538000404130, guid: 83bf21e04932f4b888a23f57de1cf7d7, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233949538000404130, guid: 83bf21e04932f4b888a23f57de1cf7d7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1233949538000404130, guid: 83bf21e04932f4b888a23f57de1cf7d7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2919004176789446882, guid: 83bf21e04932f4b888a23f57de1cf7d7, type: 3}
       propertyPath: m_Name
       value: SokobanGameManager
