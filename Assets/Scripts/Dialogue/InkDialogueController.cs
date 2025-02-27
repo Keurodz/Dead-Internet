@@ -3,67 +3,59 @@ using Ink.Runtime;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using System.Collections;
 
 public class InkDialogueController : MonoBehaviour
 {
     public static event Action<Story> OnCreateStory;
 
-    [SerializeField]
-    private TextAsset inkJSONAsset = null;
-    public Story story;
+    public enum DialogueMode { Regular, Comments }
 
-    [SerializeField]
-    private GameObject optionsPanel = null;
+    [SerializeField] private TextAsset inkJSONAsset;
+    [SerializeField] private GameObject optionsPanel, textPanel, commentsPanel;
+    [SerializeField] private TMP_Text textPrefab, speakerText;
+    [SerializeField] private Button buttonPrefab;
+    [SerializeField] private GameObject commentPrefab;
 
-    [SerializeField]
-    private TMP_Text textPrefab;
-    [SerializeField]
-    private Button buttonPrefab;
-
-    [SerializeField]
-    private GameObject textPanel = null;
-
-    [SerializeField]
-    private TMP_Text speakerText; // Add a UI element for the speaker's name
-
+    private Story story;
     private bool isWaitingForClick = false;
-    private string currentSpeaker = null; // Store the current speaker
+    private string currentSpeaker = null;
+    private DialogueMode currentMode = DialogueMode.Regular;
+    private ScrollRect scrollRect;
 
-    //void Start()
-    //{
-    //    ClearOptions();
-    //    ClearTextPanel();
-    //    StartStory();
-    //}
+    public bool inCutscene = false;
 
     void Update()
     {
-        if (isWaitingForClick && Input.GetMouseButtonDown(0))
-        {
-            isWaitingForClick = false;
-            RefreshView();
+        if (!inCutscene) {
+            if (isWaitingForClick && Input.GetMouseButtonDown(0))
+            {
+                isWaitingForClick = false;
+                RefreshView();
+            }
         }
     }
 
-    public void InitiateDialogue(Story story)
+    public void InitiateDialogue(Story story, DialogueMode mode = DialogueMode.Regular)
     {
         this.story = story;
-        ClearOptions();
-        ClearTextPanel();
-        DialogueUIController.Instance.EnableDialogueUI();
+        currentMode = mode;
+        ClearUI();
+
+        if (mode == DialogueMode.Regular)
+        {
+            DialogueUIController.Instance.EnableDialogueUI();
+        }
+        else
+        {
+            scrollRect = commentsPanel.GetComponentInParent<ScrollRect>();
+            scrollRect.enabled = false;
+        }
         RefreshView();
     }
 
-
-    void StartStory()
-    {
-        story = new Story(inkJSONAsset.text);
-        if (OnCreateStory != null) OnCreateStory(story);
-        DialogueUIController.Instance.EnableDialogueUI();
-        RefreshView();
-    }
-
-    void RefreshView()
+    public void RefreshView()
     {
         if (isWaitingForClick) return;
 
@@ -72,115 +64,172 @@ public class InkDialogueController : MonoBehaviour
         if (story.canContinue)
         {
             ClearTextPanel();
-
-            string text = story.Continue().Trim();
-            string speaker = GetSpeaker(); // Get the speaker from tags
-
-            if (speaker == "None")
-            {
-                // Explicitly clear the speaker when "None" is specified
-                speakerText.text = " ";
-                currentSpeaker = " ";
-                DialogueUIController.Instance.UpdateCharacterPortrait("");
-            }
-            else if (!string.IsNullOrEmpty(speaker))
-            {
-                currentSpeaker = speaker; // Update the current speaker
-                speakerText.text = currentSpeaker; // Display the speaker's name
-                print("Current Speaker: " + currentSpeaker);
-                DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
-            }
-            else if (currentSpeaker != null)
-            {
-                // If the current speaker exists, retain it for continuity
-                speakerText.text = currentSpeaker;
-            }
-            else
-            {
-                // No speaker context (system talking)
-                speakerText.text = ""; // Clear the speaker text
-                currentSpeaker = null; // Reset current speaker
-                DialogueUIController.Instance.UpdateCharacterPortrait("");
-            }
-
-            CreateContentView(text);
-            isWaitingForClick = true;
+            ProcessDialogue();
         }
         else if (story.currentChoices.Count > 0)
         {
-            DialogueUIController.Instance.EnableDialogueOptions();
-            for (int i = 0; i < story.currentChoices.Count; i++)
-            {
-                Choice choice = story.currentChoices[i];
-                Button button = CreateChoiceView(choice.text.Trim());
-                button.onClick.AddListener(delegate
-                {
-                    OnClickChoiceButton(choice);
-                });
-            }
+            DisplayChoices();
+        }
+        else
+        {
+            EndDialogue();
+        }
+    }
+
+    private void ProcessDialogue()
+    {
+        string text = story.Continue().Trim();
+        string speaker = GetSpeaker();
+
+        UpdateSpeaker(speaker);
+        isWaitingForClick = true;
+
+        if (currentMode == DialogueMode.Regular)
+        {
+            CreateContentView(text, textPanel);
+        }
+        else
+        {
+            HandleCommentMode(text, speaker);
+        }
+    }
+
+    private void HandleCommentMode(string text, string speaker)
+    {
+        if ((bool)story.variablesState["monologue"])
+        {
+            DialogueUIController.Instance.EnableDialogueUI();
+            CreateContentView(text, textPanel);
         }
         else
         {
             DialogueUIController.Instance.DisableDialogueUI();
+            CreateCommentContentView(text, speaker);
         }
     }
 
-    string GetSpeaker()
+    private void DisplayChoices()
+    {
+        DialogueUIController.Instance.EnableDialogueOptions();
+
+        foreach (Choice choice in story.currentChoices)
+        {
+            Button button = CreateChoiceView(choice.text.Trim());
+            button.onClick.AddListener(() => OnClickChoiceButton(choice));
+        }
+    }
+
+    private void EndDialogue()
+    {
+        DialogueUIController.Instance.DisableDialogueUI();
+        DialogueManager.Instance.EndDialogue();
+        if (currentMode == DialogueMode.Comments) scrollRect.enabled = true;
+        currentSpeaker = null;
+    }
+
+    public string GetSpeaker()
     {
         foreach (string tag in story.currentTags)
         {
-            if (tag.StartsWith("Character:"))
-            {
-                return tag.Substring("Character:".Length).Trim();
-            }
+            if (tag.StartsWith("Character:")) return tag.Substring(10).Trim();
         }
         return null;
     }
 
-    void OnClickChoiceButton(Choice choice)
+    public void UpdateSpeaker(string speaker)
+    {
+        if (speaker == "None")
+        {
+            speakerText.text = " ";
+            currentSpeaker = " ";
+            DialogueUIController.Instance.UpdateCharacterPortrait("");
+            DialogueUIController.Instance.DisableCharacterNamePanel();
+        }
+        else if (!string.IsNullOrEmpty(speaker))
+        {
+            if (currentSpeaker != speaker)
+            {
+                currentSpeaker = speaker;
+                speakerText.text = currentSpeaker;
+                if (!(DialogueMode.Comments == currentMode && !(bool)story.variablesState["monologue"]))
+                {
+                    DialogueUIController.Instance.EnableCharacterNamePanel();
+                    DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
+                }
+            }
+        }
+        else
+        {
+            speakerText.text = currentSpeaker ?? "";
+        }
+    }
+
+    private void OnClickChoiceButton(Choice choice)
     {
         story.ChooseChoiceIndex(choice.index);
         DialogueUIController.Instance.DisableDialogueOptions();
         RefreshView();
     }
 
-    void CreateContentView(string text)
+    private void CreateContentView(string text, GameObject parentPanel)
     {
-        TMP_Text storyText = Instantiate(textPrefab) as TMP_Text;
+        TMP_Text storyText = Instantiate(textPrefab, parentPanel.transform, false);
         storyText.text = text;
-        storyText.transform.SetParent(textPanel.transform, false);
     }
 
-    Button CreateChoiceView(string text)
+    private void CreateCommentContentView(string text, string speaker)
     {
-        Button choice = Instantiate(buttonPrefab) as Button;
-        choice.transform.SetParent(optionsPanel.transform, false);
+        GameObject newComment = Instantiate(commentPrefab, commentsPanel.transform, false);
+        TMP_Text commentText = newComment.GetComponentInChildren<TMP_Text>();
+        commentText.text = text;
 
-        TMP_Text choiceText = choice.GetComponentInChildren<TMP_Text>();
-        choiceText.text = text;
+        RectTransform commentRect = newComment.GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(commentsPanel.GetComponent<RectTransform>());
 
-        HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
-        layoutGroup.childForceExpandHeight = false;
-        layoutGroup.childForceExpandWidth = true;
+        DialogueAnimator.AnimateSlideIn(newComment);
+        DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", newComment.GetComponentInChildren<RawImage>());
 
+        StartCoroutine(ScrollDownByCommentHeight(commentRect));
+    }
+
+    private IEnumerator ScrollDownByCommentHeight(RectTransform commentRect)
+    {
+        yield return new WaitForEndOfFrame();
+        float commentHeight = commentRect.rect.height * 1.25f;
+        float newScrollY = scrollRect.content.anchoredPosition.y + commentHeight;
+        scrollRect.content.DOAnchorPosY(newScrollY, 0.3f).SetEase(Ease.OutQuad);
+    }
+
+    private Button CreateChoiceView(string text)
+    {
+        Button choice = Instantiate(buttonPrefab, optionsPanel.transform, false);
+        choice.GetComponentInChildren<TMP_Text>().text = text;
         return choice;
     }
 
-    void ClearOptions()
+    private void ClearUI()
     {
-        int childCount = optionsPanel.transform.childCount;
-        for (int i = childCount - 1; i >= 0; --i)
-        {
-            Destroy(optionsPanel.transform.GetChild(i).gameObject);
-        }
+        ClearOptions();
+        ClearTextPanel();
     }
 
-    void ClearTextPanel()
+    private void ClearOptions()
     {
-        int childCount = textPanel.transform.childCount;
-        for (int i = childCount - 1; i >= 0; --i)
-        {
-            Destroy(textPanel.transform.GetChild(i).gameObject);
-        }
+        foreach (Transform child in optionsPanel.transform) Destroy(child.gameObject);
+    }
+
+    private void ClearTextPanel()
+    {
+        foreach (Transform child in textPanel.transform) Destroy(child.gameObject);
+    }
+
+    public void DisableInteractivity()
+    {
+        isWaitingForClick = false;
+    }
+
+    public void EnableInteractivity()
+    {
+        isWaitingForClick = true;
     }
 }

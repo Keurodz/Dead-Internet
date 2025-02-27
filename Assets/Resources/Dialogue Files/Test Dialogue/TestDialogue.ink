@@ -1,28 +1,16 @@
-# Character: Alien
-- Once upon a time, in a tranquil kingdom, a young adventurer named Haley wandered the forest, seeking both solace and excitement.
+INCLUDE Alien Dialogues.ink
+INCLUDE First Alien Interaction.ink
 
-# Character: Skibidi
-- "Greetings, traveler," called a mischievous sprite named Skibidi, stepping out from behind a tree. "I have a challenge for you. Are you brave enough to accept?"
+VAR monologue = false
+EXTERNAL PLAY_CUTSCENE(timelineID)
 
-# Character: Hawk
-- As the forest grew still, a powerful voice echoed through the trees. "Who disturbs my realm?" it boomed.  
-- A figure emerged, Hawk, the guardian of this land. "Your journey is fraught with decisions, Haley. Choose wisely, for each choice carries weight."  
-- "And you, guardian," retorted Skibidi, smirking. "Do you ever weary of your eternal watch?"  
-
- * [Haley could sense tension in the air.]
- -> Option1
- -- "Perhaps I should tread lightly," she thought.
- * [The atmosphere was thick with uncertainty.]
- -- Yet something compelled her to press on.
- ** [Haley's resolve strengthened.]
-
-# Character: Peter
-- Suddenly, Peter, a mysterious wanderer, appeared. "Every path you take has its price," he said, his voice calm yet foreboding. "But even the smallest choice can ripple into something extraordinary."
-
-# Character: None
-- And so, the journey continued, with Haley carving her own story. Each decision, a thread woven into the tapestry of her fate.  
-    -> END
+SAMPLE FILLER
+== Start ==
+#Character: Debug
+- This is the start of the game.
     
+-> Option1
+
 == Option1
 # Character: Debug
 
@@ -31,6 +19,7 @@
 
  * [Haley felt comforted by Henry's presence.]
  - "Together, we can face anything," she said with confidence.
+ - I hate my life // Used to bug test a feature DO NOT do 2 option text back to back
  * [A sense of determination filled the air.]
  - Henry nodded. "Then let's finish what we started."
 

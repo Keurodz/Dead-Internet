@@ -14,7 +14,7 @@ public class DialogueUIController : MonoBehaviour
     private RawImage _CharacterPortrait;
 
     private Dictionary<string, Texture2D> portraitDictionary;
-
+    
     void Awake()
     {
         // Singleton setup
@@ -40,94 +40,98 @@ public class DialogueUIController : MonoBehaviour
         if (_CharacterPortrait == null) Debug.LogError("CharacterPortrait image not found!");
 
         LoadPortraits();
+        DisableUI();
+    }
+
+    private void Start()
+    {
         DisableDialogueUI();
     }
 
     void LoadPortraits()
     {
-        //portraitDictionary = new Dictionary<string, Sprite>();
         portraitDictionary = new Dictionary<string, Texture2D>();
-        //Sprite[] sprites = Resources.LoadAll<Sprite>("Portraits");
         Texture2D[] textures = Resources.LoadAll<Texture2D>("Portraits");
 
-        print("Load Portraits tried to run ");
         foreach (Texture2D sprite in textures)
         {
-            print("Portrait: " + sprite.name);
             portraitDictionary[sprite.name] = sprite;
         }
     }
 
     public void UpdateCharacterPortrait(string portraitName)
     {
-        print("Ran code");
         if (_CharacterPortrait == null) return;
 
         if (!string.IsNullOrEmpty(portraitName) && portraitDictionary.ContainsKey(portraitName))
         {
-            print("Attempted to do the deed");
             _CharacterPortrait.texture = portraitDictionary[portraitName];
             _PortraitHolder.SetActive(true);
+            DialogueAnimator.AnimateFadeIn(_PortraitHolder);
         }
         else
         {
-            print("Could not find the thing: " + portraitName);
-            _PortraitHolder.SetActive(false); // Hide if no valid portrait
+            DialogueAnimator.AnimateFadeOut(_PortraitHolder);
         }
     }
 
-    public void DisableDialogueOptions()
+    public void UpdateCharacterPortraitComment(string portraitName, RawImage portrait)
     {
-        if (_DialogueOptions != null) _DialogueOptions.SetActive(false);
+        if (portrait == null) return;
+
+        if (!string.IsNullOrEmpty(portraitName) && portraitDictionary.ContainsKey(portraitName))
+        {
+            if (portrait.texture != portraitDictionary[portraitName]) 
+            {
+                portrait.texture = portraitDictionary[portraitName];
+            }
+        }
+        else
+        {
+            if (portrait.texture != portraitDictionary["defaultprof"]) 
+            {
+                portrait.texture = portraitDictionary["defaultprof"];
+            }
+        }
     }
 
-    public void DisableCharacterNamePanel()
-    {
-        if (_CharacterNamePanel != null) _CharacterNamePanel.SetActive(false);
-    }
 
-    public void DisableTextPanel()
-    {
-        if (_TextPanel != null) _TextPanel.SetActive(false);
-    }
 
-    public void EnableCharacterPortrait()
-    {
-        if (_CharacterPortrait != null) _PortraitHolder.SetActive(true);
-    }
+    public void EnableDialogueOptions() => DialogueAnimator.AnimateSlideIn(_DialogueOptions);
+    public void DisableDialogueOptions() => DialogueAnimator.AnimateSlideOut(_DialogueOptions);
 
-    public void DisableCharacterPortrait()
-    {
-        if (_CharacterPortrait != null) _PortraitHolder.SetActive(false);
-    }
+    public void EnableCharacterNamePanel() => DialogueAnimator.AnimateScaleIn(_CharacterNamePanel);
+    public void DisableCharacterNamePanel() => DialogueAnimator.AnimateScaleOut(_CharacterNamePanel);
 
-    public void EnableDialogueOptions()
-    {
-        if (_DialogueOptions != null) _DialogueOptions.SetActive(true);
-    }
-
-    public void EnableCharacterNamePanel()
-    {
-        if (_CharacterNamePanel != null) _CharacterNamePanel.SetActive(true);
-    }
-
-    public void EnableTextPanel()
-    {
-        if (_TextPanel != null) _TextPanel.SetActive(true);
-    }
-
-    public void DisableDialogueUI()
-    {
-        DisableCharacterNamePanel();
-        DisableDialogueOptions();
-        DisableTextPanel();
-        DisableCharacterPortrait();
-        
-    }
+    public void EnableTextPanel() => DialogueAnimator.AnimateFadeIn(_TextPanel);
+    public void DisableTextPanel() => DialogueAnimator.AnimateFadeOut(_TextPanel);
 
     public void EnableDialogueUI()
     {
         EnableCharacterNamePanel();
         EnableTextPanel();
     }
+
+    public void DisableDialogueUI()
+    {
+        DisableCharacterNamePanel();
+        DisableTextPanel();
+        //DisableDialogueOptions();
+        DialogueAnimator.AnimateFadeOut(_PortraitHolder);
+    }
+
+    public void DisableUI()
+    {
+        _CharacterNamePanel?.SetActive(false);
+        _TextPanel?.SetActive(false);
+        _DialogueOptions?.SetActive(false);
+        _PortraitHolder?.SetActive(false);
+    }
+
+    public void EnablePortrait()
+    {
+        _PortraitHolder.SetActive(true);
+        DialogueAnimator.AnimateFadeIn(_PortraitHolder);
+    }
 }
+
