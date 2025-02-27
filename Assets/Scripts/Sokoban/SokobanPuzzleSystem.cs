@@ -9,9 +9,6 @@ public class SokobanPuzzleSystem : MonoBehaviour
     public SokobanLevelData levelData;
     public SokobanGridSystem gridSystem;
 
-    // the level manager
-    private SokobanLevelManager levelManager;
-
     private bool hasWon = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,15 +20,13 @@ public class SokobanPuzzleSystem : MonoBehaviour
         } else {
             Debug.Log("Grid population failed");
         }
-
-        levelManager = FindAnyObjectByType<SokobanLevelManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (CheckWinCondition() && !hasWon) {
-            levelManager.OnWin();
+            SceneController.Instance.NextLevel();
             hasWon = true;
         }
     }

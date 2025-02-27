@@ -5,6 +5,9 @@ using System.Collections;
 // https://www.youtube.com/watch?v=xF19LIYfUmY
 public class PlayerController : MonoBehaviour
 {
+    // is the player controller active?
+    public bool IsActive { get; set; } = false;
+
     [SerializeField] public float speed;
     // https://www.youtube.com/watch?v=HJkHnkS6z1I
     // sokoban behavior
@@ -16,7 +19,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        move = context.ReadValue<Vector2>();
+        if (IsActive) {
+            move = context.ReadValue<Vector2>();
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
