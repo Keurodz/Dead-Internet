@@ -5,19 +5,25 @@ public class WorldSpaceEventTrigger : MonoBehaviour
     public string eventID = "";
     public bool dialogueMode = true;
 
+    private bool exhausted = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!exhausted)
         {
-            if (dialogueMode)
+            if (other.gameObject.CompareTag("Player"))
             {
-                DialogueManager.Instance.StartRegularDialogue(eventID);
+                if (dialogueMode)
+                {
+                    DialogueManager.Instance.StartRegularDialogue(eventID);
+                }
+                else
+                {
+                    TimelineDialogueManager.Instance.PlayTriggerCutscene(eventID);
+                }
+                exhausted = true;
+
             }
-            else
-            {
-                TimelineDialogueManager.Instance.PlayTriggerCutscene(eventID);
-            }
-            
         }
     }
 }
