@@ -1,0 +1,9 @@
+.button {
+    margin-bottom: 24px;
+    margin-top: 24px;
+    max-width: 600px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
