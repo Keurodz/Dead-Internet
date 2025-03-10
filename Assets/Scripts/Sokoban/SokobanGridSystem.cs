@@ -35,6 +35,8 @@ public class SokobanGridSystem : MonoBehaviour
     // returns false if there is a block at an occupied position, meaning the level data is invalid
     public bool PopulateGridWithBlocks(SokobanLevelData levelData)
     {
+        ClearGrid();
+
         gridBounds = levelData.bounds;
         foreach (InteractableObject element in levelData.interactableObjects)
         {
@@ -66,6 +68,16 @@ public class SokobanGridSystem : MonoBehaviour
             }
         }
         return true;
+    }
+
+    private void ClearGrid() {
+        foreach (GameObject block in gridDictionary.Values) {
+            Destroy(block);
+        }
+        gridDictionary.Clear();
+        floatingObjects.Clear();
+        movingObjects.Clear();
+        winPositions.Clear();
     }
 
     // attemps to move the block at the given position in the given direction

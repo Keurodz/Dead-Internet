@@ -28,7 +28,7 @@ public class AlienAbilityUI : MonoBehaviour
         alienAbilitySystem.OnAbilityCooldownChanged -= UpdateProjectileCooldown;
     }
 
-    private void Start() {
+    private void Awake() {
         projectileCooldownSlider = GetComponentInChildren<Slider>();
         ammoCountText = GetComponentInChildren<Text>();
     }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 // https://www.youtube.com/watch?v=HBEStd96UzI
 // The SceneController class is responsible for managing the scene transitions.
 // It triggers the transition animation and loads the next dungeon scene.
-public class SceneController : MonoBehaviour
+public class SceneController : MonoBehaviour, ILevelController
 {
     public static SceneController Instance;
     [SerializeField] Animator transitionAnim;
@@ -30,7 +30,7 @@ public class SceneController : MonoBehaviour
     }
 
     // Triggers the transition animation and reloads the current dungeon scene.
-    IEnumerator Restart() {
+    private IEnumerator Restart() {
         transitionAnim.SetTrigger("End");
         yield return new WaitForSeconds(1f);
         Debug.Log("Restarting level " + SceneManager.GetActiveScene().name);
@@ -39,7 +39,7 @@ public class SceneController : MonoBehaviour
     }
 
     // Triggers the transition animation and loads the next dungeon scene.
-    IEnumerator LoadLevel() {
+    private IEnumerator LoadLevel() {
         transitionAnim.SetTrigger("End");
         yield return new WaitForSeconds(1f);
         SokobanDungeonManager.Instance.NextDungeon();

@@ -9,25 +9,36 @@ public class SokobanPuzzleSystem : MonoBehaviour
     public SokobanLevelData levelData;
     public SokobanGridSystem gridSystem;
 
+    // the level controller for the puzzle system
+    private ILevelController levelController;
+
     private bool hasWon = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         gridSystem = GetComponent<SokobanGridSystem>();
+        levelController = DungeonSceneController.Instance;
+        // this.LoadLevelData(this.levelData);
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (CheckWinCondition() && !hasWon) {
+            levelController.NextLevel();
+            hasWon = true;
+        }
+    }
+
+    // Loads the given level data into the puzzle system
+    public void LoadLevelData(SokobanLevelData levelData)
+    {
+        this.levelData = levelData;
         if (gridSystem.PopulateGridWithBlocks(levelData)) {
             Debug.Log("Grid populated successfully");
         } else {
             Debug.Log("Grid population failed");
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (CheckWinCondition() && !hasWon) {
-            SceneController.Instance.NextLevel();
-            hasWon = true;
         }
     }
 

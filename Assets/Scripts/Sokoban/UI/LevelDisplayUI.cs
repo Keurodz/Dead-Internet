@@ -6,32 +6,32 @@ public class LevelDisplayUI : MonoBehaviour
 {
     private Text levelDisplayText;
 
+    private ILevelProvider levelProvider;
+
     // attaches a listener to the SceneManager.sceneLoaded event to ensure 
     // the level text is updated when the scene loads
-    void Start()
-    {
+    private void Start() {
+        levelProvider = DungeonSceneController.Instance;   
         levelDisplayText = GetComponentInChildren<Text>();
-
         UpdateLevelText();
-        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // SceneManager.sceneLoaded += OnSceneLoaded;
+        levelProvider.OnLevelChanged += UpdateLevelText;
     }
 
     void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        UpdateLevelText();
+        levelProvider.OnLevelChanged -= UpdateLevelText;    
     }
 
     // updates the level text to display the current level
 
     private void UpdateLevelText()
     {
-        int currentLevel = SokobanDungeonManager.Instance.CurrentDungeonLevelIndex() + 1;
-        int totalLevels = SokobanDungeonManager.Instance.TotalDungeonLevels();
+        // int currentLevel = SokobanDungeonManager.Instance.CurrentDungeonLevelIndex() + 1;
+        // int totalLevels = SokobanDungeonManager.Instance.TotalDungeonLevels();
+        int currentLevel = levelProvider.CurrentDungeonLevelIndex() + 1;
+        int totalLevels = levelProvider.TotalDungeonLevels();
         levelDisplayText.text = $"Level: {currentLevel} / {totalLevels}";
     }
 }
