@@ -37,6 +37,21 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
+    public void SetCommentPrefab(GameObject commentPrefab)
+    {
+        this.commentPrefab = commentPrefab;
+    }
+
+    public void SetScrollRect(ScrollRect scrollRect)
+    {
+        this.scrollRect = scrollRect;
+    }
+
+    public void SetCommentsPanel(GameObject commentsPanel)
+    {
+        this.commentsPanel = commentsPanel;
+    }
+
     public void InitiateDialogue(Story story, DialogueMode mode = DialogueMode.Regular)
     {
         this.story = story;
@@ -179,18 +194,36 @@ public class InkDialogueController : MonoBehaviour
 
     private void CreateCommentContentView(string text, string speaker)
     {
+        // Check if the scroll view is at the bottom
+        bool isAtBottom = Mathf.Approximately(scrollRect.verticalNormalizedPosition, 0f);
+
+        // Instantiate and set up the new comment
         GameObject newComment = Instantiate(commentPrefab, commentsPanel.transform, false);
         TMP_Text commentText = newComment.GetComponentInChildren<TMP_Text>();
         commentText.text = text;
 
-        RectTransform commentRect = newComment.GetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(commentsPanel.GetComponent<RectTransform>());
+        // Force the layout to update
+        Canvas.ForceUpdateCanvases();
 
-        DialogueAnimator.AnimateSlideIn(newComment);
-        DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", newComment.GetComponentInChildren<RawImage>());
-
-        StartCoroutine(ScrollDownByCommentHeight(commentRect));
+        // If the scroll view was at the bottom, scroll to the bottom
+        if (isAtBottom)
+        {
+            StartCoroutine(ScrollToBottom());
+        }
     }
+
+    private IEnumerator ScrollToBottom()
+    {
+        // Wait until the end of the frame to ensure layout is updated
+        yield return new WaitForEndOfFrame();
+
+        // Set the scroll position to the bottom
+        scrollRect.verticalNormalizedPosition = 0f;
+
+        // Optional: Animate the scrolling
+        // scrollRect.content.DOAnchorPosY(0f, 0.3f).SetEase(Ease.OutQuad);
+    }
+
 
     private IEnumerator ScrollDownByCommentHeight(RectTransform commentRect)
     {
