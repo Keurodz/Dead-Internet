@@ -10,7 +10,7 @@ public class InkDialogueController : MonoBehaviour
 {
     public static event Action<Story> OnCreateStory;
 
-    public enum DialogueMode { Regular, Comments }
+    public enum DialogueMode { Regular, Comments, Chat }
 
     [SerializeField] private TextAsset inkJSONAsset;
     [SerializeField] private GameObject optionsPanel, textPanel, commentsPanel;
@@ -138,7 +138,7 @@ public class InkDialogueController : MonoBehaviour
     {
         DialogueUIController.Instance.DisableDialogueUI();
         DialogueManager.Instance.EndDialogue();
-        if (currentMode == DialogueMode.Comments) scrollRect.enabled = true;
+        if (currentMode == DialogueMode.Comments || currentMode == DialogueMode.Chat) scrollRect.enabled = true;
         currentSpeaker = null;
     }
 
@@ -166,7 +166,7 @@ public class InkDialogueController : MonoBehaviour
             {
                 currentSpeaker = speaker;
                 speakerText.text = currentSpeaker;
-                if (!(DialogueMode.Comments == currentMode && !(bool)story.variablesState["monologue"]))
+                if (!((DialogueMode.Chat == currentMode|| DialogueMode.Comments == currentMode) && !(bool)story.variablesState["monologue"]))
                 {
                     DialogueUIController.Instance.EnableCharacterNamePanel();
                     DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
@@ -210,8 +210,16 @@ public class InkDialogueController : MonoBehaviour
         DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", newComment.GetComponentInChildren<RawImage>());
 
 
-        ScrollToElement(newComment.GetComponent<RectTransform>());
-        //DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, 0f, 0.3f).SetEase(Ease.OutQuad);
+        if (currentMode == DialogueMode.Chat)
+        {
+            DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, 0f, 0.3f).SetEase(Ease.OutQuad);
+        }
+        else
+        {
+            StartCoroutine(ScrollDownByCommentHeight(newComment.GetComponent<RectTransform>()));
+        }
+
+        
     }
 
     private IEnumerator ScrollDownByCommentHeight(RectTransform commentRect)
@@ -248,6 +256,7 @@ public class InkDialogueController : MonoBehaviour
         // Set the scroll position
         scrollRect.verticalNormalizedPosition = normalizedPosition;
     }
+
 
     private void ClearUI()
     {
