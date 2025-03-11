@@ -204,26 +204,15 @@ public class InkDialogueController : MonoBehaviour
 
         // Force the layout to update
         Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)commentsPanel.transform);
 
-        // If the scroll view was at the bottom, scroll to the bottom
-        if (isAtBottom)
-        {
-            StartCoroutine(ScrollToBottom());
-        }
+        DialogueAnimator.AnimateSlideIn(newComment);
+        DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", newComment.GetComponentInChildren<RawImage>());
+
+
+        ScrollToElement(newComment.GetComponent<RectTransform>());
+        //DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, 0f, 0.3f).SetEase(Ease.OutQuad);
     }
-
-    private IEnumerator ScrollToBottom()
-    {
-        // Wait until the end of the frame to ensure layout is updated
-        yield return new WaitForEndOfFrame();
-
-        // Set the scroll position to the bottom
-        scrollRect.verticalNormalizedPosition = 0f;
-
-        // Optional: Animate the scrolling
-        // scrollRect.content.DOAnchorPosY(0f, 0.3f).SetEase(Ease.OutQuad);
-    }
-
 
     private IEnumerator ScrollDownByCommentHeight(RectTransform commentRect)
     {
@@ -238,6 +227,26 @@ public class InkDialogueController : MonoBehaviour
         Button choice = Instantiate(buttonPrefab, optionsPanel.transform, false);
         choice.GetComponentInChildren<TMP_Text>().text = text;
         return choice;
+    }
+
+    public void ScrollToElement(RectTransform target)
+    {
+        Canvas.ForceUpdateCanvases();
+
+        RectTransform content = scrollRect.content;
+        RectTransform viewport = scrollRect.viewport;
+
+        // Calculate the position of the target relative to the content
+        Vector2 targetPosition = (Vector2)content.InverseTransformPoint(content.position) - (Vector2)content.InverseTransformPoint(target.position);
+
+        // Calculate the normalized position
+        float normalizedPosition = 1 - (targetPosition.y / (content.rect.height - viewport.rect.height));
+
+        // Clamp the normalized position between 0 and 1
+        normalizedPosition = Mathf.Clamp01(normalizedPosition);
+
+        // Set the scroll position
+        scrollRect.verticalNormalizedPosition = normalizedPosition;
     }
 
     private void ClearUI()
