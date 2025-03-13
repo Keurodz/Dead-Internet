@@ -13,8 +13,14 @@ public class SokobanLevelData : ScriptableObject
     public Vector2Int anchorPoint;
 
     // the items in the level 
-    [SerializeField]
     public InteractableObject[] interactableObjects;
+
+    // gets the environment name for the level
+    // the name of the environment is the dimensions of the level
+    // ex. 6x6E
+    public string GetEnvironmentName() {
+        return bounds.x + "x" + bounds.y + "E";
+    }
 }
 
 
