@@ -18,6 +18,9 @@ public class SokobanGridSystem : MonoBehaviour
     public GameObject immovablePrefab;
     // prefab for the button block
     public GameObject buttonPrefab;
+    
+    // list of all the GameObject references 
+    private List<GameObject> interactableObjects = new List<GameObject>();
 
     // dictionary to store the grid positions and the game objects at those positions
     private Dictionary<Vector2Int, GameObject> gridDictionary = new Dictionary<Vector2Int, GameObject>();
@@ -56,6 +59,8 @@ public class SokobanGridSystem : MonoBehaviour
             GameObject interactableGameObject = Instantiate(prefab, worldPosition, Quaternion.identity);
             interactableGameObject.GetComponent<ISokobanInteractable>().Initialize(gridPosition);
 
+            interactableObjects.Add(interactableGameObject);
+
             // adds the game object to the grid dictionary
             if (!gridDictionary.ContainsKey(gridPosition))
             {
@@ -71,13 +76,14 @@ public class SokobanGridSystem : MonoBehaviour
     }
 
     private void ClearGrid() {
-        foreach (GameObject block in gridDictionary.Values) {
+        foreach (GameObject block in interactableObjects) {
             Destroy(block);
         }
         gridDictionary.Clear();
         floatingObjects.Clear();
         movingObjects.Clear();
         winPositions.Clear();
+        interactableObjects.Clear();
     }
 
     // attemps to move the block at the given position in the given direction
