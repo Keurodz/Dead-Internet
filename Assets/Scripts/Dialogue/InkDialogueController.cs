@@ -10,7 +10,7 @@ public class InkDialogueController : MonoBehaviour
 {
     public static event Action<Story> OnCreateStory;
 
-    public enum DialogueMode { Regular, Comments }
+    public enum DialogueMode { Regular, Comments, Chat }
 
     [SerializeField] private TextAsset inkJSONAsset;
     [SerializeField] private GameObject optionsPanel, textPanel, commentsPanel;
@@ -35,6 +35,21 @@ public class InkDialogueController : MonoBehaviour
                 RefreshView();
             }
         }
+    }
+
+    public void SetCommentPrefab(GameObject commentPrefab)
+    {
+        this.commentPrefab = commentPrefab;
+    }
+
+    public void SetScrollRect(ScrollRect scrollRect)
+    {
+        this.scrollRect = scrollRect;
+    }
+
+    public void SetCommentsPanel(GameObject commentsPanel)
+    {
+        this.commentsPanel = commentsPanel;
     }
 
     public void InitiateDialogue(Story story, DialogueMode mode = DialogueMode.Regular)
@@ -123,7 +138,7 @@ public class InkDialogueController : MonoBehaviour
     {
         DialogueUIController.Instance.DisableDialogueUI();
         DialogueManager.Instance.EndDialogue();
-        if (currentMode == DialogueMode.Comments) scrollRect.enabled = true;
+        if (currentMode == DialogueMode.Comments || currentMode == DialogueMode.Chat) scrollRect.enabled = true;
         currentSpeaker = null;
     }
 
@@ -151,7 +166,7 @@ public class InkDialogueController : MonoBehaviour
             {
                 currentSpeaker = speaker;
                 speakerText.text = currentSpeaker;
-                if (!(DialogueMode.Comments == currentMode && !(bool)story.variablesState["monologue"]))
+                if (!((DialogueMode.Chat == currentMode|| DialogueMode.Comments == currentMode) && !(bool)story.variablesState["monologue"]))
                 {
                     DialogueUIController.Instance.EnableCharacterNamePanel();
                     DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
@@ -179,17 +194,32 @@ public class InkDialogueController : MonoBehaviour
 
     private void CreateCommentContentView(string text, string speaker)
     {
+        // Check if the scroll view is at the bottom
+        bool isAtBottom = Mathf.Approximately(scrollRect.verticalNormalizedPosition, 0f);
+
+        // Instantiate and set up the new comment
         GameObject newComment = Instantiate(commentPrefab, commentsPanel.transform, false);
         TMP_Text commentText = newComment.GetComponentInChildren<TMP_Text>();
         commentText.text = text;
 
-        RectTransform commentRect = newComment.GetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(commentsPanel.GetComponent<RectTransform>());
+        // Force the layout to update
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)commentsPanel.transform);
 
         DialogueAnimator.AnimateSlideIn(newComment);
         DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", newComment.GetComponentInChildren<RawImage>());
 
-        StartCoroutine(ScrollDownByCommentHeight(commentRect));
+
+        if (currentMode == DialogueMode.Chat)
+        {
+            DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, 0f, 0.3f).SetEase(Ease.OutQuad);
+        }
+        else
+        {
+            StartCoroutine(ScrollDownByCommentHeight(newComment.GetComponent<RectTransform>()));
+        }
+
+        
     }
 
     private IEnumerator ScrollDownByCommentHeight(RectTransform commentRect)
@@ -206,6 +236,27 @@ public class InkDialogueController : MonoBehaviour
         choice.GetComponentInChildren<TMP_Text>().text = text;
         return choice;
     }
+
+    public void ScrollToElement(RectTransform target)
+    {
+        Canvas.ForceUpdateCanvases();
+
+        RectTransform content = scrollRect.content;
+        RectTransform viewport = scrollRect.viewport;
+
+        // Calculate the position of the target relative to the content
+        Vector2 targetPosition = (Vector2)content.InverseTransformPoint(content.position) - (Vector2)content.InverseTransformPoint(target.position);
+
+        // Calculate the normalized position
+        float normalizedPosition = 1 - (targetPosition.y / (content.rect.height - viewport.rect.height));
+
+        // Clamp the normalized position between 0 and 1
+        normalizedPosition = Mathf.Clamp01(normalizedPosition);
+
+        // Set the scroll position
+        scrollRect.verticalNormalizedPosition = normalizedPosition;
+    }
+
 
     private void ClearUI()
     {

@@ -76,6 +76,11 @@ public class DialogueManager : MonoBehaviour
         StartDialogue("TestDialogue", dialogueKey, InkDialogueController.DialogueMode.Comments);
     }
 
+    public void StartChatDialogue(string dialogueKey)
+    {
+        StartDialogue("TestDialogue", dialogueKey, InkDialogueController.DialogueMode.Chat);
+    }
+
     public void EndDialogue()
     {
         isDialogueActive = false;

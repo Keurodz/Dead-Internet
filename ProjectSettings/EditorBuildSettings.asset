@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SokobanLevels/SokobanLevel3.unity
     guid: feb47d465309e464c95ea0b8242783fb
   - enabled: 1
+    path: Assets/Scenes/Monitor System.unity
+    guid: 6c75cb6d7c599401782b712e47f5cc87
+  - enabled: 1
     path: Assets/Scenes/SokobanLevels/EnterDungeonScene.unity
     guid: c050f0153ff7746a087303bd0282b519
   - enabled: 1
