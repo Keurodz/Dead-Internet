@@ -12,6 +12,7 @@ public class DialogueUIController : MonoBehaviour
     private GameObject _CharacterNamePanel;
     private GameObject _PortraitHolder;
     private RawImage _CharacterPortrait;
+    private GameObject _InteractionBlock;
 
     private Dictionary<string, Texture2D> portraitDictionary;
     
@@ -32,6 +33,7 @@ public class DialogueUIController : MonoBehaviour
         _CharacterNamePanel = transform.Find("Character Name Panel")?.gameObject;
         _PortraitHolder = transform.Find("Portrait Holder")?.gameObject;
         _CharacterPortrait = transform.Find("Portrait Holder")?.GetComponentInChildren<RawImage>();
+        _InteractionBlock = transform.Find("Interaction Block")?.gameObject;
 
         // Check for null references and log errors if any panels are missing
         if (_DialogueOptions == null) Debug.LogError("DialogueOptions panel not found!");
@@ -110,6 +112,7 @@ public class DialogueUIController : MonoBehaviour
     {
         EnableCharacterNamePanel();
         EnableTextPanel();
+        _InteractionBlock.SetActive(true);
     }
 
     public void DisableDialogueUI()
@@ -117,6 +120,7 @@ public class DialogueUIController : MonoBehaviour
         DisableCharacterNamePanel();
         DisableTextPanel();
         //DisableDialogueOptions();
+        _InteractionBlock.SetActive(false);
         DialogueAnimator.AnimateFadeOut(_PortraitHolder);
     }
 
