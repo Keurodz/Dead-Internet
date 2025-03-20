@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SignalProcessor : MonoBehaviour
 {
+    private HashSet<string> playedCutscenes = new HashSet<string>();
+
     // Loads scene by name reference
     public void LoadSceneByName(string sceneName)
     {
@@ -12,16 +15,23 @@ public class SignalProcessor : MonoBehaviour
             return;
         }
 
-        print("Tried To load this shit");
+        print("Tried To load this scene: " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
 
-    // Initiates Dialogue based on dialogue key
+    // Initiates Dialogue based on dialogue key, preventing replaying cutscenes
     public void InitiateDialogueSequence(string dialogueKey)
     {
-        if (!string.IsNullOrEmpty(dialogueKey))
+        if (string.IsNullOrEmpty(dialogueKey)) return;
+
+        if (playedCutscenes.Contains(dialogueKey))
         {
-            DialogueManager.Instance.StartRegularDialogue(dialogueKey);
+            Debug.Log("Cutscene already played: " + dialogueKey);
+            return;
         }
+
+        // Mark this cutscene as played
+        playedCutscenes.Add(dialogueKey);
+        DialogueManager.Instance.StartRegularDialogue(dialogueKey);
     }
 }
