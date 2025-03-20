@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,6 +31,29 @@ public class SignalProcessor : MonoBehaviour
             return;
         }
 
+        // Mark this cutscene as played
+        playedCutscenes.Add(dialogueKey);
+        DialogueManager.Instance.StartRegularDialogue(dialogueKey);
+    }
+
+    // Initiates Dialogue based on dialogue key, preventing replaying cutscenes
+    public void InitiateDelayedDialogueSequence(string dialogueKey)
+    {
+        if (string.IsNullOrEmpty(dialogueKey)) return;
+
+        if (playedCutscenes.Contains(dialogueKey))
+        {
+            Debug.Log("Cutscene already played: " + dialogueKey);
+            return;
+        }
+
+        StartCoroutine(WaitAndRun(dialogueKey));
+    }
+
+    private IEnumerator WaitAndRun(string dialogueKey)
+    {
+        yield return new WaitForSeconds(0.5f);
+       
         // Mark this cutscene as played
         playedCutscenes.Add(dialogueKey);
         DialogueManager.Instance.StartRegularDialogue(dialogueKey);

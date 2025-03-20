@@ -9,6 +9,28 @@
 - Maybe I should just read my notes to calm down and then check whats on the internet again today.
 -> END 
 
+== LoggingOn ==
+# Character: None
+- I feel like the situation has just gotten worse...
+- They aren't even trying anymore, the comments don't even match up for most the videos they're associated with.
+- Am I shadowbanned? Or is this just what everyone has to go through with nowadays?
+- There's no way for me to really tell anyway... 
+- My only hope is to see if I can find signs of a real person that hasn't been blocked off by this "system".
+- I'm not super optimistic... but it's all I can really do since I don't have anyone that can really help me out right now.
+-> END 
+
+== MessagingApp1 ==
+#Character: None 
+- Why do I even have this app on my computer?
+- It's not like im waiting for anyone to message me.
+- Dam... I really am alone in this aren't I? 
+- I should try to make some more friends once this is all over. Or maybe delete this later so I don't think about it too much...
+-> END
+
+== ClosingMessaging1 ==
+# Character: None
+- Well, there's really nothing for me to do other than check Whiner all day anyway.
+->END
 
 == AlienFirstOnlineMeeting ==
 ~ monologue = false
