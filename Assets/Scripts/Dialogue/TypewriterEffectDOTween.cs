@@ -16,7 +16,9 @@ public class TypewriterEffectDOTween : MonoBehaviour
     [SerializeField]
     private AudioClip typingSound;
     private AudioSource audioSource;
-    [SerializeField] private float soundDelay = 0.1f;
+
+    [SerializeField] private float minSoundDelay = 0.1f;
+    [SerializeField] private float maxSoundDelay = 0.3f;
 
     private float lastSoundTime;
 
@@ -106,7 +108,7 @@ public class TypewriterEffectDOTween : MonoBehaviour
 
             if (audioSource && typingSound)
             {
-                if (Time.time - lastSoundTime >= soundDelay)
+                if (Time.time - lastSoundTime >= Random.Range(minSoundDelay, maxSoundDelay))
                 {
                     audioSource.pitch = Random.Range(minPitch, maxPitch);
 
