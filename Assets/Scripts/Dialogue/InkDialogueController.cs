@@ -233,7 +233,7 @@ public class InkDialogueController : MonoBehaviour
 
         if (commentPopSound && audioSource)
         {
-            audioSource.pitch = 1f;
+            audioSource.pitch = 0.7f;
             audioSource.PlayOneShot(commentPopSound);   
         }
 
