@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2026906406008829943}
   - component: {fileID: 881067508395999580}
   - component: {fileID: 73494938522924441}
-  - component: {fileID: 6117479664918833687}
+  - component: {fileID: 888973542690436863}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6117479664918833687
+--- !u!114 &888973542690436863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,3 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typingSpeed: 0.03
   typingSound: {fileID: 8300000, guid: fd6e381fb5fa248589c98478d2e7a0fc, type: 3}
+  minSoundDelay: 0.04
+  maxSoundDelay: 0.19
+  minPitch: 0.8
+  maxPitch: 1.2

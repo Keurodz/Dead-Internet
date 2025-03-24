@@ -17,14 +17,14 @@ public class TypewriterEffectDOTween : MonoBehaviour
     private AudioClip typingSound;
     private AudioSource audioSource;
 
-    [SerializeField] private float minSoundDelay = 0.1f;
-    [SerializeField] private float maxSoundDelay = 0.3f;
+    [SerializeField] private float minSoundDelay = 0.05f;
+    [SerializeField] private float maxSoundDelay = 0.1f;
 
     private float lastSoundTime;
 
     [Header("Pitch Variation")]
-    [SerializeField] private float minPitch = 0.8f;  // Minimum pitch
-    [SerializeField] private float maxPitch = 1.2f;  // Maximum pitch
+    [SerializeField] private float minPitch = 0.4f;  // Minimum pitch
+    [SerializeField] private float maxPitch = 0.8f;  // Maximum pitch
 
 
     void Awake()

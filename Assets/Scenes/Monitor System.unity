@@ -720,7 +720,8 @@ PrefabInstance:
       propertyPath: commentsPanel
       value: 
       objectReference: {fileID: 1504296295}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4788077614084619311, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -7496,7 +7497,7 @@ PlayableDirector:
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
-  m_InitialTime: 0
+  m_InitialTime: 4
   m_SceneBindings:
   - key: {fileID: 1297100780596109860, guid: b40b9dedc9b7340609b34a5b598722e0, type: 2}
     value: {fileID: 34759631}
