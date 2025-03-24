@@ -437,7 +437,6 @@ GameObject:
   - component: {fileID: 3386174902662227378}
   - component: {fileID: 3317845942538426213}
   - component: {fileID: 448195317099925956}
-  - component: {fileID: 4788077614084619311}
   - component: {fileID: 4651700356795230908}
   m_Layer: 0
   m_Name: Dialogue System
@@ -569,23 +568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf174411f99442debc83699e51724bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4788077614084619311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880005368005775490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2ec23ecfd79e4fa790bcd956a2f3fa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  typingSpeed: 0.03
-  typingSound: {fileID: 8300000, guid: fd6e381fb5fa248589c98478d2e7a0fc, type: 3}
-  soundDelay: 0.1
-  minPitch: 0.8
-  maxPitch: 1.2
 --- !u!82 &4651700356795230908
 AudioSource:
   m_ObjectHideFlags: 0

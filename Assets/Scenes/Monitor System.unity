@@ -720,8 +720,7 @@ PrefabInstance:
       propertyPath: commentsPanel
       value: 
       objectReference: {fileID: 1504296295}
-    m_RemovedComponents:
-    - {fileID: 4788077614084619311, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
