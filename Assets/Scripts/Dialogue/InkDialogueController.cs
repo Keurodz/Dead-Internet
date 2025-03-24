@@ -28,8 +28,15 @@ public class InkDialogueController : MonoBehaviour
 
     void Update()
     {
-        if (!inCutscene) {
-            if (isWaitingForClick && Input.GetMouseButtonDown(0))
+        if (!inCutscene && Input.GetMouseButtonDown(0))
+        {
+            TypewriterEffectDOTween activeTypewriter = textPanel.GetComponentInChildren<TypewriterEffectDOTween>();
+
+            if (activeTypewriter != null && activeTypewriter.IsTyping())
+            {
+                activeTypewriter.SkipTyping();
+            }
+            else if (isWaitingForClick)
             {
                 isWaitingForClick = false;
                 RefreshView();
@@ -189,8 +196,17 @@ public class InkDialogueController : MonoBehaviour
     private void CreateContentView(string text, GameObject parentPanel)
     {
         TMP_Text storyText = Instantiate(textPrefab, parentPanel.transform, false);
-        storyText.text = text;
+        TypewriterEffectDOTween typewriter = storyText.GetComponent<TypewriterEffectDOTween>();
+        typewriter.StartTyping(text);
     }
+
+    //void CreateContentView(string text, GameObject parentPanel)
+    //{
+    //    TMP_Text storyText = Instantiate(textPrefab, parentPanel.transform, false);
+    //    TypewriterEffectDOTween typewriter = storyText.gameObject.AddComponent<TypewriterEffectDOTween>();
+    //    typewriter.StartTyping(text);
+    //}
+
 
     private void CreateCommentContentView(string text, string speaker)
     {
