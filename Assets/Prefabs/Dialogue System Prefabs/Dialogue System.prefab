@@ -482,6 +482,8 @@ MonoBehaviour:
   buttonPrefab: {fileID: 1091243228608624372, guid: 779d7465b807740bb8d293f89557ae47, type: 3}
   commentPrefab: {fileID: 8364306582702108839, guid: 898a56cc843814c5eaf457ad76ecf262, type: 3}
   inCutscene: 0
+  commentPopSound: {fileID: 8300000, guid: 2203b4e2b471a4534b34a95b4dbd299d, type: 3}
+  mouseClick: {fileID: 8300000, guid: af69c89a4b64a4db3a2dafca6dc08fa9, type: 3}
 --- !u!114 &2552805947169035131
 MonoBehaviour:
   m_ObjectHideFlags: 0
