@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 8x8_1
   bounds: {x: 8, y: 8}
-  anchorPoint: {x: 0, y: 0}
+  anchorPoint: {x: 0, y: 1}
   interactableObjects:
   - gridPosition: {x: 1, y: 6}
     type: 0

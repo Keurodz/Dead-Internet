@@ -30,6 +30,8 @@ public class SokobanGridSystem : MonoBehaviour
     private Dictionary<GameObject, bool> movingObjects = new Dictionary<GameObject, bool>();
     // the bounds of the grid
     private Vector2Int gridBounds;
+    // the offset of the grid
+    private Vector2Int gridOffset;
 
     // the positions where buttons are located
     private List<Vector2Int> winPositions = new List<Vector2Int>();
@@ -41,9 +43,10 @@ public class SokobanGridSystem : MonoBehaviour
         ClearGrid();
 
         gridBounds = levelData.bounds;
+        gridOffset = levelData.anchorPoint;
         foreach (InteractableObject element in levelData.interactableObjects)
         {
-            Vector2Int gridPosition = element.gridPosition;
+            Vector2Int gridPosition = element.gridPosition + new Vector2Int(levelData.anchorPoint.x, levelData.anchorPoint.y); // offset by 1 to account for the grid padding
 
             // spawns the interactable object in the world
             Vector3 worldPosition = this.GetWorldPosition(gridPosition);
@@ -184,8 +187,8 @@ public class SokobanGridSystem : MonoBehaviour
     private bool CanPushBlock(Vector2Int originalPosition,Vector2Int targetPosition) {
         return !gridDictionary.ContainsKey(targetPosition) && 
             gridDictionary.ContainsKey(originalPosition) &&
-            targetPosition.x >= 1 && targetPosition.x <= gridBounds.x &&
-            targetPosition.y >= 1 && targetPosition.y <= gridBounds.y;
+            targetPosition.x >= 1 + gridOffset.x  && targetPosition.x <= gridBounds.x + gridOffset.x &&
+            targetPosition.y >= 1 + gridOffset.y && targetPosition.y <= gridBounds.y + gridOffset.y;
     }
 
     // coroutine to tween the given block from the start position to the target position

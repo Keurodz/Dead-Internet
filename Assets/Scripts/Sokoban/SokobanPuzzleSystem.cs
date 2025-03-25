@@ -26,9 +26,15 @@ public class SokobanPuzzleSystem : MonoBehaviour
     private void Update()
     {
         if (CheckWinCondition() && !hasWon) {
-            levelController.NextLevel();
+            levelController.PlayWinSequence();
+            // levelController.NextLevel();
             hasWon = true;
         }
+    }
+
+    // resets the hasWon flag
+    public void ResetWinCondition() {
+        hasWon = false;
     }
 
     // Loads the given level data into the puzzle system

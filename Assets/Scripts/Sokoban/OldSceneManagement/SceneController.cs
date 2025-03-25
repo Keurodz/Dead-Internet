@@ -19,8 +19,13 @@ public class SceneController : MonoBehaviour, ILevelController
         }
     }
 
-    // Starts the transition animation.
+    // Starts the transition animation as the win sequence.
     public void NextLevel() {
+        StartCoroutine(LoadLevel());
+    }
+
+    // starts the transition animation as the win sequence.
+    public void PlayWinSequence() {
         StartCoroutine(LoadLevel());
     }
 
