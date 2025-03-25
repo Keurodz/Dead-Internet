@@ -62,6 +62,16 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
         LoadLevelData(levelDataList[currentSceneIndex]);
     }
 
+    // the win sequence should open the doors and add the NextLevel() trigger
+    public void PlayWinSequence() {
+        Debug.Log(currentEnvironment.GetComponentInChildren<Animator>());
+        // play the door animation 
+        currentEnvironment.GetComponentInChildren<Animator>().SetTrigger("LevelWin");
+
+        // attach the NextLevel() trigger to the trigger beyond the door
+
+    }
+
     // Progresses the index to the next dungeon level index.
     public void NextLevel() {
         if (currentSceneIndex < levelDataList.Count - 1) {
@@ -124,5 +134,6 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
         yield return new WaitForSeconds(1f);
         LoadLevelData(levelData);
         transitionAnim.SetTrigger("Start");
+        puzzleSystem.ResetWinCondition();
     }
 }

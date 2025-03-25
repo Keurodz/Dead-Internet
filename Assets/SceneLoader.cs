@@ -20,15 +20,6 @@ public class SceneLoader : MonoBehaviour
         transition = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0)) {
-            Debug.Log("Loading next scene");
-            LoadNextScene();
-        }
-    }
-
     // triggers the coroutine to load the next scene name
     private void LoadNextScene() {
         StartCoroutine(LoadScene(nextSceneName));
