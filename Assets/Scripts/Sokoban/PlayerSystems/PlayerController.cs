@@ -39,9 +39,7 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        Debug.Log(dialogueManager.isDialogueActive);
-        
+    {        
         if (IsActive == true && dialogueManager.isDialogueActive == false) {
             MovePlayer();
         } else {

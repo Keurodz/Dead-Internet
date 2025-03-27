@@ -12,6 +12,9 @@ public class SokobanLevelData : ScriptableObject
     // the lower left corner of the level in world space
     public Vector2Int anchorPoint;
 
+    // the amount of alien ability ammo in the level
+    public int alienAbilityAmmo = 0;
+
     // the items in the level 
     public InteractableObject[] interactableObjects;
 
