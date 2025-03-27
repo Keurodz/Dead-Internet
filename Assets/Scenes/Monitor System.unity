@@ -814,6 +814,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3317845942538426213, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: SokobanBaseLevels
+      objectReference: {fileID: 0}
     - target: {fileID: 4651700356795230908, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: Loop
       value: 1
