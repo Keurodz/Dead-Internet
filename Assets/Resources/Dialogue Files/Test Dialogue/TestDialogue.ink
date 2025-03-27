@@ -4,24 +4,36 @@ INCLUDE First Alien Interaction.ink
 VAR monologue = false
 EXTERNAL PLAY_CUTSCENE(timelineID)
 
-SAMPLE FILLER
-== Start ==
-#Character: Debug
-- This is the start of the game.
-    
--> Option1
+== IntroScene ==
+# Character: None
+- It's already been months, $w(but I feel like i'm no closer to figuring any of this out.)
+- Maybe i'm not cut out for this.
+- Who am I kidding, i'm not good enough to be on the run and get away with it...
+- $w(I should just give up.) 
+- I can't even kept a consistent log of events on my computer... 
+- I'm such a $w(mess) right now. I need to get everything together, or im gonna end up driving myself $s(insane.)
+- Maybe I should just read my notes to $w(calm) down and then check whats on the internet again today.
+-> END 
 
-== Option1
-# Character: Debug
+== LoggingOn ==
+# Character: None
+- I feel like the situation has just gotten worse...
+- They aren't even trying anymore, the comments don't even match up for most the videos they're associated with.
+- Am I $w(shadowbanned?) Or is this just what everyone has to go through with nowadays?
+- There's no way for me to really tell anyway... 
+- My only hope is to see if I can find signs of a real person that $w(hasn't been blocked off by this "system".)
+- I'm not super optimistic... but it's all I can do since I don't have anyone that can really help me out right now.
+-> END 
 
-- As Haley pressed on, a familiar face emerged from the shadows. "Henry?" she exclaimed, surprised.  
-- "You always find a way, don't you?" Henry replied with a smile, his tone warm but knowing.
+== MessagingApp1 ==
+#Character: None 
+- Why do I even have this app on my computer?
+- It's not like im waiting for anyone to message me.
+- $s(Dam... I really am alone in this aren't I?)
+- I should try to make some more friends once this is all over. Or maybe delete this later so I don't think about it $w(too much...)
+-> END
 
- * [Haley felt comforted by Henry's presence.]
- - "Together, we can face anything," she said with confidence.
- - I hate my life // Used to bug test a feature DO NOT do 2 option text back to back
- * [A sense of determination filled the air.]
- - Henry nodded. "Then let's finish what we started."
-
-- And so, their paths converged, leading them toward an uncertain yet hopeful horizon.  
-    -> DONE
+== ClosingMessaging1 ==
+# Character: None
+- Well, there's really nothing for me to do other than check Whiner all day anyway.
+->END

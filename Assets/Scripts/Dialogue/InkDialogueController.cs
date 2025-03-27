@@ -26,15 +26,39 @@ public class InkDialogueController : MonoBehaviour
 
     public bool inCutscene = false;
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip commentPopSound;
+    [SerializeField] private AudioClip mouseClick;
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
+
     void Update()
     {
-        if (!inCutscene) {
-            if (isWaitingForClick && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
+        {
+            audioSource.pitch = 1f;
+            audioSource.PlayOneShot(mouseClick);
+
+            if (!inCutscene)
             {
-                isWaitingForClick = false;
-                RefreshView();
+                TypewriterEffectDOTween activeTypewriter = textPanel.GetComponentInChildren<TypewriterEffectDOTween>();
+
+                if (activeTypewriter != null && activeTypewriter.IsTyping())
+                {
+                    activeTypewriter.SkipTyping();
+                }
+                else if (isWaitingForClick)
+                {
+                    isWaitingForClick = false;
+                    RefreshView();
+                }
             }
         }
+        
     }
 
     public void SetCommentPrefab(GameObject commentPrefab)
@@ -189,26 +213,29 @@ public class InkDialogueController : MonoBehaviour
     private void CreateContentView(string text, GameObject parentPanel)
     {
         TMP_Text storyText = Instantiate(textPrefab, parentPanel.transform, false);
-        storyText.text = text;
+        TypewriterEffectDOTween typewriter = storyText.GetComponent<TypewriterEffectDOTween>();
+        typewriter.StartTyping(text);
     }
 
     private void CreateCommentContentView(string text, string speaker)
     {
-        // Check if the scroll view is at the bottom
         bool isAtBottom = Mathf.Approximately(scrollRect.verticalNormalizedPosition, 0f);
 
-        // Instantiate and set up the new comment
         GameObject newComment = Instantiate(commentPrefab, commentsPanel.transform, false);
         TMP_Text commentText = newComment.GetComponentInChildren<TMP_Text>();
         commentText.text = text;
 
-        // Force the layout to update
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)commentsPanel.transform);
 
         DialogueAnimator.AnimateSlideIn(newComment);
         DialogueUIController.Instance.UpdateCharacterPortraitComment(speaker + "prof", newComment.GetComponentInChildren<RawImage>());
 
+        if (commentPopSound && audioSource)
+        {
+            audioSource.pitch = 0.7f;
+            audioSource.PlayOneShot(commentPopSound);   
+        }
 
         if (currentMode == DialogueMode.Chat)
         {
@@ -218,8 +245,6 @@ public class InkDialogueController : MonoBehaviour
         {
             StartCoroutine(ScrollDownByCommentHeight(newComment.GetComponent<RectTransform>()));
         }
-
-        
     }
 
     private IEnumerator ScrollDownByCommentHeight(RectTransform commentRect)
