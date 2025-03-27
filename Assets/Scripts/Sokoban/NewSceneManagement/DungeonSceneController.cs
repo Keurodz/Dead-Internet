@@ -135,5 +135,8 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
         LoadLevelData(levelData);
         transitionAnim.SetTrigger("Start");
         puzzleSystem.ResetWinCondition();
+        // activates the player character
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        playerController.IsActive = true;
     }
 }
