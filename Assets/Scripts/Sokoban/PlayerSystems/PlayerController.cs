@@ -8,14 +8,20 @@ public class PlayerController : MonoBehaviour
     // is the player controller active?
     public bool IsActive { get; set; } = false;
 
-    [SerializeField] public float speed;
+    [SerializeField] 
+    public float speed;
     // https://www.youtube.com/watch?v=HJkHnkS6z1I
     // sokoban behavior
-    [SerializeField] public LayerMask blockingLayer;
-    [SerializeField] public Animator animator;
+    [SerializeField] 
+    private LayerMask blockingLayer;
+    [SerializeField] 
+    private Animator animator;
 
     private Vector2 move;
     private CharacterController controller;
+
+    // instance of the dialogue manager
+    private DialogueManager dialogueManager;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -28,14 +34,23 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        dialogueManager = DialogueManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
+        Debug.Log(dialogueManager.isDialogueActive);
+        
+        if (IsActive == true && dialogueManager.isDialogueActive == false) {
+            MovePlayer();
+        } else {
+            animator.SetBool("walking", false);
+            animator.SetBool("pushing", false);
+            move = Vector2.zero;
+        }
     }
-
+    
     private void MovePlayer() {
         Vector3 movement = new Vector3(move.x, 0f, move.y);
 
