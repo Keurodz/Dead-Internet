@@ -30,31 +30,28 @@ public class AlienAbilityUI : MonoBehaviour
     {
         alienAbilitySystem.OnAmmoCountChanged += UpdateAmmoCount;
         alienAbilitySystem.OnAbilityCooldownChanged += UpdateProjectileCooldown;
-        if (alienAbilitySystem.alienAbilityAvailable)
-        {
-            gameObject.SetActive(true);
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        alienAbilitySystem.OnAbilityAvailabilityChanged += UpdateAbilityAvailability;
+        alienAbilitySystem.OnAlienAbilityMaxAmmoCountChanged += UpdateAlienAbilityMaxAmmoCount;
     }
 
     private void OnDisable()
     {
         alienAbilitySystem.OnAmmoCountChanged -= UpdateAmmoCount;
         alienAbilitySystem.OnAbilityCooldownChanged -= UpdateProjectileCooldown;
+        alienAbilitySystem.OnAbilityAvailabilityChanged -= UpdateAbilityAvailability;
+        alienAbilitySystem.OnAlienAbilityMaxAmmoCountChanged -= UpdateAlienAbilityMaxAmmoCount;
     }
 
     private void Awake() {
         projectileCooldownSlider = GetComponentInChildren<Slider>();
-        // ammoCountText = GetComponentInChildren<Text>();
 
-        if (ammoDisplayParent == null)
-        {
+        if (ammoDisplayParent == null) {
             ammoDisplayParent = transform;
         }
-        
+    }
+
+    private void Start() {
+        this.maxAmmo = alienAbilitySystem.alienAbilityMaxAmmo;
         CreateBulletIcons();
     }
 
@@ -62,8 +59,8 @@ public class AlienAbilityUI : MonoBehaviour
     private void CreateBulletIcons()
     {
         ClearBullets();
-        
-        for (int i = 0; i < maxAmmo; i++)
+
+        for (int i = 0; i < this.maxAmmo; i++)
         {
             GameObject bulletObj = new GameObject("Bullet_" + i);
             bulletObj.transform.SetParent(ammoDisplayParent, false);
@@ -102,11 +99,40 @@ public class AlienAbilityUI : MonoBehaviour
             bulletColor.a = (i < currentAmmo) ? 1.0f : usedBulletOpacity;
             bulletImages[i].color = bulletColor;
         }
+
+        if (alienAbilitySystem.alienAbilityAvailable)
+        {
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     // when the projectile cooldown is updated, update the slider
     public void UpdateProjectileCooldown(float cooldownTimeLeft, float totalCooldownTime)
     {
         projectileCooldownSlider.value = cooldownTimeLeft / totalCooldownTime;
+    }
+
+    // when the ability availability is updated, update the UI
+    public void UpdateAbilityAvailability(bool available)
+    {
+        if (available)
+        {
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    // when the max ammo is updated, update the bullet icons
+    public void UpdateAlienAbilityMaxAmmoCount(int maxAmmo)
+    {
+        this.maxAmmo = maxAmmo;
+        CreateBulletIcons();
     }
 }

@@ -9,10 +9,6 @@ public class NextLevelTrigger : MonoBehaviour
         {
             PlayerController playerController = other.GetComponent<PlayerController>();
             playerController.IsActive = false;
-
-            Debug.Log("Next level trigger entered");
-            Debug.Log(playerController);
-            Debug.Log(playerController.IsActive);
             DungeonSceneController.Instance.NextLevel();
         }
     }
