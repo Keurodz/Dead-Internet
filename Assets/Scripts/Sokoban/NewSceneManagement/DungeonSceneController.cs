@@ -79,8 +79,6 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
             OnLevelChanged?.Invoke(); 
             // SceneManager.LoadSceneAsync(dungeonLevelScenes[currentSceneIndex]);
         } else {
-            Debug.LogWarning("LOADING NEXT SCENE");
-
             // no more dungeon levels left so goes to next scene 
             SceneManager.LoadScene(nextSceneName);
         }

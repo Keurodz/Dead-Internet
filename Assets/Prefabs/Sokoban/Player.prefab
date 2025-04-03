@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7256597275644437687}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 1.75}
+  m_LocalPosition: {x: 4.7, y: 0, z: 1.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -79,6 +79,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c0aa3a16-5786-4ad2-82a2-0388a9741b46
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a5dcd444-a154-4f9e-9b70-b3aa5ac73b27
+    m_ActionName: 'Player/Ability[/Keyboard/tab]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 447d6986-8136-44df-bf0e-628a18f59229
+    m_ActionName: 'Gameplay/Ability[/Keyboard/tab]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -166,7 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alienAbilityAvailable: 1
+  alienAbilityMaxAmmo: 3
   projectilePrefab: {fileID: 7297555509299691677, guid: 4c9211828b7e04c99a3fc94210374d3c, type: 3}
+  alienAbilityTotalCooldown: 5
 --- !u!1 &7642707950376404458
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class LevelDisplayUI : MonoBehaviour
     // attaches a listener to the SceneManager.sceneLoaded event to ensure 
     // the level text is updated when the scene loads
     private void Start() {
-        levelProvider = DungeonSceneController.Instance;   
+        levelProvider = SokobanDungeonManager.Instance;   
         levelDisplayText = GetComponentInChildren<Text>();
         UpdateLevelText();
 

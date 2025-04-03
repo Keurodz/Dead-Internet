@@ -27,8 +27,9 @@ public class SceneLoader : MonoBehaviour
 
     // coroutine to load the given scene with the animation
     IEnumerator LoadScene(string sceneName) {
-        transition.SetTrigger("Start");
+        transition.SetTrigger("End");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(sceneName);
+        transition.SetTrigger("Start");
     }
 }

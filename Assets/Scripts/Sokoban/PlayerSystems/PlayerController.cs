@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour
     
     private void MovePlayer() {
         Vector3 movement = new Vector3(move.x, 0f, move.y);
-        Debug.Log(movement);
 
         if (move.magnitude == 0) {
             StopPlayer();
@@ -70,7 +69,6 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(rayOrigin, movement.normalized * 1f, Color.red, 1f);
 
         bool isPushing = Physics.Raycast(rayOrigin, movement, out RaycastHit hit, 0.3f, blockingLayer);
-        animator.SetBool("IsPushing", isPushing);
 
         if (isPushing == false || movement.magnitude == 0) {
             animator.SetBool("pushing", false);
