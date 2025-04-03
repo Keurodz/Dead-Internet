@@ -7,6 +7,8 @@ public class NextLevelTrigger : MonoBehaviour
         // Check if the collider that entered is the player
         if (other.CompareTag("Player"))
         {
+            PlayerController playerController = other.GetComponent<PlayerController>();
+            playerController.IsActive = false;
             DungeonSceneController.Instance.NextLevel();
         }
     }

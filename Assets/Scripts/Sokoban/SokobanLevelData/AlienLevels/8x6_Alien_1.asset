@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75d6f5391940483ea97d3fc94a3ff14, type: 3}
+  m_Name: 8x6_Alien_1
+  m_EditorClassIdentifier: 
+  levelName: 8x6_Alien_1
+  bounds: {x: 8, y: 6}
+  anchorPoint: {x: -1, y: 1}
+  alienAbilityAmmo: 1
+  interactableObjects:
+  - gridPosition: {x: 3, y: 4}
+    type: 1
+  - gridPosition: {x: 3, y: 5}
+    type: 1
+  - gridPosition: {x: 4, y: 3}
+    type: 1
+  - gridPosition: {x: 4, y: 5}
+    type: 1
+  - gridPosition: {x: 6, y: 5}
+    type: 1
+  - gridPosition: {x: 7, y: 5}
+    type: 1
+  - gridPosition: {x: 8, y: 5}
+    type: 1
+  - gridPosition: {x: 3, y: 3}
+    type: 0
+  - gridPosition: {x: 7, y: 3}
+    type: 0
+  - gridPosition: {x: 3, y: 6}
+    type: 2
+  - gridPosition: {x: 6, y: 6}
+    type: 2

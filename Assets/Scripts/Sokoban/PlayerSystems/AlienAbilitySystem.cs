@@ -7,21 +7,18 @@ using System.Collections;
 public class AlienAbilitySystem : MonoBehaviour
 {
     // determines if the alien ability is available
-    [SerializeField]
     public bool alienAbilityAvailable = true;
 
-    // the projectile prefab to shoot
+    // the maximum amount of ammo for the alien ability
+    public int alienAbilityMaxAmmo = 3;
 
+    // the projectile prefab to shoot
     [SerializeField]
     private GameObject projectilePrefab;
 
     // the cooldown time for the alien ability
     [SerializeField]
     private float alienAbilityTotalCooldown = 5f;
-
-    // the maximum amount of ammo for the alien ability
-    [SerializeField]
-    private int alienAbilityMaxAmmo = 3;
 
     // the current amount of ammo for the alien ability
     private int alienAbilityCurrentAmmo;
@@ -32,10 +29,11 @@ public class AlienAbilitySystem : MonoBehaviour
     // the fire point to shoot the projectile from
     private Transform firePoint;
 
-    // action listeners for ammo count and cooldown changes 
-    // to update the UI
+    // action listeners for chnages to update the UI
     public event Action<int> OnAmmoCountChanged;
     public event Action<float, float> OnAbilityCooldownChanged;
+    public event Action<bool> OnAbilityAvailabilityChanged;
+    public event Action<int> OnAlienAbilityMaxAmmoCountChanged;
 
     // sets the ammo count and invokes the action listener
     public void SetAmmoCount(int count)
@@ -51,11 +49,25 @@ public class AlienAbilitySystem : MonoBehaviour
         alienAbilityCooldownTimer = time;
         OnAbilityCooldownChanged?.Invoke(alienAbilityCooldownTimer, alienAbilityTotalCooldown);
     }
+
+    // sets the ability availability and invokes the action listener
+    public void SetAbilityAvailability(bool available)
+    {
+        alienAbilityAvailable = available;
+        OnAbilityAvailabilityChanged?.Invoke(alienAbilityAvailable);
+    }
+
+    // sets the max ammo and invokes the action listener
+    public void SetAlienAbilityMaxAmmo(int maxAmmo)
+    {
+        alienAbilityMaxAmmo = maxAmmo;
+        OnAlienAbilityMaxAmmoCountChanged?.Invoke(alienAbilityMaxAmmo);
+    }
+
     void Start()
     {
         firePoint = transform.Find("FirePoint");
-        SetAmmoCount(alienAbilityMaxAmmo);
-        SetAbilityCooldown(alienAbilityTotalCooldown);
+        ReloadPlayerAbility();
     }
 
     // Update is called once per frame
@@ -63,6 +75,12 @@ public class AlienAbilitySystem : MonoBehaviour
     {
         HandleAlienAbilityCooldown();
         HandleProjectileAbility();
+    }
+
+    // resets the player's ammo count and cooldown timer
+    public void ReloadPlayerAbility() {
+        SetAmmoCount(alienAbilityMaxAmmo);
+        SetAbilityCooldown(alienAbilityTotalCooldown);
     }
 
     // updates the alien ability cooldown timer

@@ -67,9 +67,6 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
         Debug.Log(currentEnvironment.GetComponentInChildren<Animator>());
         // play the door animation 
         currentEnvironment.GetComponentInChildren<Animator>().SetTrigger("LevelWin");
-
-        // attach the NextLevel() trigger to the trigger beyond the door
-
     }
 
     // Progresses the index to the next dungeon level index.
@@ -104,10 +101,22 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
 
     // loads the given level data into the puzzle system
     private void LoadLevelData(SokobanLevelData levelData) {
-        Debug.Log("Loading level data: " + levelData.name);
         player.transform.position = playerInitialPosition;
         puzzleSystem.LoadLevelData(levelData);
+        ConfigureAlienAbility(levelData.alienAbilityAmmo);
         LoadEnvironment(levelData);
+    }
+
+    // configure the alien ability for the level data alienAbilityAmmo
+    private void ConfigureAlienAbility(int alienAbilityAmmo) {
+        AlienAbilitySystem alienAbilitySystem = player.GetComponent<AlienAbilitySystem>();
+        if (alienAbilityAmmo == 0) {
+            alienAbilitySystem.SetAbilityAvailability(false);
+        } else {
+            alienAbilitySystem.SetAbilityAvailability(true);
+            alienAbilitySystem.SetAlienAbilityMaxAmmo(alienAbilityAmmo);
+            alienAbilitySystem.ReloadPlayerAbility();
+        }  
     }
 
     // loads the environment for the given level data
@@ -135,5 +144,8 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
         LoadLevelData(levelData);
         transitionAnim.SetTrigger("Start");
         puzzleSystem.ResetWinCondition();
+        // activates the player character
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        playerController.IsActive = true;
     }
 }

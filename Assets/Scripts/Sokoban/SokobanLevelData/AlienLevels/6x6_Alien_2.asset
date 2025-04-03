@@ -15,6 +15,7 @@ MonoBehaviour:
   levelName: 6x6_Alien_2
   bounds: {x: 6, y: 6}
   anchorPoint: {x: 1, y: 1}
+  alienAbilityAmmo: 1
   interactableObjects:
   - gridPosition: {x: 2, y: 4}
     type: 1
