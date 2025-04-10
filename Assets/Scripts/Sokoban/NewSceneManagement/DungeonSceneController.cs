@@ -137,13 +137,16 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
 
     // loads the given level data, triggers the transition animation
     private IEnumerator LoadLevel(SokobanLevelData levelData) {
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        
+        playerController.IsActive = false;
         transitionAnim.SetTrigger("End");
+
         yield return new WaitForSeconds(1f);
         LoadLevelData(levelData);
+
         transitionAnim.SetTrigger("Start");
         puzzleSystem.ResetWinCondition();
-        // activates the player character
-        PlayerController playerController = player.GetComponent<PlayerController>();
         playerController.IsActive = true;
     }
 }

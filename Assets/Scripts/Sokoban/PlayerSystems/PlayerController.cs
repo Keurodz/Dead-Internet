@@ -73,21 +73,22 @@ public class PlayerController : MonoBehaviour
         if (isPushing == false || movement.magnitude == 0) {
             animator.SetBool("pushing", false);
         } else {
-            if (movement.magnitude > 0) {
+            if (movement.magnitude > 0.3f) {
                 animator.SetBool("pushing", true);
-            }
-            if (hit.collider.CompareTag("Sokoban"))
-            {
-                var gridBlock = hit.collider.GetComponent<ISokobanInteractable>();
-                if (gridBlock != null && gridBlock.IsPushable())
+                if (hit.collider.CompareTag("Sokoban"))
                 {
-                    Direction direction = GetCardinalDirection(hit.collider.transform.position - transform.position);
-                    if (gridBlock.TryPush(direction))
+                    var gridBlock = hit.collider.GetComponent<ISokobanInteractable>();
+                    if (gridBlock != null && gridBlock.IsPushable())
                     {
-                        controller.Move(movement * speed * Time.deltaTime);
+                        Direction direction = GetCardinalDirection(hit.collider.transform.position - transform.position);
+                        if (gridBlock.TryPush(direction))
+                        {
+                            controller.Move(movement * speed * Time.deltaTime);
+                        }
                     }
                 }
             }
+            
         }
 
         controller.Move(movement * speed * Time.deltaTime);
