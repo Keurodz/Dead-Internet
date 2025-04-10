@@ -47,7 +47,7 @@ public class SceneController : MonoBehaviour, ILevelController
     private IEnumerator LoadLevel() {
         transitionAnim.SetTrigger("End");
         yield return new WaitForSeconds(1f);
-        SokobanDungeonManager.Instance.NextDungeon();
+        SokobanDungeonManager.Instance.NextLevel();
         transitionAnim.SetTrigger("Start");
     }
 }

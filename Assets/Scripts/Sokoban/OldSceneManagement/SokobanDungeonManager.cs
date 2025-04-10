@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 // ideally the GameObject that will trigger the dungeon entering. 
 // Set the dungeonLevelScenes and nextSceneName fields in the Inspector.
 // Call the EnterDungeon method to start the dungeon.
-public class SokobanDungeonManager : MonoBehaviour, ILevelProvider
+public class SokobanDungeonManager : MonoBehaviour, ILevelProvider, ILevelController
 {
     public static SokobanDungeonManager Instance;
 
@@ -54,7 +54,7 @@ public class SokobanDungeonManager : MonoBehaviour, ILevelProvider
     }
 
     // Progresses the index to the next dungeon level index.
-    public void NextDungeon() {
+    public void NextLevel() {
         if (currentSceneIndex < dungeonLevelScenes.Count - 1) {
             currentSceneIndex++;
             SceneManager.LoadSceneAsync(dungeonLevelScenes[currentSceneIndex]);
@@ -63,5 +63,13 @@ public class SokobanDungeonManager : MonoBehaviour, ILevelProvider
             // no more dungeon levels left so goes to next scene 
             SceneManager.LoadScene(nextSceneName);
         }
+    }
+
+    public void PlayWinSequence() {
+
+    }
+
+    public void RestartLevel() {
+        SceneManager.LoadScene(dungeonLevelScenes[currentSceneIndex]);
     }
 }
