@@ -12,13 +12,17 @@ public class SokobanGridSystem : MonoBehaviour
     [SerializeField] public Grid grid; // reference to the world grid
     [SerializeField] public LayerMask blockingLayer; // reference to the blocking layer (pushable boxes)
 
+    [Header("Block Prefabs")]
     // prefab for the movable block
     public GameObject movablePrefab;
     // prefab for the immovable block
     public GameObject immovablePrefab;
     // prefab for the button block
     public GameObject buttonPrefab;
+    // prefab for the pit block 
+    public GameObject pitPrefab;
     
+    [Header("Stores GameObject information for grid")]
     // list of all the GameObject references 
     private List<GameObject> interactableObjects = new List<GameObject>();
 
@@ -28,13 +32,18 @@ public class SokobanGridSystem : MonoBehaviour
     private Dictionary<Vector2Int, GameObject> floatingObjects = new Dictionary<Vector2Int, GameObject>();
     // dictionary to store the moving objects and whether they are moving
     private Dictionary<GameObject, bool> movingObjects = new Dictionary<GameObject, bool>();
+
+    [Header("Grid Information")]
     // the bounds of the grid
     private Vector2Int gridBounds;
     // the offset of the grid
     private Vector2Int gridOffset;
 
+    [Header("Special Block Locations")]
     // the positions where buttons are located
     private List<Vector2Int> winPositions = new List<Vector2Int>();
+    private List<Vector2Int> pitPositions = new List<Vector2Int>();
+
 
     // populate the grid with the blocks of the level data.
     // returns false if there is a block at an occupied position, meaning the level data is invalid
@@ -51,12 +60,18 @@ public class SokobanGridSystem : MonoBehaviour
             // spawns the interactable object in the world
             Vector3 worldPosition = this.GetWorldPosition(gridPosition);
 
-            GameObject prefab = (element.type == InteractableObjectType.MovableBlockObject) ? movablePrefab : 
-            (element.type == InteractableObjectType.ImmovableBlockObject) ? immovablePrefab : 
-            (element.type == InteractableObjectType.ButtonBlockObject) ? buttonPrefab : null;
+            GameObject prefab = this.GetPrefab(element.type);
+            if (prefab == null) {
+                Debug.LogError("prefab not found for type: " + element.type);
+                return false;
+            }
 
+            // add specific block positions to the list
             if (element.type == InteractableObjectType.ButtonBlockObject) {
                 winPositions.Add(gridPosition);
+            }
+            if (element.type == InteractableObjectType.PitBlockObject) {
+                pitPositions.Add(gridPosition);
             }
         
             GameObject interactableGameObject = Instantiate(prefab, worldPosition, Quaternion.identity);
@@ -64,18 +79,50 @@ public class SokobanGridSystem : MonoBehaviour
 
             interactableObjects.Add(interactableGameObject);
 
-            // adds the game object to the grid dictionary
             if (!gridDictionary.ContainsKey(gridPosition))
             {
-                if (!(element.type == InteractableObjectType.ButtonBlockObject)) {
-                    // button block do not occupy a grid position
+                if (ShouldOccupyGridPosition(element.type)) {
                     gridDictionary[gridPosition] = interactableGameObject;
                 }
             } else {
+                Debug.LogError("It seems like this level data is invalid, there is an issue at the position: " + gridPosition);
                 return false;
             }
         }
         return true;
+    }
+
+    // returns the prefab for the given interactable object type
+    private GameObject GetPrefab(InteractableObjectType type) {
+        switch (type) {
+            case InteractableObjectType.MovableBlockObject:
+                return movablePrefab;
+            case InteractableObjectType.ImmovableBlockObject:
+                return immovablePrefab;
+            case InteractableObjectType.ButtonBlockObject:
+                return buttonPrefab;
+            case InteractableObjectType.PitBlockObject:
+                return pitPrefab;
+            default:
+                return null;
+        }
+    }
+
+    // returns if the prefab should occupy a grid position
+    // buttons and pits do not occupy a grid position
+    private bool ShouldOccupyGridPosition(InteractableObjectType type) {
+        switch (type) {
+            case InteractableObjectType.MovableBlockObject:
+                return true;
+            case InteractableObjectType.ImmovableBlockObject:
+                return true;
+            case InteractableObjectType.ButtonBlockObject:
+                return false;
+            case InteractableObjectType.PitBlockObject:
+                return false;
+            default:
+                return false;
+        }
     }
 
     private void ClearGrid() {
@@ -86,6 +133,7 @@ public class SokobanGridSystem : MonoBehaviour
         floatingObjects.Clear();
         movingObjects.Clear();
         winPositions.Clear();
+        pitPositions.Clear();
         interactableObjects.Clear();
     }
 
@@ -217,6 +265,12 @@ public class SokobanGridSystem : MonoBehaviour
             gridDictionary.Remove(gridStartPosition);
             gridDictionary[gridTargetPosition] = block;
         }
+
+        // if the block has been moved to a pit position, remove it
+        if (pitPositions.Contains(gridTargetPosition))
+        {
+            StartCoroutine(RemoveBlockInPit(block, gridTargetPosition));
+        }
     }
     
     // coroutine to float the given block 
@@ -285,6 +339,33 @@ public class SokobanGridSystem : MonoBehaviour
         floatingObjects.Remove(gridPosition);
         gridDictionary[gridPosition] = block;
         movingObjects[block] = false;
+    }
+
+    // coroutine to remove the movable block if it is in the pit position
+    private IEnumerator RemoveBlockInPit(GameObject block, Vector2Int gridPosition) {
+        movingObjects[block] = true;
+        float elapsedTime = 0f;
+        float floatDuration = 1.3f;        
+        float floatHeight = 2f;
+        float rotationSpeed = 720f;
+        Vector3 worldPosition = block.transform.position;
+        Vector3 destinationPosition = worldPosition + (Vector3.down * floatHeight);
+
+        while (elapsedTime < floatDuration)
+        {
+            float timeChange = elapsedTime / floatDuration;
+
+            block.transform.position = Vector3.Lerp(worldPosition, destinationPosition, timeChange);
+
+            
+            block.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(block);
+        gridDictionary.Remove(gridPosition);
     }
 
     // runs A* algorithm to get the path from the start to the end position
