@@ -7,7 +7,6 @@ using TMPro;
 public class ScrollViewPopulator : MonoBehaviour
 {
     [Header("Scroll View UI Prefabs")]
-    public GameObject itemPrefab; // The prefab of the item (button, text, etc.)
     public GameObject commentPrefab;
     public GameObject postPrefab;
 
@@ -232,19 +231,6 @@ public class ScrollViewPopulator : MonoBehaviour
         // Instantiate new items
         for (int i = 0; i < numberOfItems; i++)
         {
-            // // Instantiate the item prefab
-            // GameObject newItem = Instantiate(itemPrefab, contentPanel);
-
-            // // Optionally set values for the new item, e.g., text
-            // TextMeshProUGUI itemText = newItem.GetComponentInChildren<TextMeshProUGUI>();
-
-            // if (itemText != null)
-            // {
-            //     string randomComment = presetComments[Random.Range(0, presetComments.Count)];
-            //     Debug.Log(randomComment);
-            //     Debug.Log(itemText);
-            //     itemText.text = randomComment;
-            // } 
             GenerateRandomPost();
         }
     }
@@ -256,6 +242,13 @@ public class ScrollViewPopulator : MonoBehaviour
 
         TextMeshProUGUI[] itemTexts = postPrefabItem.GetComponentsInChildren<TextMeshProUGUI>();
 
+        // removes the image panel from the post prefab
+        Transform imagePanel = postPrefabItem.transform.Find("Post Content/Image Panel");
+        if (imagePanel != null)
+        {
+            imagePanel.gameObject.SetActive(false);
+        }
+        
         // attempts to populate the post prefab with texts
         if (itemTexts.Length >= 3) {
             // title header text
@@ -265,10 +258,6 @@ public class ScrollViewPopulator : MonoBehaviour
             // post content text
             string randomContent = presetPostDescriptions[Random.Range(0, presetPostDescriptions.Count)];
             itemTexts[1].text = randomContent;
-
-            // post comment text
-            string randomComment = presetComments[Random.Range(0, presetComments.Count)];
-            itemTexts[2].text = randomComment;
         }
 
         // attempts to populate the post with random number of comments
