@@ -278,7 +278,75 @@ Material:
     - _WidthHeightRadius: {r: 400, g: 154, b: 50, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!21 &754217038
+--- !u!1001 &573457265
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037760142433388124, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8158935272359271814, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+      propertyPath: m_Name
+      value: SokobanPuzzleSystem
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+--- !u!114 &573457266 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4856998233497567681, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
+  m_PrefabInstance: {fileID: 573457265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c89330e3bf04f0f8ef2b15c7b8eb64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!21 &720814638
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -315,10 +383,10 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _WidthHeightRadius: {r: 176, g: 184, b: 240, a: 0}
+    - _WidthHeightRadius: {r: 400, g: 154, b: 50, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!21 &794323509
+--- !u!21 &754217038
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -363,6 +431,46 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4509428499839160048, guid: 9689731e73349401ab8bb17b8c9a8b03, type: 3}
   m_PrefabInstance: {fileID: 1235846811}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1165530099
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 400, g: 150, b: 80, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1235846811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -447,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5784c70b55765446e8711839191d15f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &1387584028
+--- !u!21 &1391158555
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -484,7 +592,7 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _WidthHeightRadius: {r: 400, g: 154, b: 50, a: 0}
+    - _WidthHeightRadius: {r: 176, g: 184, b: 240, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1595962152
@@ -701,125 +809,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
---- !u!21 &1853619579
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _WidthHeightRadius: {r: 400, g: 150, b: 80, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!1 &2058650264
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2058650268}
-  - component: {fileID: 2058650267}
-  - component: {fileID: 2058650266}
-  - component: {fileID: 2058650265}
-  m_Layer: 0
-  m_Name: SokobanPuzzleSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2058650265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058650264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4c89330e3bf04f0f8ef2b15c7b8eb64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelData: {fileID: 11400000, guid: 9ed1c4ce895434207a0f379d181ef3d4, type: 2}
-  gridSystem: {fileID: 2058650267}
---- !u!156049354 &2058650266
-Grid:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058650264}
-  m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 1}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 1
---- !u!114 &2058650267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058650264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b10db6421afd461c8494dcc7270a232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 2058650266}
-  blockingLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  movablePrefab: {fileID: 5553008836327802064, guid: a220052ab0c504f73aec7c311ed221e9, type: 3}
-  immovablePrefab: {fileID: 7809198653573355281, guid: d696b37482f084cecb46f61519562d81, type: 3}
-  buttonPrefab: {fileID: 7963319110559405956, guid: 94351d8e012164938a15c6160d4024ff, type: 3}
---- !u!4 &2058650268
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2058650264}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2068146561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,7 +1324,7 @@ PrefabInstance:
     - target: {fileID: 6574400408536171574, guid: 0198e8b677b5243a6a45ff584c55af12, type: 3}
       propertyPath: puzzleSystem
       value: 
-      objectReference: {fileID: 2058650265}
+      objectReference: {fileID: 573457266}
     - target: {fileID: 6574400408536171574, guid: 0198e8b677b5243a6a45ff584c55af12, type: 3}
       propertyPath: nextSceneName
       value: Monitor System
@@ -1397,10 +1386,10 @@ SceneRoots:
   - {fileID: 1926213320958501932}
   - {fileID: 2937953505339597499}
   - {fileID: 1967016273579911627}
-  - {fileID: 2058650268}
   - {fileID: 1595962155}
   - {fileID: 2068146564}
   - {fileID: 1747563295}
   - {fileID: 8887355265257779836}
   - {fileID: 1235846811}
   - {fileID: 718254010159807878}
+  - {fileID: 573457265}
