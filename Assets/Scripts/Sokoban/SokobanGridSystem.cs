@@ -42,7 +42,10 @@ public class SokobanGridSystem : MonoBehaviour
     [Header("Special Block Locations")]
     // the positions where buttons are located
     private List<Vector2Int> winPositions = new List<Vector2Int>();
+    // the positions where pits are located
     private List<Vector2Int> pitPositions = new List<Vector2Int>();
+    // reference to the pit objects (to destroy)
+    private Dictionary<Vector2Int, GameObject> pitObjects = new Dictionary<Vector2Int, GameObject>();
 
 
     // populate the grid with the blocks of the level data.
@@ -66,18 +69,19 @@ public class SokobanGridSystem : MonoBehaviour
                 return false;
             }
 
+            GameObject interactableGameObject = Instantiate(prefab, worldPosition, Quaternion.identity);
+            interactableGameObject.GetComponent<ISokobanInteractable>().Initialize(gridPosition);
+
+            interactableObjects.Add(interactableGameObject);
+
             // add specific block positions to the list
             if (element.type == InteractableObjectType.ButtonBlockObject) {
                 winPositions.Add(gridPosition);
             }
             if (element.type == InteractableObjectType.PitBlockObject) {
                 pitPositions.Add(gridPosition);
+                pitObjects.Add(gridPosition, interactableGameObject);
             }
-        
-            GameObject interactableGameObject = Instantiate(prefab, worldPosition, Quaternion.identity);
-            interactableGameObject.GetComponent<ISokobanInteractable>().Initialize(gridPosition);
-
-            interactableObjects.Add(interactableGameObject);
 
             if (!gridDictionary.ContainsKey(gridPosition))
             {
@@ -134,6 +138,7 @@ public class SokobanGridSystem : MonoBehaviour
         movingObjects.Clear();
         winPositions.Clear();
         pitPositions.Clear();
+        pitObjects.Clear();
         interactableObjects.Clear();
     }
 
@@ -345,11 +350,14 @@ public class SokobanGridSystem : MonoBehaviour
     private IEnumerator RemoveBlockInPit(GameObject block, Vector2Int gridPosition) {
         movingObjects[block] = true;
         float elapsedTime = 0f;
-        float floatDuration = 1.3f;        
-        float floatHeight = 2f;
-        float rotationSpeed = 720f;
+        float floatDuration = 0.8f;        
+        float floatHeight = 0.5f;
+        float rotationSpeed = 540f;
         Vector3 worldPosition = block.transform.position;
         Vector3 destinationPosition = worldPosition + (Vector3.down * floatHeight);
+
+        // pit block at position 
+        GameObject pitBlock = pitObjects.ContainsKey(gridPosition) ? pitObjects[gridPosition] : null;
 
         while (elapsedTime < floatDuration)
         {
@@ -357,15 +365,31 @@ public class SokobanGridSystem : MonoBehaviour
 
             block.transform.position = Vector3.Lerp(worldPosition, destinationPosition, timeChange);
 
-            
             block.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+
+            if (pitBlock != null) {
+                pitBlock.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+            }
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
+        Destroy(pitBlock);
+        pitObjects.Remove(gridPosition);
+        pitPositions.Remove(gridPosition);
+
         Destroy(block);
         gridDictionary.Remove(gridPosition);
+    }
+    
+    // destroys the pit block at the given position
+    public void DestroyPitBlockAtPosition(Vector2Int gridPosition) {
+        if (pitObjects.ContainsKey(gridPosition)) {
+            GameObject pitBlock = pitObjects[gridPosition];
+            Destroy(pitBlock);
+            pitObjects.Remove(gridPosition);
+        }  
     }
 
     // runs A* algorithm to get the path from the start to the end position

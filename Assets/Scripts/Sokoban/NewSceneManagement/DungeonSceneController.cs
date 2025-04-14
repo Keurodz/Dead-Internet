@@ -60,7 +60,6 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
     private void Start() {
         playerInitialPosition = player.transform.position;
         LoadLevelData(levelDataList[currentSceneIndex]);
-        puzzleSystem = GetComponent<SokobanPuzzleSystem>();
     }
 
     // the win sequence should open the doors and add the NextLevel() trigger
