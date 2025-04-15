@@ -28,12 +28,22 @@ public class SokobanDungeonManager : MonoBehaviour, ILevelProvider, ILevelContro
     // the index of the current dungeon level
     private int currentSceneIndex = 0;
 
+    [Header("Controls the animation of the transition")]
+    [SerializeField]
+    private Animator transitionAnim;
+
     private void Awake() {
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
+        }
+    }
+
+    private void Start() {
+        if (transitionAnim == null) {
+            transitionAnim = GetComponentInChildren<Animator>();
         }
     }
 
@@ -57,8 +67,7 @@ public class SokobanDungeonManager : MonoBehaviour, ILevelProvider, ILevelContro
     public void NextLevel() {
         if (currentSceneIndex < dungeonLevelScenes.Count - 1) {
             currentSceneIndex++;
-            SceneManager.LoadSceneAsync(dungeonLevelScenes[currentSceneIndex]);
-            OnLevelChanged?.Invoke();
+            StartCoroutine(LoadNextLevel());
         } else {
             // no more dungeon levels left so goes to next scene 
             SceneManager.LoadScene(nextSceneName);
@@ -71,5 +80,14 @@ public class SokobanDungeonManager : MonoBehaviour, ILevelProvider, ILevelContro
 
     public void RestartLevel() {
         SceneManager.LoadScene(dungeonLevelScenes[currentSceneIndex]);
+    }
+
+    // Triggers the transition animation and loads the next dungeon scene.
+    private IEnumerator LoadNextLevel() {
+        transitionAnim.SetTrigger("End");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(dungeonLevelScenes[currentSceneIndex]);
+        OnLevelChanged?.Invoke();
+        transitionAnim.SetTrigger("Start");
     }
 }
