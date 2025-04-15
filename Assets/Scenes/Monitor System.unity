@@ -740,19 +740,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 484366551680455340, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 484366551680455340, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 484366551680455340, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 484366551680455340, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1383080492176338823, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -810,13 +810,29 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3f11d9b25ae9d403699500c0a34d1a09, type: 3}
+    - target: {fileID: 1514351694122964647, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514351694122964647, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Color.b
+      value: 0.60742253
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514351694122964647, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Color.g
+      value: 0.60742253
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514351694122964647, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
+      propertyPath: m_Color.r
+      value: 0.735849
+      objectReference: {fileID: 0}
     - target: {fileID: 1880005368005775490, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_Name
       value: Dialogue System
       objectReference: {fileID: 0}
     - target: {fileID: 1880005368005775490, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2115122612521186116, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -828,19 +844,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3226245980643353060, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3226245980643353060, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3226245980643353060, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 212
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3226245980643353060, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3317845942538426213, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -856,7 +872,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 79a3668c0ea204fb3aa60268afe74504, type: 3}
     - target: {fileID: 4255695376251779483, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_Color.a
-      value: 0.74509805
+      value: 0.8627451
       objectReference: {fileID: 0}
     - target: {fileID: 4255695376251779483, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_Color.b
@@ -900,19 +916,19 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d543fc848bfde4d5ca113da11bb36f1d, type: 3}
     - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_Color.a
-      value: 0.89411765
+      value: 0.8627451
       objectReference: {fileID: 0}
     - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_Color.b
-      value: 0.6372375
+      value: 0.622241
       objectReference: {fileID: 0}
     - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_Color.g
-      value: 0.6372375
+      value: 0.622241
       objectReference: {fileID: 0}
     - target: {fileID: 6777217885064210900, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: m_Color.r
-      value: 0.754717
+      value: 0.745283
       objectReference: {fileID: 0}
     - target: {fileID: 6854695617943455230, guid: 0d88b321a140242c8a19db0a9d08eff4, type: 3}
       propertyPath: commentsPanel
@@ -3998,7 +4014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1130291569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7879,7 +7895,7 @@ PlayableDirector:
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
-  m_InitialTime: 4
+  m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: 1297100780596109860, guid: b40b9dedc9b7340609b34a5b598722e0, type: 2}
     value: {fileID: 34759631}
