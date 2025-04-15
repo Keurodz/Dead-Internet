@@ -27,7 +27,6 @@ public class ScrollViewPopulator : MonoBehaviour
             // Instantiate the item prefab
             GameObject newItem = Instantiate(itemPrefab, contentPanel);
 
-            // Optionally set values for the new item, e.g., text
             Text itemText = newItem.GetComponentInChildren<Text>();
             if (itemText != null)
             {
