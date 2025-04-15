@@ -4,16 +4,20 @@ using UnityEngine.EventSystems;
 public class DragHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private RectTransform rectTransform;
-    private Canvas canvas;
     private CanvasGroup canvasGroup;
-    private RectTransform canvasRect;
+    public RectTransform parentPanel;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
-        canvasRect = canvas.GetComponent<RectTransform>();
+
+        // Find the parent panel (the first parent with RectTransform)
+        //Transform parent = transform.parent;
+        //if (parent != null)
+        //{
+        //    parentPanel = parent.GetComponent<RectTransform>();
+        //}
 
         if (canvasGroup == null)
         {
@@ -23,7 +27,7 @@ public class DragHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // Bring this object to the top of the hierarchy
+        // Bring this object to the top of the hierarchy within its parent
         rectTransform.SetAsLastSibling();
     }
 
@@ -35,8 +39,16 @@ public class DragHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        Vector2 newPosition = rectTransform.anchoredPosition + eventData.delta / canvas.scaleFactor;
-        rectTransform.anchoredPosition = ClampToCanvas(newPosition);
+        // Convert screen position to local position within parent
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentPanel,
+            eventData.position,
+            eventData.pressEventCamera,
+            out localPoint);
+
+        // Calculate new position
+        rectTransform.localPosition = ClampToParentPanel(localPoint);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -45,16 +57,22 @@ public class DragHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHandler
         canvasGroup.blocksRaycasts = true;
     }
 
-    private Vector2 ClampToCanvas(Vector2 position)
+    private Vector2 ClampToParentPanel(Vector2 position)
     {
-        Vector3[] canvasCorners = new Vector3[4];
-        canvasRect.GetLocalCorners(canvasCorners);
+        if (parentPanel == null)
+            return position;
 
-        float minX = canvasCorners[0].x + rectTransform.rect.width * rectTransform.pivot.x;
-        float maxX = canvasCorners[2].x - rectTransform.rect.width * (1 - rectTransform.pivot.x);
-        float minY = canvasCorners[0].y + rectTransform.rect.height * rectTransform.pivot.y;
-        float maxY = canvasCorners[2].y - rectTransform.rect.height * (1 - rectTransform.pivot.y);
+        // Get the corners of the parent panel
+        Vector3[] parentCorners = new Vector3[4];
+        parentPanel.GetLocalCorners(parentCorners);
 
+        // Calculate the boundaries based on the parent's corners and this object's size
+        float minX = parentCorners[0].x + rectTransform.rect.width * rectTransform.pivot.x;
+        float maxX = parentCorners[2].x - rectTransform.rect.width * (1 - rectTransform.pivot.x);
+        float minY = parentCorners[0].y + rectTransform.rect.height * rectTransform.pivot.y;
+        float maxY = parentCorners[2].y - rectTransform.rect.height * (1 - rectTransform.pivot.y);
+
+        // Clamp the position within the boundaries
         float clampedX = Mathf.Clamp(position.x, minX, maxX);
         float clampedY = Mathf.Clamp(position.y, minY, maxY);
 
