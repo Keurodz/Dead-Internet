@@ -142,7 +142,7 @@ public class DungeonSceneController : MonoBehaviour, ILevelProvider, ILevelContr
         playerController.IsActive = false;
         transitionAnim.SetTrigger("End");
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         LoadLevelData(levelData);
 
         transitionAnim.SetTrigger("Start");
