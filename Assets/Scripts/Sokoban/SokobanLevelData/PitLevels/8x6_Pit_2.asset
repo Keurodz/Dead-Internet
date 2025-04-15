@@ -10,28 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e75d6f5391940483ea97d3fc94a3ff14, type: 3}
-  m_Name: 6x6_Pit_1
+  m_Name: 8x6_Pit_2
   m_EditorClassIdentifier: 
-  levelName: 6x6_Pit_1
-  bounds: {x: 6, y: 6}
-  anchorPoint: {x: 1, y: 1}
+  levelName: 8x6_Pit_1
+  bounds: {x: 8, y: 6}
+  anchorPoint: {x: -1, y: 1}
   alienAbilityAmmo: 0
   interactableObjects:
   - gridPosition: {x: 2, y: 2}
     type: 0
-  - gridPosition: {x: 4, y: 2}
+  - gridPosition: {x: 2, y: 4}
     type: 0
-  - gridPosition: {x: 1, y: 3}
+  - gridPosition: {x: 7, y: 3}
+    type: 0
+  - gridPosition: {x: 3, y: 1}
     type: 1
-  - gridPosition: {x: 2, y: 3}
+  - gridPosition: {x: 3, y: 2}
     type: 1
-  - gridPosition: {x: 4, y: 3}
+  - gridPosition: {x: 3, y: 4}
     type: 1
-  - gridPosition: {x: 5, y: 3}
+  - gridPosition: {x: 3, y: 5}
+    type: 1
+  - gridPosition: {x: 3, y: 6}
     type: 1
   - gridPosition: {x: 6, y: 3}
     type: 1
-  - gridPosition: {x: 3, y: 3}
+  - gridPosition: {x: 6, y: 4}
+    type: 1
+  - gridPosition: {x: 4, y: 3}
     type: 3
-  - gridPosition: {x: 3, y: 5}
+  - gridPosition: {x: 4, y: 4}
+    type: 2
+  - gridPosition: {x: 5, y: 3}
     type: 2
