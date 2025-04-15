@@ -223,10 +223,10 @@ public class ScrollViewPopulator : MonoBehaviour
     void PopulateScrollView()
     {
         // Clear any existing items
-        foreach (Transform child in contentPanel)
-        {
-            Destroy(child.gameObject);
-        }
+        //foreach (Transform child in contentPanel)
+        //{
+        //    Destroy(child.gameObject);
+        //}
 
         // Instantiate new items
         for (int i = 0; i < numberOfItems; i++)
