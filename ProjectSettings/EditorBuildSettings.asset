@@ -86,6 +86,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SokobanLevels/SokobanAlienLevels/8x8_Alien_3.unity
     guid: b4019d860deff43c5a1eaaaa06021182
+  - enabled: 1
+    path: Assets/Scenes/SokobanLevels/SokobanPitLevels/6x6_Pit_1.unity
+    guid: 6d1c6413ccc5743289dfac8b7943a5ae
+  - enabled: 1
+    path: Assets/Scenes/SokobanLevels/SokobanPitLevels/6x6_Pit_2.unity
+    guid: 30c7e33d3c9d0483888a6385c7592663
+  - enabled: 1
+    path: Assets/Scenes/SokobanLevels/SokobanPitLevels/6x6_Pit_3.unity
+    guid: 8e6dadbd5e6124f71b4abf6ee61cf355
+  - enabled: 1
+    path: Assets/Scenes/SokobanLevels/SokobanPitLevels/8x6_Pit_1.unity
+    guid: 940506425d9bb4d328046b60ef7627b4
+  - enabled: 1
+    path: Assets/Scenes/SokobanLevels/SokobanPitLevels/8x6_Pit_2.unity
+    guid: 047daba658c4d46499dba4d08c082de3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

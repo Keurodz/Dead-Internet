@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8158935272359271814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7037760142433388124}
+  - component: {fileID: 8926038056841254786}
+  - component: {fileID: 3826877591327620093}
+  - component: {fileID: 4856998233497567681}
+  m_Layer: 0
+  m_Name: SokobanPuzzleSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7037760142433388124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8158935272359271814}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8926038056841254786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8158935272359271814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b10db6421afd461c8494dcc7270a232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 3826877591327620093}
+  blockingLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  movablePrefab: {fileID: 5553008836327802064, guid: a220052ab0c504f73aec7c311ed221e9, type: 3}
+  immovablePrefab: {fileID: 7809198653573355281, guid: d696b37482f084cecb46f61519562d81, type: 3}
+  buttonPrefab: {fileID: 7963319110559405956, guid: 94351d8e012164938a15c6160d4024ff, type: 3}
+  pitPrefab: {fileID: 1502270946321840677, guid: 131893c9185ab47ac8717d2f488f68d7, type: 3}
+--- !u!156049354 &3826877591327620093
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8158935272359271814}
+  m_Enabled: 1
+  m_CellSize: {x: 1, y: 1, z: 1}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 1
+--- !u!114 &4856998233497567681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8158935272359271814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c89330e3bf04f0f8ef2b15c7b8eb64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelData: {fileID: 11400000, guid: 9ed1c4ce895434207a0f379d181ef3d4, type: 2}
+  gridSystem: {fileID: 8926038056841254786}
