@@ -1122,6 +1122,7 @@ GameObject:
   - component: {fileID: 193667022}
   - component: {fileID: 193667023}
   - component: {fileID: 193667024}
+  - component: {fileID: 193667025}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1191,6 +1192,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &193667025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193667021}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7212494cf20aa420c8b1216a691b14ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 9016883208677425872, guid: c631f655d1606447eab2b4db8d6fe76a, type: 3}
+  commentPrefab: {fileID: 8364306582702108839, guid: 898a56cc843814c5eaf457ad76ecf262, type: 3}
+  postPrefab: {fileID: 9016883208677425872, guid: c631f655d1606447eab2b4db8d6fe76a, type: 3}
+  contentPanel: {fileID: 193667022}
+  numberOfItems: 10
 --- !u!1 &200618750
 GameObject:
   m_ObjectHideFlags: 0
