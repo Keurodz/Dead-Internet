@@ -1,4 +1,5 @@
 == AlienFirstMeetingInDungeon ==
+ ~PLAY_MUSIC("Alien")
 ~ monologue = false
 # Character: Alien
 ~ monologue = false
@@ -9,7 +10,7 @@
 - You look around in bewilderment.
 - How did I get here? What is this place? How is this possible?
 
-
+ ~PLAY_MUSIC("Horror")
 - You push past the alien and look around at the strange world before you.
 
 - The world almost seems like the insides of a computer… Wires stretch across the walls, electricity brimming through them.
@@ -24,6 +25,7 @@
 ~ monologue = false
 - Careful! Don’t touch the walls. There seems to be some kind of weird barrier that wont let me move from this place. I’ve been trying myself, but I keep getting shocked just like you did.
 
+ ~PLAY_MUSIC("Alien")
 # Character: Innozen
 ~ monologue = true
 - While thinking, you stare intently at the Alien. 
@@ -53,6 +55,7 @@
 ~ monologue = false 
 - That was you!? You weren’t helpful at all!
 
+ ~PLAY_MUSIC("Soft")
 ~ monologue = true
  - The Alien turns away, giving the cold shoulder to you and starts to pout. When the Alien turns away, their foot presses down on the floor and part of it goes down, like the Alien stepped on a button. 
  
@@ -60,6 +63,7 @@
  
  - The terminal announces a message in a strange, mechanical voice: “Would you like to continue?”
  
+  ~PLAY_MUSIC("Shocked")
  # Character: Alien 
 ~ monologue = false 
 - Hey! This has never happened before, try it! Try it please! I’ve been stuck here, bored out of my mind. Maybe this can give us clues about how to leave this place.

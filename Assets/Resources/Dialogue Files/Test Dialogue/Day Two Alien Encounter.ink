@@ -1,4 +1,5 @@
 == DayTwoAlienEncounter ==
+~PLAY_MUSIC("Sus")
 ~ monologue = false
 # Character: Innozen
 ~ monologue = true
@@ -14,6 +15,8 @@
 # Character: Alien
 - ??? There's no way that's the answer to my question!
 
+~PLAY_MUSIC("Shocked")
+
  #Character: Innozen
  ~ monologue = true
  - Uhh is this for real? That response was almost . . . human-like. May I have found somebody?
@@ -25,6 +28,7 @@
  #Character: Alien
  - WHAAT???! Then that means that you're a bot too right?!!
  
+ ~PLAY_MUSIC("Alien")
  #Character: Innozen
  ~ monologue = true
  - Surely this is a person, but I am not sure if there are any signs of intelligence in this corner of the web. 

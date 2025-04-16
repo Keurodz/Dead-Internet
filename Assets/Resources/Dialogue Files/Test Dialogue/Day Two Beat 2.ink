@@ -1,5 +1,6 @@
 == AlienSecondMeetingInDungeon ==
 
+ ~PLAY_MUSIC("Shocked")
 ~ monologue = false
 # Character: Innozen
 ~ monologue = true
@@ -28,6 +29,7 @@
 ~ monologue = false
 - Welcome, Toto, to the maze specially designed for you.
 
+ ~PLAY_MUSIC("Horror")
 ~ monologue = true
 - A loud whirring noise fills the room. A bulky mechanical claw appears, grabbing Toto, who flails in protest.
 
@@ -53,6 +55,7 @@
 ~ monologue = true
 - You ignore her. The same terminal from before rises before you. Words flash across the screen—some kind of instructions.
 
+ ~PLAY_MUSIC("Puzzle")
 # Character: Automatic Voice
 ~ monologue = false
 - Please move the crates containing data to their designated spot, highlighted in pink, to send them out into the network.
@@ -73,6 +76,7 @@
 
 - Little creature, who are you to tell me what to do? Obviously you don’t know what you’re doing, otherwise you wouldn't be stuck up there now. Just let me do my thing.
 
+ ~PLAY_MUSIC("Alien")
 # Character: Alien
 ~ monologue = false
 - FIiiiiiRST OFF, WHO ARE YOOOU CALLING LITTLE!? I’m pretty sure I’m not that far off from you! SEEECOND, my name is Toto, not creature, and I hail from the Andromeda Galaxy. I am one of the honorable ones of my race! I humbly and eagerly volunteered to serve my race and prove my usefulness. I may be trapped here, but I am one of the ones that made contact with a physical planet! Gravity chose me and connected ME to this planet! I’ve even got to meet a human like you! 
