@@ -15,17 +15,15 @@ MonoBehaviour:
   levelName: 8x8_Alien_1
   bounds: {x: 8, y: 8}
   anchorPoint: {x: 0, y: 1}
-  alienAbilityAmmo: 2
+  alienAbilityAmmo: 1
   interactableObjects:
-  - gridPosition: {x: 1, y: 4}
+  - gridPosition: {x: 1, y: 5}
     type: 1
-  - gridPosition: {x: 1, y: 6}
-    type: 1
-  - gridPosition: {x: 2, y: 6}
+  - gridPosition: {x: 2, y: 5}
     type: 1
   - gridPosition: {x: 3, y: 3}
     type: 1
-  - gridPosition: {x: 3, y: 4}
+  - gridPosition: {x: 3, y: 6}
     type: 1
   - gridPosition: {x: 4, y: 6}
     type: 1
@@ -37,9 +35,11 @@ MonoBehaviour:
     type: 1
   - gridPosition: {x: 7, y: 5}
     type: 1
-  - gridPosition: {x: 3, y: 5}
+  - gridPosition: {x: 7, y: 6}
+    type: 1
+  - gridPosition: {x: 3, y: 4}
     type: 0
-  - gridPosition: {x: 5, y: 5}
+  - gridPosition: {x: 6, y: 4}
     type: 0
   - gridPosition: {x: 3, y: 8}
     type: 2
