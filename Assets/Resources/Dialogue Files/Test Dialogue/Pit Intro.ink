@@ -1,25 +1,25 @@
 == AlienPitIntro ==
 
- ~PLAY_MUSIC("Alien")
+ ~PLAY_MUSIC("Sus")
 # Character: Innozen
 ~ monologue = false
 - What is happening to the world?
 
 # Character: Toto
 ~ monologue = false
-- It seems like everything is breaking down. There are many dropped packets causing the environment to corrode.
+- It seems like some things are starting to break down. Maybe it's due to many of the packets that get dropped, causing the environment to corrode.
 
 # Character: Innozen
 ~ monologue = false
-- How do I get through now?
+- That's great and all but how do I get through now?
 
 # Character: Toto
 ~ monologue = false
-- Those black holes have a strong gravitational force but I am sure they are at the end of their life and will collapse on themselves soon.
+- It looks like those black holes have a strong $w(gravitational) force but I am sure they are at the end of their life and will collapse on themselves soon.
 
 # Character: Innozen
 ~ monologue = false
-- I will see about that! Thanks Toto!
+- Well i'll see about that. Time to make them collapse myself, I don't have time for this! Thanks a ton $s(Toto).
 
 ~PLAY_MUSIC("Puzzle")
 
