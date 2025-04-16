@@ -111,6 +111,7 @@
 - I’m sorrryyy! I just wanted to prove that I could be helpful to you.. I wanted to prove that I'm not useless.
 
 ~ monologue = true
+# Chracter: None
 - You sense there's more going on beneath the surface. An inferiority complex, maybe? Toto just wants to prove she’s useful.
 
 # Character: Innozen
@@ -151,5 +152,7 @@
 # Character: Innozen
 ~ monologue = false
 - Ha, I guess so. Alright, let's continue moving forward like this.
+
+~PLAY_MUSIC("Puzzle")
 
 -> END

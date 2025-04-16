@@ -16,7 +16,6 @@ EXTERNAL PLAY_CUTSCENE_WITH_MUSIC(timelineID, trackName)
 # Character: None
 ~PLAY_MUSIC("Soft")
 - It's already been months, but I feel like i'm $w(no closer) to figuring any of this out.
-~PLAY_MUSIC("Alien")
 - Maybe i'm not cut out for this.
 - Who am I kidding, i'm not good enough to be on the run and get away with it...
 - I should just $w(give up.) 
