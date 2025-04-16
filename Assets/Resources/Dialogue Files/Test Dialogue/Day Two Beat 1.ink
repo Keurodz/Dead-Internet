@@ -1,16 +1,20 @@
 == AlienFirstMeetingInDungeon ==
  ~PLAY_MUSIC("Alien")
-~ monologue = false
+~ monologue = true
 # Character: Alien
-~ monologue = false
+~ monologue = true
 - Woah! Who are you supposed to be?!
+
+# Character: None
+- You look around in bewilderment.
 
 # Character: Innozen
 ~ monologue = true
-- You look around in bewilderment.
 - How did I get here? What is this place? How is this possible?
 
  ~PLAY_MUSIC("Horror")
+ 
+ # Character: None
 - You push past the alien and look around at the strange world before you.
 
 - The world almost seems like the insides of a computer… Wires stretch across the walls, electricity brimming through them.
@@ -26,9 +30,12 @@
 - Careful! Don’t touch the walls. There seems to be some kind of weird barrier that wont let me move from this place. I’ve been trying myself, but I keep getting shocked just like you did.
 
  ~PLAY_MUSIC("Alien")
+ 
+
+# Character: None
+- While thinking, you stare intently at the Alien. 
 # Character: Innozen
 ~ monologue = true
-- While thinking, you stare intently at the Alien. 
 - Who is this person with blue skin and strange markings? They don’t seem human. Are they who I was just talking to before I was sucked into this world?
 
 # Character: Alien 
@@ -39,7 +46,7 @@
 ~ monologue = false
 - It’s none of your business. I think I should be the one asking the questions here.
 
-# Character: Alien 
+# Character: None
 ~ monologue = true
 - Alien scoffs at you, annoyed with your cold demeanor.
 
@@ -56,6 +63,8 @@
 - That was you!? You weren’t helpful at all!
 
  ~PLAY_MUSIC("Soft")
+ 
+ # Character: None
 ~ monologue = true
  - The Alien turns away, giving the cold shoulder to you and starts to pout. When the Alien turns away, their foot presses down on the floor and part of it goes down, like the Alien stepped on a button. 
  
@@ -68,6 +77,7 @@
 ~ monologue = false 
 - Hey! This has never happened before, try it! Try it please! I’ve been stuck here, bored out of my mind. Maybe this can give us clues about how to leave this place.
 
+# Character: None
 ~ monologue = true
 - You stare at the terminal for a moment. 
 - This is strange . . . But, I don’t know what else to do except push the button. 
@@ -79,14 +89,14 @@
 ~ monologue = false
 - Who the heck is Toto?
 
-# Character: Alien 
+# Character: Toto 
 ~ monologue = false
 - ME! THAT’S ME! It knows who I am because I was here first.
 
 ~ monologue = true
 - Both you and the Alien look at each other. You feel slightly annoyed. 
 
-# Character: Alien 
+# Character: Toto 
 ~ monologue = false
 - You know . . . Let’s just go through the door! Nothing to lose haha!
 

@@ -79,11 +79,14 @@
  ~PLAY_MUSIC("Alien")
 # Character: Alien
 ~ monologue = false
-- FIiiiiiRST OFF, WHO ARE YOOOU CALLING LITTLE!? I’m pretty sure I’m not that far off from you! SEEECOND, my name is Toto, not creature, and I hail from the Andromeda Galaxy. I am one of the honorable ones of my race! I humbly and eagerly volunteered to serve my race and prove my usefulness. I may be trapped here, but I am one of the ones that made contact with a physical planet! Gravity chose me and connected ME to this planet! I’ve even got to meet a human like you! 
-- *grumbles quietly* eVEnn if it’s a grumpy human like you, I’m sure there’s better ones. 
+- FIiiiiiRST OFF, WHO ARE YOOOU CALLING LITTLE!? I’m pretty sure I’m not that far off from you! 
+- SEEECOND, my name is Toto, not creature, and I hail from the Andromeda Galaxy. I am one of the honorable ones of my race! I humbly and eagerly volunteered to serve my race and prove my usefulness. 
+- I may be trapped here, but I am one of the ones that made contact with a physical planet! 
+- Gravity chose me and connected ME to this planet! I’ve even got to meet a human like you! 
+- eVEnn if it’s a grumpy human like you, I’m sure there’s better ones. 
 - Now, pleeeaASsee tell me your name!
 
-# Character: Innozen
+# Character: None
 ~ monologue = true
 - You sigh, realizing it’s the only way to shut her up.
 
@@ -95,6 +98,7 @@
 ~ monologue = false
 - Finally, you’re listening to me! Well, since you asked, I think you should try moving the box towards that wall!
 
+# Character: None
 ~ monologue = true
 - You do as she says—and immediately get caught in a series of traps.
 
@@ -125,8 +129,12 @@
 ~ monologue = false
 - Glad you asked! My race has the power to channel gravity to bring things together. I’m going to see if I can use my power to harness gravity to help us out here.
 
+# Character: None 
+- You roll your eyes.
+
+# Character: Alien
 ~ monologue = true
-- You roll your eyes. Yeah, sure. But then—something drops from the ceiling, triggering the trap in front of you.
+ Yeah, sure. But then—something drops from the ceiling, triggering the trap in front of you.
 
 # Character: Innozen
 ~ monologue = false
@@ -136,6 +144,7 @@
 ~ monologue = false
 - Ha! Serves you right. I’m plenty capable. Good thing you got stuck with me!
 
+# Character: None
 ~ monologue = true
 - A small chuckle escapes you. Against your better judgment, you agree with her.
 

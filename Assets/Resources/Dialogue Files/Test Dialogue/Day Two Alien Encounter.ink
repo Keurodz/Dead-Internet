@@ -4,6 +4,7 @@
 # Character: Innozen
 ~ monologue = true
 - A bot asking for help on a captcha?? It should be illegal for them to do something like this, right?
+
 # Character: Innozen
 ~ monologue = true
 - So these robots are getting more intelligent? Let me put that to the test.
@@ -37,7 +38,7 @@
  - Error generating a response, please try again later.
  
  #Character: Alien
- - !!! Um then Mr.Bot could you help me out? I think im stuck somewhere really strange..
+ - !!! Um then Mr.Bot could you help me out? I think im stuck somewhere really strange.
  
  #Character: Alien
  - Wait something just popped up give me a second
