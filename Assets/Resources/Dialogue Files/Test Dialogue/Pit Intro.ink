@@ -5,7 +5,7 @@
 ~ monologue = false
 - What is happening to the world?
 
-# Character: Alien
+# Character: Toto
 ~ monologue = false
 - It seems like everything is breaking down. There are many dropped packets causing the environment to corrode.
 
@@ -13,7 +13,7 @@
 ~ monologue = false
 - How do I get through now?
 
-# Character: Alien
+# Character: Toto
 ~ monologue = false
 - Those black holes have a strong gravitational force but I am sure they are at the end of their life and will collapse on themselves soon.
 
