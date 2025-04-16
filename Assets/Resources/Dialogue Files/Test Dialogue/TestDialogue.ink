@@ -1,5 +1,10 @@
 INCLUDE Alien Dialogues.ink
 INCLUDE First Alien Interaction.ink
+INCLUDE Day Two Alien Encounter.ink
+INCLUDE Day Two Beat 1.ink
+INCLUDE Day Two Beat 2.ink
+
+
 
 VAR monologue = false
 EXTERNAL PLAY_CUTSCENE(timelineID)
