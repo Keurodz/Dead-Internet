@@ -72,8 +72,8 @@ public class DialogueUIController : MonoBehaviour
         {
             _CharacterPortrait.texture = portraitDictionary[portraitName];
 
-            // Set native size on the RectTransform
-            if (portraitSizes.ContainsKey(portraitName))
+            // Only set native size if this is NOT a profile picture (doesn't end with "prof")
+            if (portraitSizes.ContainsKey(portraitName) && !portraitName.EndsWith("prof"))
             {
                 RectTransform portraitRect = _CharacterPortrait.GetComponent<RectTransform>();
                 Vector2 nativeSize = portraitSizes[portraitName];
@@ -101,13 +101,9 @@ public class DialogueUIController : MonoBehaviour
         {
             portrait.texture = portraitDictionary[textureKey];
 
-            // Set native size on the RectTransform
-            if (portraitSizes.ContainsKey(textureKey))
-            {
-                RectTransform portraitRect = portrait.GetComponent<RectTransform>();
-                Vector2 nativeSize = portraitSizes[textureKey];
-                portraitRect.sizeDelta = nativeSize;
-            }
+            // For profile pictures (ending with "prof"), we DON'T set native size
+            // We assume these images are designed for the UI containers they'll be placed in
+            // If you need to set a standard size for profiles, you can add that here
         }
     }
 
