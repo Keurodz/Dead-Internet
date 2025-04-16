@@ -20,7 +20,7 @@
  
  # Character: Innozen
  ~ monologue = false
- - Did you know you've been talking to bots this entire time? I dont think anyone has actually been responding to your..... posts?
+ - You know you've been talking to bots this entire time? I dont think anyone has actually been responding to your..... posts?
  
  #Character: Alien
  - WHAAT???! Then that means that you're a bot too right?!!
