@@ -49,11 +49,11 @@ MonoBehaviour:
     type: 0
   - gridPosition: {x: 3, y: 7}
     type: 0
-  - gridPosition: {x: 3, y: 7}
+  - gridPosition: {x: 6, y: 5}
     type: 0
   - gridPosition: {x: 2, y: 5}
     type: 2
   - gridPosition: {x: 7, y: 3}
     type: 2
-  - gridPosition: {x: 3, y: 7}
-    type: 0
+  - gridPosition: {x: 7, y: 7}
+    type: 2
