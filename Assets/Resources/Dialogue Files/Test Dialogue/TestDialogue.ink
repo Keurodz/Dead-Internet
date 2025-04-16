@@ -5,6 +5,10 @@ INCLUDE Day Two Beat 1.ink
 INCLUDE Day Two Beat 2.ink
 INCLUDE Gravity Intro.ink
 INCLUDE Pit Intro.ink
+INCLUDE All Alone Alien Encounter.ink
+INCLUDE Leaving Alien Encounter.ink
+
+
 
 
 

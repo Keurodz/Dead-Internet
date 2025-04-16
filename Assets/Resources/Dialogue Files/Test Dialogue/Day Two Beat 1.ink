@@ -6,7 +6,7 @@
 - Woah! Who are you supposed to be?!
 
 # Character: None
-- You look around in bewilderment.
+- You look around in bewilderment and then focus on the strange alien creature before you.
 
 # Character: Innozen
 ~ monologue = true
@@ -15,11 +15,13 @@
  ~PLAY_MUSIC("Horror")
  
  # Character: None
-- You push past the alien and look around at the strange world before you.
+- Without hesitation, you push past the alien and look around at the strange world before you.
 
-- The world almost seems like the insides of a computer… Wires stretch across the walls, electricity brimming through them.
+- The world almost seems like the insides of a computer . . . Wires stretch across the walls, electricity brimming through them.
 
-- The walls are pristine and a refurbished gray, resembling the cold hallways one would walk through in a hospital. You try to run your finger across the wall to see if they are physically real and this isn’t just some dream.
+- The walls are pristine and a refurbished gray, resembling the cold hallways one would walk through in a hospital. 
+
+- You try to run your finger across the wall to see if they are physically real and this isn’t just some dream.
 
 - Immediately, the you feel an electric shock course through your body and you quickly remove your finger from the wall. 
 
@@ -34,6 +36,7 @@
 
 # Character: None
 - While thinking, you stare intently at the Alien. 
+
 # Character: Innozen
 ~ monologue = true
 - Who is this person with blue skin and strange markings? They don’t seem human. Are they who I was just talking to before I was sucked into this world?
