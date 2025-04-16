@@ -645,7 +645,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b4fdd08090dbd47e1a76f8eb72d7174e, type: 3}
   m_Resource: {fileID: 8300000, guid: b4fdd08090dbd47e1a76f8eb72d7174e, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -1295,12 +1295,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193667021}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7212494cf20aa420c8b1216a691b14ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 9016883208677425872, guid: c631f655d1606447eab2b4db8d6fe76a, type: 3}
   commentPrefab: {fileID: 8364306582702108839, guid: 898a56cc843814c5eaf457ad76ecf262, type: 3}
   postPrefab: {fileID: 9016883208677425872, guid: c631f655d1606447eab2b4db8d6fe76a, type: 3}
   contentPanel: {fileID: 193667022}
@@ -3135,6 +3134,111 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &982839874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 982839876}
+  - component: {fileID: 982839875}
+  m_Layer: 0
+  m_Name: AudioSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &982839875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982839874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a31cd778119e4918b9ddcc4eb93e171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicTracks:
+  - trackName: Title
+    resourcePath: Soundtrack/title-loop
+    volume: 1
+    audioSource: {fileID: 0}
+  - trackName: Alien
+    resourcePath: Soundtrack/alien-theme-loop
+    volume: 1
+    audioSource: {fileID: 0}
+  - trackName: Soft
+    resourcePath: Soundtrack/soft-music
+    volume: 1
+    audioSource: {fileID: 0}
+  - trackName: Horror
+    resourcePath: Soundtrack/horrified-loop
+    volume: 1
+    audioSource: {fileID: 0}
+  - trackName: Puzzle
+    resourcePath: Soundtrack/puzzle-solving-loop
+    volume: 1
+    audioSource: {fileID: 0}
+  - trackName: Shocked
+    resourcePath: Soundtrack/shocked-loop
+    volume: 1
+    audioSource: {fileID: 0}
+  - trackName: Sus
+    resourcePath: Soundtrack/suspicious-loop
+    volume: 1
+    audioSource: {fileID: 0}
+  crossFadeDuration: 4
+  fadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  startupTrackName: Title
+  playMusicOnAwake: 1
+  sceneMusics:
+  - sceneName: 6x6_1
+    musicTrackName: Puzzle
+  masterVolume: 0.7
+  musicVolume: 1
+--- !u!4 &982839876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982839874}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 333.5, y: 187.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &998909749
 GameObject:
   m_ObjectHideFlags: 0
@@ -15701,6 +15805,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 34759629}
+  - {fileID: 982839876}
   - {fileID: 54058152}
   - {fileID: 1094491887}
   - {fileID: 1918681189}

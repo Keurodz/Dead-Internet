@@ -25,6 +25,7 @@ public class InkDialogueController : MonoBehaviour
     private ScrollRect scrollRect;
 
     public bool inCutscene = false;
+    private bool isProcessingExternalFunction = false;
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip commentPopSound;
@@ -43,7 +44,7 @@ public class InkDialogueController : MonoBehaviour
             audioSource.pitch = 1f;
             audioSource.PlayOneShot(mouseClick);
 
-            if (!inCutscene)
+            if (!inCutscene && !isProcessingExternalFunction)
             {
                 TypewriterEffectDOTween activeTypewriter = textPanel.GetComponentInChildren<TypewriterEffectDOTween>();
 
@@ -58,7 +59,6 @@ public class InkDialogueController : MonoBehaviour
                 }
             }
         }
-        
     }
 
     public void SetCommentPrefab(GameObject commentPrefab)
@@ -82,6 +82,9 @@ public class InkDialogueController : MonoBehaviour
         currentMode = mode;
         ClearUI();
 
+        // Register observers for external function execution
+        RegisterExternalFunctionObservers();
+
         if (mode == DialogueMode.Regular)
         {
             DialogueUIController.Instance.EnableDialogueUI();
@@ -94,9 +97,52 @@ public class InkDialogueController : MonoBehaviour
         RefreshView();
     }
 
+    private void RegisterExternalFunctionObservers()
+    {
+        // Add observers for each external function to detect when they're being called
+        this.story.ObserveVariable("monologue", (string varName, object newValue) => {
+            // Do nothing, this is just to track regular variables
+        });
+
+        // Observe when a function is about to be called
+        this.story.onEvaluateFunction += HandleFunctionEvaluation;
+    }
+
+    private void HandleFunctionEvaluation(string functionName, object[] arguments)
+    {
+        // These are the external functions we want to handle specially
+        if (functionName == "PLAY_CUTSCENE" ||
+            functionName == "PLAY_MUSIC" ||
+            functionName == "STOP_MUSIC" ||
+            functionName == "PLAY_CUTSCENE_WITH_MUSIC")
+        {
+            isProcessingExternalFunction = true;
+
+            // We're going to process the function and then continue without requiring a click
+            StartCoroutine(ContinueAfterExternalFunction());
+        }
+    }
+
+    private IEnumerator ContinueAfterExternalFunction()
+    {
+        // Wait a short time to ensure the external function completes
+        yield return new WaitForSeconds(0.1f);
+
+        // If we were waiting for a click, we no longer need to
+        if (isWaitingForClick)
+        {
+            isWaitingForClick = false;
+
+            // Continue processing the story
+            RefreshView();
+        }
+
+        isProcessingExternalFunction = false;
+    }
+
     public void RefreshView()
     {
-        if (isWaitingForClick) return;
+        if (isWaitingForClick && !isProcessingExternalFunction) return;
 
         ClearOptions();
 
@@ -121,6 +167,16 @@ public class InkDialogueController : MonoBehaviour
         string speaker = GetSpeaker();
 
         UpdateSpeaker(speaker);
+
+        // Check if this line is just a function call with no visible text
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            // If it's an empty line (just a function call), don't wait for click
+            isWaitingForClick = false;
+            RefreshView();
+            return;
+        }
+
         isWaitingForClick = true;
 
         if (currentMode == DialogueMode.Regular)
@@ -160,6 +216,12 @@ public class InkDialogueController : MonoBehaviour
 
     private void EndDialogue()
     {
+        // Clean up our observer before ending
+        if (story != null)
+        {
+            story.onEvaluateFunction -= HandleFunctionEvaluation;
+        }
+
         DialogueUIController.Instance.DisableDialogueUI();
         DialogueManager.Instance.EndDialogue();
         if (currentMode == DialogueMode.Comments || currentMode == DialogueMode.Chat) scrollRect.enabled = true;
@@ -190,7 +252,7 @@ public class InkDialogueController : MonoBehaviour
             {
                 currentSpeaker = speaker;
                 speakerText.text = currentSpeaker;
-                if (!((DialogueMode.Chat == currentMode|| DialogueMode.Comments == currentMode) && !(bool)story.variablesState["monologue"]))
+                if (!((DialogueMode.Chat == currentMode || DialogueMode.Comments == currentMode) && !(bool)story.variablesState["monologue"]))
                 {
                     DialogueUIController.Instance.EnableCharacterNamePanel();
                     DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
@@ -234,7 +296,7 @@ public class InkDialogueController : MonoBehaviour
         if (commentPopSound && audioSource)
         {
             audioSource.pitch = 0.7f;
-            audioSource.PlayOneShot(commentPopSound);   
+            audioSource.PlayOneShot(commentPopSound);
         }
 
         if (currentMode == DialogueMode.Chat)
@@ -281,7 +343,6 @@ public class InkDialogueController : MonoBehaviour
         // Set the scroll position
         scrollRect.verticalNormalizedPosition = normalizedPosition;
     }
-
 
     private void ClearUI()
     {

@@ -3,10 +3,15 @@ INCLUDE First Alien Interaction.ink
 
 VAR monologue = false
 EXTERNAL PLAY_CUTSCENE(timelineID)
+EXTERNAL PLAY_MUSIC(trackName)
+EXTERNAL STOP_MUSIC()
+EXTERNAL PLAY_CUTSCENE_WITH_MUSIC(timelineID, trackName)
 
 == IntroScene ==
 # Character: None
+~PLAY_MUSIC("Soft")
 - It's already been months, but I feel like i'm $w(no closer) to figuring any of this out.
+~PLAY_MUSIC("Alien")
 - Maybe i'm not cut out for this.
 - Who am I kidding, i'm not good enough to be on the run and get away with it...
 - I should just $w(give up.) 
