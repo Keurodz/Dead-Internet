@@ -119,46 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &14688431
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _WidthHeightRadius: {r: 176, g: 184, b: 240, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &41525526
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,7 +681,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0198e8b677b5243a6a45ff584c55af12, type: 3}
---- !u!21 &680676044
+--- !u!21 &439298972
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -758,7 +718,7 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _WidthHeightRadius: {r: 450, g: 150, b: 80, a: 0}
+    - _WidthHeightRadius: {r: 400, g: 154, b: 50, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!21 &804785786
@@ -799,6 +759,46 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _WidthHeightRadius: {r: 500, g: 150, b: 80, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!21 &900225830
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 176, g: 184, b: 240, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &913724216 stripped
@@ -855,8 +855,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: nextSceneName
+      value: ThankYou
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
       propertyPath: dungeonLevelScenes.Array.size
-      value: 22
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
       propertyPath: 'dungeonLevelScenes.Array.data[0]'
@@ -872,75 +876,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
       propertyPath: 'dungeonLevelScenes.Array.data[3]'
-      value: 6x6_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[4]'
-      value: 6x6_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[5]'
-      value: 8x6_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[6]'
       value: 8x6_2
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[7]'
-      value: 8x6_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[8]'
-      value: 8x6_Alien_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[9]'
-      value: 8x6_Alien_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[10]'
+      propertyPath: 'dungeonLevelScenes.Array.data[4]'
       value: 8x6_Alien_3
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[11]'
-      value: 8x8_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[12]'
-      value: 8x8_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[13]'
-      value: 8x8_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[14]'
-      value: 8x8_Alien_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[15]'
-      value: 8x8_Alien_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[16]'
-      value: 8x8_Alien_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[17]'
+      propertyPath: 'dungeonLevelScenes.Array.data[5]'
       value: 6x6_Pit_1
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[18]'
+      propertyPath: 'dungeonLevelScenes.Array.data[6]'
+      value: 8x8_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[7]'
+      value: 8x6_Pit_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[8]'
+      value: 8x8_Alien_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[9]'
+      value: 8x8_Alien_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[10]'
+      value: 8x8_Alien_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[11]'
+      value: 8x8_Alien_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[12]'
+      value: 8x8_Alien_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[13]'
       value: 6x6_Pit_2
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
-      propertyPath: 'dungeonLevelScenes.Array.data[19]'
+      propertyPath: 'dungeonLevelScenes.Array.data[14]'
       value: 6x6_Pit_3
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[15]'
+      value: 8x6_Pit_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[16]'
+      value: 8x6_Pit_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[17]'
+      value: 8x6_Pit_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[18]'
+      value: 8x6_Pit_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
+      propertyPath: 'dungeonLevelScenes.Array.data[19]'
+      value: 8x6_Pit_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
       propertyPath: 'dungeonLevelScenes.Array.data[20]'
-      value: 8x6_Pit_1
+      value: 8x6_Pit_2
       objectReference: {fileID: 0}
     - target: {fileID: 114306991125390221, guid: ec852b378023d43cfb3c49753a0c4866, type: 3}
       propertyPath: 'dungeonLevelScenes.Array.data[21]'
@@ -1144,6 +1148,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 87, y: -30, z: 0}
+--- !u!21 &1419031301
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 450, g: 150, b: 80, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1500664413 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4856998233497567681, guid: c18d02ff6bc314ed8b72dba3db7e0caf, type: 3}
@@ -1286,46 +1330,6 @@ Material:
     - _UseUIAlphaClip: 0
     m_Colors:
     - _WidthHeightRadius: {r: 176, g: 184, b: 240, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!21 &1925311969
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI/RoundedCorners/RoundedCorners
-  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _WidthHeightRadius: {r: 400, g: 154, b: 50, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &2068146561
