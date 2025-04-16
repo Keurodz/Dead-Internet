@@ -101,6 +101,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SokobanLevels/SokobanPitLevels/8x6_Pit_2.unity
     guid: 047daba658c4d46499dba4d08c082de3
+  - enabled: 1
+    path: Assets/Scenes/SokobanLevels/EnterFirstDungeon.unity
+    guid: 2d3d1b013f7444edf924e22c3f918676
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
