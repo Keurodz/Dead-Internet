@@ -15,7 +15,8 @@ public class DialogueUIController : MonoBehaviour
     private GameObject _InteractionBlock;
 
     private Dictionary<string, Texture2D> portraitDictionary;
-    
+    private Dictionary<string, Vector2> portraitSizes; // Store original sizes of portraits
+
     void Awake()
     {
         // Singleton setup
@@ -53,11 +54,13 @@ public class DialogueUIController : MonoBehaviour
     void LoadPortraits()
     {
         portraitDictionary = new Dictionary<string, Texture2D>();
+        portraitSizes = new Dictionary<string, Vector2>();
         Texture2D[] textures = Resources.LoadAll<Texture2D>("Portraits");
 
-        foreach (Texture2D sprite in textures)
+        foreach (Texture2D texture in textures)
         {
-            portraitDictionary[sprite.name] = sprite;
+            portraitDictionary[texture.name] = texture;
+            portraitSizes[texture.name] = new Vector2(texture.width, texture.height);
         }
     }
 
@@ -68,6 +71,15 @@ public class DialogueUIController : MonoBehaviour
         if (!string.IsNullOrEmpty(portraitName) && portraitDictionary.ContainsKey(portraitName))
         {
             _CharacterPortrait.texture = portraitDictionary[portraitName];
+
+            // Set native size on the RectTransform
+            if (portraitSizes.ContainsKey(portraitName))
+            {
+                RectTransform portraitRect = _CharacterPortrait.GetComponent<RectTransform>();
+                Vector2 nativeSize = portraitSizes[portraitName];
+                portraitRect.sizeDelta = nativeSize;
+            }
+
             _PortraitHolder.SetActive(true);
             DialogueAnimator.AnimateFadeIn(_PortraitHolder);
         }
@@ -81,23 +93,23 @@ public class DialogueUIController : MonoBehaviour
     {
         if (portrait == null) return;
 
-        if (!string.IsNullOrEmpty(portraitName) && portraitDictionary.ContainsKey(portraitName))
+        string textureKey = !string.IsNullOrEmpty(portraitName) && portraitDictionary.ContainsKey(portraitName)
+            ? portraitName
+            : "defaultprof";
+
+        if (portrait.texture != portraitDictionary[textureKey])
         {
-            if (portrait.texture != portraitDictionary[portraitName]) 
+            portrait.texture = portraitDictionary[textureKey];
+
+            // Set native size on the RectTransform
+            if (portraitSizes.ContainsKey(textureKey))
             {
-                portrait.texture = portraitDictionary[portraitName];
-            }
-        }
-        else
-        {
-            if (portrait.texture != portraitDictionary["defaultprof"]) 
-            {
-                portrait.texture = portraitDictionary["defaultprof"];
+                RectTransform portraitRect = portrait.GetComponent<RectTransform>();
+                Vector2 nativeSize = portraitSizes[textureKey];
+                portraitRect.sizeDelta = nativeSize;
             }
         }
     }
-
-
 
     public void EnableDialogueOptions() => DialogueAnimator.AnimateSlideIn(_DialogueOptions);
     public void DisableDialogueOptions() => DialogueAnimator.AnimateSlideOut(_DialogueOptions);
@@ -138,4 +150,3 @@ public class DialogueUIController : MonoBehaviour
         DialogueAnimator.AnimateFadeIn(_PortraitHolder);
     }
 }
-
