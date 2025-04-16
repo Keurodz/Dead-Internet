@@ -27,7 +27,7 @@
 
 # Character: Alien
 ~ monologue = false
-- Careful! Don’t touch the walls. There seems to be some kind of weird barrier that wont let me move from this place. I’ve been trying myself, but I keep getting shocked just like you did.
+- $w(Careful!) Don’t touch the walls. There seems to be some kind of weird barrier that wont let me move from this place. I’ve been trying myself, but I keep getting shocked just like you did.
 
  ~PLAY_MUSIC("Alien")
  
@@ -40,7 +40,7 @@
 
 # Character: Alien 
 ~ monologue = false
-- Why are you staring at me like that, like I’m some kind of weirdo? Who even are you anyways?
+- Why are you staring at me like that, like I’m some kind of $w(weirdo)? Who even are you anyways?
 
 # Character: Innozen 
 ~ monologue = false
@@ -70,7 +70,7 @@
  
  - The ground starts to shake and a terminal rises out of the ground. You walks towards the terminal and presses the start button on the terminal’s interface. 
  
- - The terminal announces a message in a strange, mechanical voice: “Would you like to continue?”
+ - The terminal announces a message in a strange, mechanical voice: $s(“Would you like to continue?”)
  
   ~PLAY_MUSIC("Shocked")
  # Character: Alien 
@@ -91,7 +91,7 @@
 
 # Character: Toto 
 ~ monologue = false
-- ME! THAT’S ME! It knows who I am because I was here first.
+- $s(ME! THAT’S ME!) It knows who I am because I was here first.
 
 ~ monologue = true
 - Both you and the Alien look at each other. You feel slightly annoyed. 

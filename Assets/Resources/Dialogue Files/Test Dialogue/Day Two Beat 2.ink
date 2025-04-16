@@ -79,12 +79,12 @@
  ~PLAY_MUSIC("Alien")
 # Character: Alien
 ~ monologue = false
-- FIiiiiiRST OFF, WHO ARE YOOOU CALLING LITTLE!? I’m pretty sure I’m not that far off from you! 
-- SEEECOND, my name is Toto, not creature, and I hail from the Andromeda Galaxy. I am one of the honorable ones of my race! I humbly and eagerly volunteered to serve my race and prove my usefulness. 
+- $s(FIiiiiiRST OFF, WHO ARE YOOOU CALLING LITTLE!?) I’m pretty sure I’m not that far off from you! 
+- $s(SEEECOND), my name is Toto, not creature, and I hail from the Andromeda Galaxy. I am one of the honorable ones of my race! I humbly and eagerly volunteered to serve my race and prove my usefulness. 
 - I may be trapped here, but I am one of the ones that made contact with a physical planet! 
 - Gravity chose me and connected ME to this planet! I’ve even got to meet a human like you! 
 - eVEnn if it’s a grumpy human like you, I’m sure there’s better ones. 
-- Now, pleeeaASsee tell me your name!
+- Now, $w(pleeeaASsee) tell me your name!
 
 # Character: None
 ~ monologue = true
@@ -92,7 +92,7 @@
 
 # Character: Innozen
 ~ monologue = false
-- Fine, Toto. My name is ***********. Do your best to remember it. Now what would you have me do if you know *everything* about this puzzle?
+- Fine, Toto. My name is $w(***********). Do your best to remember it. Now what would you have me do if you know *everything* about this puzzle?
 
 # Character: Alien
 ~ monologue = false
@@ -110,6 +110,7 @@
 ~ monologue = false
 - I’m sorrryyy! I just wanted to prove that I could be helpful to you.. I wanted to prove that I'm not useless.
 
+# Character: None
 ~ monologue = true
 # Chracter: None
 - You sense there's more going on beneath the surface. An inferiority complex, maybe? Toto just wants to prove she’s useful.
