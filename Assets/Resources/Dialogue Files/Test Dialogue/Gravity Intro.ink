@@ -6,7 +6,7 @@
 - $s(FIiiiiiRST OFF, WHO ARE YOOOU CALLING LITTLE!?) I’m pretty sure I’m not that far off from you! 
 - $s(SEEECOND), my name is Toto, not creature, and I hail from the Andromeda Galaxy. I am one of the honorable ones of my race! I humbly and eagerly volunteered to serve my race and prove my usefulness. 
 - I may be trapped here, but I am one of the ones that made contact with a physical planet! 
-- Gravity chose me and connected ME to this planet! I’ve even got to meet a human like you! 
+- Gravity chose me and connected $s(ME) to this planet! I’ve even got to meet a human like you! 
 - eVEnn if it’s a grumpy human like you, I’m sure there’s better ones. 
 - Now, $w(pleeeaASsee) tell me your name!
 
@@ -16,7 +16,7 @@
 
 # Character: Innozen
 ~ monologue = false
-- Fine, Toto. My name is $w(***********). Do your best to remember it. Now what would you have me do if you know *everything* about this puzzle?
+- Fine, Toto. My name is $s(***********). Do your best to remember it. Now what would you have me do if you know *everything* about this puzzle?
 
 # Character: Toto
 ~ monologue = false

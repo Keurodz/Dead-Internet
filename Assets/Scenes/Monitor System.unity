@@ -3112,6 +3112,8 @@ MonoBehaviour:
     musicTrackName: Puzzle
   - sceneName: Monitor System
     musicTrackName: Title
+  - sceneName: ThankYou
+    musicTrackName: Title
   masterVolume: 0.7
   musicVolume: 1
 --- !u!4 &982839876

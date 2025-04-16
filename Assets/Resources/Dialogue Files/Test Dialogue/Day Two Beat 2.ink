@@ -2,7 +2,7 @@
 
  ~PLAY_MUSIC("Shocked")
 ~ monologue = false
-# Character: Innozen
+# Character: None
 ~ monologue = true
 - You try to hold the alien back, but they’re too fast and gone in a blink. Not wanting to be left behind, you rush after them.
 
@@ -12,9 +12,12 @@
 ~ monologue = false
 - What is happening?
 
-# Character: Innozen
+# Character: None
 ~ monologue = true
 - A disembodied voice echoes in your mind. You flinch in surprise.
+
+# Character: Innozen
+~ monologue = false
 - WHAT? Where are you? Why does it sound like you're in my head?
 
 # Character: Alien
@@ -23,7 +26,7 @@
 
 # Character: Innozen
 ~ monologue = false
-- …
+- . . . 
 
 # Character: Automatic Voice
 ~ monologue = false
@@ -64,6 +67,7 @@
 ~ monologue = true
 - Network? Data crates? It’s almost like we’re inside a computer… Am I inside my computer? How can any of this make sense? Then again, AI might just replace humans someday. I don’t think I have any choice but to go along with this farce.
 
+# Character: None
 - You begin analyzing the maze and how to move the blocks. Meanwhile, Toto won’t shut up.
 
 # Character: Alien
