@@ -1,5 +1,5 @@
 == AlienFirstMeetingInDungeon ==
- ~PLAY_MUSIC("Alien")
+ ~PLAY_MUSIC("Puzzle")
 ~ monologue = true
 # Character: Alien
 ~ monologue = true
