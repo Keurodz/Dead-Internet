@@ -10,6 +10,7 @@ public class InkDialogueController : MonoBehaviour
 {
     public static event Action<Story> OnCreateStory;
 
+    // Dialogue mode types
     public enum DialogueMode { Regular, Comments, Chat }
 
     [SerializeField] private TextAsset inkJSONAsset;
@@ -39,6 +40,7 @@ public class InkDialogueController : MonoBehaviour
 
     void Update()
     {
+        // Handle player click input
         if (Input.GetMouseButtonDown(0))
         {
             audioSource.pitch = 1f;
@@ -61,28 +63,18 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
-    public void SetCommentPrefab(GameObject commentPrefab)
-    {
-        this.commentPrefab = commentPrefab;
-    }
+    // External setup
+    public void SetCommentPrefab(GameObject commentPrefab) => this.commentPrefab = commentPrefab;
+    public void SetScrollRect(ScrollRect scrollRect) => this.scrollRect = scrollRect;
+    public void SetCommentsPanel(GameObject commentsPanel) => this.commentsPanel = commentsPanel;
 
-    public void SetScrollRect(ScrollRect scrollRect)
-    {
-        this.scrollRect = scrollRect;
-    }
-
-    public void SetCommentsPanel(GameObject commentsPanel)
-    {
-        this.commentsPanel = commentsPanel;
-    }
-
+    // Starts the dialogue sequence
     public void InitiateDialogue(Story story, DialogueMode mode = DialogueMode.Regular)
     {
         this.story = story;
         currentMode = mode;
         ClearUI();
 
-        // Register observers for external function execution
         RegisterExternalFunctionObservers();
 
         if (mode == DialogueMode.Regular)
@@ -94,52 +86,46 @@ public class InkDialogueController : MonoBehaviour
             scrollRect = commentsPanel.GetComponentInParent<ScrollRect>();
             scrollRect.enabled = false;
         }
+
         RefreshView();
     }
 
+    // Register handlers for external Ink functions
     private void RegisterExternalFunctionObservers()
     {
-        // Add observers for each external function to detect when they're being called
-        this.story.ObserveVariable("monologue", (string varName, object newValue) => {
-            // Do nothing, this is just to track regular variables
-        });
+        story.ObserveVariable("monologue", (string varName, object newValue) => { });
 
-        // Observe when a function is about to be called
-        this.story.onEvaluateFunction += HandleFunctionEvaluation;
+        story.onEvaluateFunction += HandleFunctionEvaluation;
     }
 
+    // Intercept Ink function calls to delay story continuation
     private void HandleFunctionEvaluation(string functionName, object[] arguments)
     {
-        // These are the external functions we want to handle specially
         if (functionName == "PLAY_CUTSCENE" ||
             functionName == "PLAY_MUSIC" ||
             functionName == "STOP_MUSIC" ||
             functionName == "PLAY_CUTSCENE_WITH_MUSIC")
         {
             isProcessingExternalFunction = true;
-
-            // We're going to process the function and then continue without requiring a click
             StartCoroutine(ContinueAfterExternalFunction());
         }
     }
 
+    // Resume Ink flow after a short wait
     private IEnumerator ContinueAfterExternalFunction()
     {
-        // Wait a short time to ensure the external function completes
         yield return new WaitForSeconds(0.1f);
 
-        // If we were waiting for a click, we no longer need to
         if (isWaitingForClick)
         {
             isWaitingForClick = false;
-
-            // Continue processing the story
             RefreshView();
         }
 
         isProcessingExternalFunction = false;
     }
 
+    // Main Ink processing loop
     public void RefreshView()
     {
         if (isWaitingForClick && !isProcessingExternalFunction) return;
@@ -161,17 +147,15 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
+    // Process a line of dialogue
     private void ProcessDialogue()
     {
         string text = story.Continue().Trim();
         string speaker = GetSpeaker();
-
         UpdateSpeaker(speaker);
 
-        // Check if this line is just a function call with no visible text
         if (string.IsNullOrWhiteSpace(text))
         {
-            // If it's an empty line (just a function call), don't wait for click
             isWaitingForClick = false;
             RefreshView();
             return;
@@ -189,6 +173,7 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
+    // Display content differently depending on monologue mode
     private void HandleCommentMode(string text, string speaker)
     {
         if ((bool)story.variablesState["monologue"])
@@ -203,6 +188,7 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
+    // Create UI buttons for Ink choices
     private void DisplayChoices()
     {
         DialogueUIController.Instance.EnableDialogueOptions();
@@ -214,9 +200,9 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
+    // End of story cleanup
     private void EndDialogue()
     {
-        // Clean up our observer before ending
         if (story != null)
         {
             story.onEvaluateFunction -= HandleFunctionEvaluation;
@@ -224,10 +210,14 @@ public class InkDialogueController : MonoBehaviour
 
         DialogueUIController.Instance.DisableDialogueUI();
         DialogueManager.Instance.EndDialogue();
-        if (currentMode == DialogueMode.Comments || currentMode == DialogueMode.Chat) scrollRect.enabled = true;
+
+        if (currentMode == DialogueMode.Comments || currentMode == DialogueMode.Chat)
+            scrollRect.enabled = true;
+
         currentSpeaker = null;
     }
 
+    // Parse speaker tag from current line
     public string GetSpeaker()
     {
         foreach (string tag in story.currentTags)
@@ -237,6 +227,7 @@ public class InkDialogueController : MonoBehaviour
         return null;
     }
 
+    // Update speaker UI and portrait
     public void UpdateSpeaker(string speaker)
     {
         if (speaker == "None")
@@ -252,7 +243,9 @@ public class InkDialogueController : MonoBehaviour
             {
                 currentSpeaker = speaker;
                 speakerText.text = currentSpeaker;
-                if (!((DialogueMode.Chat == currentMode || DialogueMode.Comments == currentMode) && !(bool)story.variablesState["monologue"]))
+
+                if (!((DialogueMode.Chat == currentMode || DialogueMode.Comments == currentMode) &&
+                      !(bool)story.variablesState["monologue"]))
                 {
                     DialogueUIController.Instance.EnableCharacterNamePanel();
                     DialogueUIController.Instance.UpdateCharacterPortrait(currentSpeaker);
@@ -265,6 +258,7 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
+    // Handle a choice button press
     private void OnClickChoiceButton(Choice choice)
     {
         story.ChooseChoiceIndex(choice.index);
@@ -272,6 +266,7 @@ public class InkDialogueController : MonoBehaviour
         RefreshView();
     }
 
+    // Create a typewriter-animated line of dialogue
     private void CreateContentView(string text, GameObject parentPanel)
     {
         TMP_Text storyText = Instantiate(textPrefab, parentPanel.transform, false);
@@ -279,6 +274,7 @@ public class InkDialogueController : MonoBehaviour
         typewriter.StartTyping(text);
     }
 
+    // Create a comment-style line of dialogue
     private void CreateCommentContentView(string text, string speaker)
     {
         bool isAtBottom = Mathf.Approximately(scrollRect.verticalNormalizedPosition, 0f);
@@ -301,7 +297,8 @@ public class InkDialogueController : MonoBehaviour
 
         if (currentMode == DialogueMode.Chat)
         {
-            DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, 0f, 0.3f).SetEase(Ease.OutQuad);
+            DOTween.To(() => scrollRect.verticalNormalizedPosition, x => scrollRect.verticalNormalizedPosition = x, 0f, 0.3f)
+                   .SetEase(Ease.OutQuad);
         }
         else
         {
@@ -309,6 +306,7 @@ public class InkDialogueController : MonoBehaviour
         }
     }
 
+    // Smoothly scrolls comment panel down
     private IEnumerator ScrollDownByCommentHeight(RectTransform commentRect)
     {
         yield return new WaitForEndOfFrame();
@@ -317,6 +315,7 @@ public class InkDialogueController : MonoBehaviour
         scrollRect.content.DOAnchorPosY(newScrollY, 0.3f).SetEase(Ease.OutQuad);
     }
 
+    // Create a UI button for a choice
     private Button CreateChoiceView(string text)
     {
         Button choice = Instantiate(buttonPrefab, optionsPanel.transform, false);
@@ -324,6 +323,7 @@ public class InkDialogueController : MonoBehaviour
         return choice;
     }
 
+    // Scrolls to make the target RectTransform visible
     public void ScrollToElement(RectTransform target)
     {
         Canvas.ForceUpdateCanvases();
@@ -331,19 +331,13 @@ public class InkDialogueController : MonoBehaviour
         RectTransform content = scrollRect.content;
         RectTransform viewport = scrollRect.viewport;
 
-        // Calculate the position of the target relative to the content
         Vector2 targetPosition = (Vector2)content.InverseTransformPoint(content.position) - (Vector2)content.InverseTransformPoint(target.position);
-
-        // Calculate the normalized position
         float normalizedPosition = 1 - (targetPosition.y / (content.rect.height - viewport.rect.height));
-
-        // Clamp the normalized position between 0 and 1
         normalizedPosition = Mathf.Clamp01(normalizedPosition);
-
-        // Set the scroll position
         scrollRect.verticalNormalizedPosition = normalizedPosition;
     }
 
+    // Clears UI panels
     private void ClearUI()
     {
         ClearOptions();
@@ -352,21 +346,17 @@ public class InkDialogueController : MonoBehaviour
 
     private void ClearOptions()
     {
-        foreach (Transform child in optionsPanel.transform) Destroy(child.gameObject);
+        foreach (Transform child in optionsPanel.transform)
+            Destroy(child.gameObject);
     }
 
     private void ClearTextPanel()
     {
-        foreach (Transform child in textPanel.transform) Destroy(child.gameObject);
+        foreach (Transform child in textPanel.transform)
+            Destroy(child.gameObject);
     }
 
-    public void DisableInteractivity()
-    {
-        isWaitingForClick = false;
-    }
-
-    public void EnableInteractivity()
-    {
-        isWaitingForClick = true;
-    }
+    // Control whether the player can interact
+    public void DisableInteractivity() => isWaitingForClick = false;
+    public void EnableInteractivity() => isWaitingForClick = true;
 }
